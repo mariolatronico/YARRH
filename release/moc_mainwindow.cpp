@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Tue 26. Jun 13:00:14 2012
+** Created: Tue 26. Jun 18:43:34 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      13,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -43,6 +43,7 @@ static const uint qt_meta_data_MainWindow[] = {
      188,   11,   11,   11, 0x08,
      196,   11,   11,   11, 0x08,
      204,   11,   11,   11, 0x08,
+     221,  214,   11,   11, 0x08,
 
        0        // eod
 };
@@ -54,6 +55,7 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "sendLine(QString)\0readFromPort()\0"
     "loadFile()\0status\0printObject(bool)\0"
     "homeX()\0homeY()\0homeZ()\0homeAll()\0"
+    "layers\0setLayers(int)\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -97,9 +99,10 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 9: homeY(); break;
         case 10: homeZ(); break;
         case 11: homeAll(); break;
+        case 12: setLayers((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
-        _id -= 12;
+        _id -= 13;
     }
     return _id;
 }

@@ -4,6 +4,7 @@ INPUT(
 ./debug\portthread.o
 ./debug\glwidget.o
 ./debug\gcodeobject.o
+./debug\layer.o
 ./debug\qextserialport.o
 ./debug\qextserialenumerator.o
 ./debug\qextserialport_win.o
@@ -13,5 +14,6 @@ INPUT(
 ./debug\moc_glwidget.o
 ./debug\moc_gcodeobject.o
 ./debug\moc_portthread.o
+./debug\moc_layer.o
 ./debug\moc_qextwineventnotifier_p.o
 );

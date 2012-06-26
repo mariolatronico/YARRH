@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Tue 26. Jun 12:58:53 2012
+** Created: Tue 26. Jun 17:51:34 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -28,6 +28,7 @@
 #include <QtGui/QPlainTextEdit>
 #include <QtGui/QProgressBar>
 #include <QtGui/QPushButton>
+#include <QtGui/QScrollBar>
 #include <QtGui/QStatusBar>
 #include <QtGui/QToolBar>
 #include <QtGui/QVBoxLayout>
@@ -64,6 +65,8 @@ public:
     QLabel *fileNameLbl;
     QLabel *label_4;
     QLabel *filamentLbl;
+    QLabel *label_15;
+    QLabel *layersLbl;
     QPushButton *printBtn;
     QGroupBox *groupBox_5;
     QGridLayout *gridLayout_3;
@@ -104,6 +107,7 @@ public:
     QGroupBox *groupBox_6;
     QGridLayout *gridLayout_5;
     QWidget *widget;
+    QScrollBar *layerScrollBar;
     QMenuBar *menuBar;
     QMenu *menuPlik;
     QMenu *menuO_Programie;
@@ -115,6 +119,8 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(763, 611);
+        MainWindow->setLayoutDirection(Qt::LeftToRight);
+        MainWindow->setUnifiedTitleAndToolBarOnMac(false);
         actionWczytaj = new QAction(MainWindow);
         actionWczytaj->setObjectName(QString::fromUtf8("actionWczytaj"));
         centralWidget = new QWidget(MainWindow);
@@ -240,12 +246,22 @@ public:
 
         formLayout->setWidget(1, QFormLayout::FieldRole, filamentLbl);
 
+        label_15 = new QLabel(groupBox_4);
+        label_15->setObjectName(QString::fromUtf8("label_15"));
+
+        formLayout->setWidget(2, QFormLayout::LabelRole, label_15);
+
+        layersLbl = new QLabel(groupBox_4);
+        layersLbl->setObjectName(QString::fromUtf8("layersLbl"));
+
+        formLayout->setWidget(2, QFormLayout::FieldRole, layersLbl);
+
         printBtn = new QPushButton(groupBox_4);
         printBtn->setObjectName(QString::fromUtf8("printBtn"));
         printBtn->setCheckable(true);
         printBtn->setChecked(false);
 
-        formLayout->setWidget(2, QFormLayout::FieldRole, printBtn);
+        formLayout->setWidget(3, QFormLayout::SpanningRole, printBtn);
 
 
         verticalLayout->addWidget(groupBox_4);
@@ -456,6 +472,15 @@ public:
 
         gridLayout_5->addWidget(widget, 0, 1, 1, 1);
 
+        layerScrollBar = new QScrollBar(groupBox_6);
+        layerScrollBar->setObjectName(QString::fromUtf8("layerScrollBar"));
+        layerScrollBar->setValue(99);
+        layerScrollBar->setSliderPosition(99);
+        layerScrollBar->setOrientation(Qt::Vertical);
+        layerScrollBar->setInvertedAppearance(true);
+
+        gridLayout_5->addWidget(layerScrollBar, 0, 3, 1, 1);
+
 
         gridLayout_4->addWidget(groupBox_6, 0, 2, 1, 2);
 
@@ -502,6 +527,8 @@ public:
         fileNameLbl->setText(QString());
         label_4->setText(QApplication::translate("MainWindow", "Potrzebny filament:", 0, QApplication::UnicodeUTF8));
         filamentLbl->setText(QString());
+        label_15->setText(QApplication::translate("MainWindow", "Ilo\305\233c warstw:", 0, QApplication::UnicodeUTF8));
+        layersLbl->setText(QString());
         printBtn->setText(QApplication::translate("MainWindow", "Drukuj", 0, QApplication::UnicodeUTF8));
         groupBox_5->setTitle(QApplication::translate("MainWindow", "Sterowanie drukark\304\205", 0, QApplication::UnicodeUTF8));
         label_5->setText(QApplication::translate("MainWindow", "X", 0, QApplication::UnicodeUTF8));

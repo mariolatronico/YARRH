@@ -3,6 +3,8 @@
 
 #include <QThread>
 
+
+//thread class for serial port communication, currently not used
 class portThread : public QThread
 {
     Q_OBJECT

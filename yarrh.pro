@@ -14,13 +14,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     portthread.cpp \
     glwidget.cpp \
-    gcodeobject.cpp
+    gcodeobject.cpp \
+    layer.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
     gcodeobject.h \
-    portthread.h
+    portthread.h \
+    layer.h
 
 FORMS    += mainwindow.ui
 
 include(qextserialport/qextserialport.pri)
+
+
