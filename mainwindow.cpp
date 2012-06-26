@@ -134,17 +134,23 @@ void MainWindow::loadFile(){
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return;
-
+    QProgressDialog progress(tr("Parsowanie pliku"), 0, 0, 0, this);
+    progress.setWindowModality(Qt::WindowModal);
+    progress.show();
     this->fileContent.clear();
     this->fileContent=file.readAll();
     ui->outConsole->appendPlainText(this->fileContent);
     file.close();
     QStringList gcodesTemp=this->fileContent.split("\n");
     QString temp;
-    //parsowanie pliku
+    //creating progressdialog
+    progress.setMaximum(gcodesTemp.size());
+    //parsing input file
     qreal x=0,y=0,z=0;
     GCodeObject* tempObject = new GCodeObject(this->glWidget);
+
     for(int i=0; i<gcodesTemp.size(); i++){
+        progress.setValue(i);
         temp=gcodesTemp.at(i);
         temp.replace("/n","");
         if(temp.contains("filament used")){
@@ -170,6 +176,7 @@ void MainWindow::loadFile(){
             tempObject->addVertex(x,y,z);
         }
     }
+
     this->glWidget->addObject(tempObject);
     ui->progressBar->setMaximum(this->gcodeLines.size());
     ui->printBtn->setEnabled(true);
