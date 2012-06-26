@@ -1,0 +1,17 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\portthread.o
+./debug\glwidget.o
+./debug\gcodeobject.o
+./debug\qextserialport.o
+./debug\qextserialenumerator.o
+./debug\qextserialport_win.o
+./debug\qextserialenumerator_win.o
+./debug\qextwineventnotifier_p.o
+./debug\moc_mainwindow.o
+./debug\moc_glwidget.o
+./debug\moc_gcodeobject.o
+./debug\moc_portthread.o
+./debug\moc_qextwineventnotifier_p.o
+);
