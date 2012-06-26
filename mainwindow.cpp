@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->printBtn,SIGNAL(toggled(bool)), this, SLOT(printObject(bool)));
 
     connect(ui->actionWczytaj, SIGNAL(triggered()), this, SLOT(loadFile()));
-
+    connect(ui->layerScrollBar, SIGNAL(valueChanged(int)), this, SLOT(setLayers(int)));
     ui->printBtn->setDisabled(true);
     //connecting move btns
     connect(ui->homeX, SIGNAL(clicked()), this, SLOT(homeX()));
@@ -56,8 +56,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+//not working on windows... dunno why :(
 void MainWindow::deviceConnected(const QextPortInfo & info){
-    qDebug() << "dupa";
     qDebug() << info.portName;
 }
 
@@ -68,7 +69,7 @@ void MainWindow::deviceDisconnected(const QextPortInfo & info){
 
 //connecting to port
 void MainWindow::connectClicked(){
-    ui->inConsole->appendPlainText("łącze...");
+    ui->inConsole->appendPlainText(tr("łącze..."));
     if(ui->portCombo->currentText()!=""){
         PortSettings settings = {BAUD9600, DATA_8, PAR_NONE, STOP_1, FLOW_OFF, 10};
         this->portObj = new QextSerialPort(ui->portCombo->currentText(),settings,QextSerialPort::EventDriven);
@@ -76,11 +77,11 @@ void MainWindow::connectClicked(){
         this->portObj->setBaudRate((BaudRateType)ui->baudCombo->itemData(ui->baudCombo->currentIndex()).toInt());
 
         if(this->portObj->open(QIODevice::ReadWrite)){
-            ui->inConsole->appendPlainText("Drukarka połączona");
+            ui->inConsole->appendPlainText(tr("Drukarka połączona"));
             connect(this->portObj, SIGNAL(readyRead()), this, SLOT(readFromPort()));
         }
         else{
-           ui->inConsole->appendPlainText("Nie udało się połączyć");
+           ui->inConsole->appendPlainText(tr("Nie udało się połączyć"));
         }
     }
 }
@@ -105,7 +106,7 @@ void MainWindow::readFromPort(){
     buffer.replace("\r","");
     //ui->inConsole->appendPlainText(buffer);
 
-    //jezeli drukujemy to kontunuj
+    //if we are printing then continue
     if(buffer.contains("ok") && ui->printBtn->isChecked()){
         if(this->gcodeLines.size()>0){
             sendLine(this->gcodeLines.takeFirst());
@@ -120,7 +121,7 @@ void MainWindow::readFromPort(){
             ui->progressBar->setFormat(this->durationTime.toString("hh:mm:ss")+"/"+this->eta.toString("hh:mm:ss")+" %p%");
         }
         else{
-            ui->inConsole->appendPlainText("Wydruk zakończony");
+            ui->inConsole->appendPlainText(tr("Wydruk zakończony"));
         }
     }
 }
@@ -128,27 +129,33 @@ void MainWindow::readFromPort(){
 //loading file
 void MainWindow::loadFile(){
     QString fileName = QFileDialog::getOpenFileName(this, tr("Otwórz plik"), "", tr("Pliki do druku (*.g *.gcode)"));
-    //pokarz w ui ze wczytales plik
+    //show filename in ui
     ui->fileNameLbl->setText(fileName.right(fileName.length()-fileName.lastIndexOf("/")-1));
-    //otworz plik
+    //open file
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return;
+    //show progress dialog
     QProgressDialog progress(tr("Parsowanie pliku"), 0, 0, 0, this);
     progress.setWindowModality(Qt::WindowModal);
     progress.show();
+
+    //buffer filecontent
     this->fileContent.clear();
     this->fileContent=file.readAll();
-    ui->outConsole->appendPlainText(this->fileContent);
     file.close();
+
+    //split buffer to lines
     QStringList gcodesTemp=this->fileContent.split("\n");
     QString temp;
-    //creating progressdialog
+    //set max value of progress dialog
     progress.setMaximum(gcodesTemp.size());
+
     //parsing input file
     qreal x=0,y=0,z=0;
     GCodeObject* tempObject = new GCodeObject(this->glWidget);
-
+    int layerCount=0;
+    float prevZ=0;
     for(int i=0; i<gcodesTemp.size(); i++){
         progress.setValue(i);
         temp=gcodesTemp.at(i);
@@ -171,16 +178,24 @@ void MainWindow::loadFile(){
         }
         if(temp.contains("Z")){
             z=(qreal)temp.mid(temp.indexOf("Z")+1,temp.indexOf(" ",temp.indexOf("Z"))-temp.indexOf("Z")).toFloat();
+            if(z>prevZ){
+                layerCount++;
+            }
+            prevZ=z;
         }
         if(temp.contains("X") || temp.contains("Y") || temp.contains("Z")){
-            tempObject->addVertex(x,y,z);
+            tempObject->addVertex(x,y,z,layerCount);
         }
     }
-
-    this->glWidget->addObject(tempObject);
+    ui->layerScrollBar->setMaximum(layerCount);
     ui->progressBar->setMaximum(this->gcodeLines.size());
+    this->glWidget->setLayers(layerCount);
+    this->glWidget->addObject(tempObject);
+
+    //enable print button
     ui->printBtn->setEnabled(true);
     ui->statusBar->showMessage(tr("Wczytano plik"), 2000);
+    ui->layersLbl->setText(QString::number(layerCount));
 }
 
 //printing object
@@ -196,24 +211,23 @@ void MainWindow::printObject(bool status){
             qDebug() << ui->progressBar->maximum()-this->gcodeLines.size();
         }
         else{
-            ui->inConsole->appendPlainText("Drukarka niepołaczona");
+            ui->inConsole->appendPlainText(tr("Drukarka niepołaczona"));
         }
     }
     else{
-        ui->printBtn->setText("Drukuj");
-        ui->inConsole->appendPlainText("Wydruk wstrzymany");
+        ui->printBtn->setText(tr("Drukuj"));
+        ui->inConsole->appendPlainText(tr("Wydruk wstrzymany"));
     }
 }
 
 
 //homing axis
-
 void MainWindow::homeX(){
     if(this->portObj->isReadable()){
         sendLine("G28 X0");
     }
     else{
-        ui->inConsole->appendPlainText("Drukarka niepołaczona");
+        ui->inConsole->appendPlainText(tr("Drukarka niepołaczona"));
     }
 }
 
@@ -222,7 +236,7 @@ void MainWindow::homeY(){
         sendLine("G28 Y0");
     }
     else{
-        ui->inConsole->appendPlainText("Drukarka niepołaczona");
+        ui->inConsole->appendPlainText(tr("Drukarka niepołaczona"));
     }
 }
 void MainWindow::homeZ(){
@@ -230,7 +244,7 @@ void MainWindow::homeZ(){
         sendLine("G28 Z0");
     }
     else{
-        ui->inConsole->appendPlainText("Drukarka niepołaczona");
+        ui->inConsole->appendPlainText(tr("Drukarka niepołaczona"));
     }
 }
 void MainWindow::homeAll(){
@@ -238,6 +252,11 @@ void MainWindow::homeAll(){
         sendLine("G28 X0 Y0 Z0");
     }
     else{
-        ui->inConsole->appendPlainText("Drukarka niepołaczona");
+        ui->inConsole->appendPlainText(tr("Drukarka niepołaczona"));
     }
+}
+
+//setting layers displayed
+void MainWindow::setLayers(int layers){
+    this->glWidget->setLayers(layers);
 }

@@ -21,6 +21,7 @@ GlWidget::GlWidget(QWidget *parent)
     zoom = 0;
     xMove = 0;
     yMove = 0;
+    layers = 5000;
     qtGreen = QColor::fromCmykF(0.40, 0.0, 1.0, 0.0);
     qtPurple = QColor::fromCmykF(0.39, 0.39, 0.0, 0.0);
 }
@@ -125,14 +126,13 @@ void GlWidget::setXRotation(int angle)
        drawAxis();
        drawGrid();
        for(int i=0; i<this->objects.size(); i++){
-           this->objects.at(i)->draw(0.01);
+           this->objects.at(i)->draw(0.01,this->layers);
        }
    }
 //mouse press event
   void GlWidget::mousePressEvent(QMouseEvent *event)
    {
        lastPos = event->pos();
-       qDebug() << "click";
    }
 
   //mouse move event
@@ -172,6 +172,8 @@ void GlWidget::setXRotation(int angle)
       updateGL();
   }
 
+
+  //drawing 20x20cm grind in 3dview
   void GlWidget::drawGrid(){
       GLdouble gridWidth=2.0;
       GLint     iSlices=32;
@@ -355,4 +357,9 @@ void GlWidget::setXRotation(int angle)
 
   void GlWidget::addObject(GCodeObject *object){
       this->objects.append(object);
+  }
+
+  void GlWidget::setLayers(int layers){
+      this->layers=layers;
+      updateGL();
   }

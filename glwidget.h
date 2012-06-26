@@ -7,6 +7,9 @@
 #include <math.h>
 #include "gcodeobject.h"
 
+
+//widget for 3d wiev
+
 class GlWidget : public QGLWidget
 {
     Q_OBJECT
@@ -16,6 +19,7 @@ public:
     QSize minimumSizeHint() const;
     QSize sizeHint() const;
     void addObject(GCodeObject* object);
+    void setLayers(int layers);
 public slots:
     void setXRotation(int angle);
     void setYRotation(int angle);
@@ -40,6 +44,7 @@ private:
     float xMove;
     float yMove;
     float zoom;
+    int layers;
     QPoint lastPos;
     QColor qtGreen;
     QColor qtPurple;

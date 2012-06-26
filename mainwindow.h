@@ -43,11 +43,13 @@ private slots:
     void readFromPort();
     void loadFile();
     void printObject(bool status);
-    //ruszanie osiami
+    //moving axis
     void homeX();
     void homeY();
     void homeZ();
     void homeAll();
+    //set layers
+    void setLayers(int layers);
 };
 
 #endif // MAINWINDOW_H

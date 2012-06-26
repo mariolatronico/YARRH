@@ -5,6 +5,9 @@
 #include <QVector3D>
 #include <QObject>
 #include <QtOpenGL>
+#include "layer.h"
+
+//this class is for storing 3d pbject parset from raw gcode
 
 class GCodeObject : public QObject
 {
@@ -12,12 +15,16 @@ class GCodeObject : public QObject
 public:
     GCodeObject(QObject *parent);
     ~GCodeObject();
-    void addVertex(qreal xpos, qreal ypos, qreal zpos);
-    void draw(float scale);
+    void addVertex(qreal xpos, qreal ypos, qreal zpos, int layer);
+    void draw(float scale, int layers);
+    void setLayerHeight(float layerHeight);
+    float getLayerHeight();
 private:
-    QList<QVector3D> vertexList;
+    QList<Layer*> layerList;
     QMap<int, QVector4D> cylinderList;
-    void renderCylinder(float x1, float y1, float z1, float x2,float y2, float z2, float radius,int subdivisions);
+    void renderCylinder(float x1, float y1, float z1, float x2,float y2, float z2, float radius,int subdivisions, bool lastlayer);
+    float layerHeight;
+    int currentLayer;
 };
 
 #endif // GCODEOBJECT_H
