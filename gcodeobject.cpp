@@ -1,4 +1,8 @@
 ﻿#include "gcodeobject.h"
+#include <QtOpenGL>
+#include <GL/glu.h>
+#include <GL/gl.h>
+#include <GL/glext.h>
 
 GCodeObject::GCodeObject(QObject *parent)
 {
@@ -64,7 +68,7 @@ void GCodeObject::renderCylinder(float x1, float y1, float z1, float x2,float y2
         glColor4fv(red);
     else
         glColor4fv(gray);
-    //gluCylinder(quadric, radius, radius, v, 2, 1);
+    gluCylinder(quadric, radius, radius, v, 2, 1);
     glPopMatrix();
 
     // Restore the current color

@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Tue 26. Jun 17:51:34 2012
-**      by: Qt User Interface Compiler version 4.7.4
+** Created: Thu 28. Jun 21:49:11 2012
+**      by: Qt User Interface Compiler version 4.8.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -29,6 +29,7 @@
 #include <QtGui/QProgressBar>
 #include <QtGui/QPushButton>
 #include <QtGui/QScrollBar>
+#include <QtGui/QSpinBox>
 #include <QtGui/QStatusBar>
 #include <QtGui/QToolBar>
 #include <QtGui/QVBoxLayout>
@@ -43,13 +44,6 @@ public:
     QWidget *centralWidget;
     QGridLayout *gridLayout_4;
     QProgressBar *progressBar;
-    QGroupBox *groupBox_2;
-    QGridLayout *gridLayout;
-    QPlainTextEdit *inConsole;
-    QGroupBox *groupBox_3;
-    QGridLayout *gridLayout_2;
-    QPlainTextEdit *outConsole;
-    QLineEdit *outLine;
     QWidget *widget_2;
     QVBoxLayout *verticalLayout;
     QGroupBox *groupBox;
@@ -68,46 +62,42 @@ public:
     QLabel *label_15;
     QLabel *layersLbl;
     QPushButton *printBtn;
+    QGroupBox *groupBox_7;
+    QGridLayout *gridLayout_2;
+    QWidget *tempGraphWidget;
+    QGridLayout *gridLayout_6;
     QGroupBox *groupBox_5;
     QGridLayout *gridLayout_3;
-    QLabel *label_5;
-    QLabel *label_6;
-    QLabel *label_7;
+    QWidget *widget_4;
+    QHBoxLayout *horizontalLayout_2;
     QLabel *label_8;
     QPushButton *homeX;
     QPushButton *homeY;
     QPushButton *homeZ;
-    QLabel *label_9;
     QPushButton *homeAll;
+    QWidget *widget_3;
+    QFormLayout *formLayout_2;
+    QLabel *label_6;
+    QLabel *label_7;
     QLabel *label_10;
     QLabel *label_11;
     QLabel *label_12;
+    QSpinBox *speedSpinBox;
+    QLabel *label_9;
+    QLabel *label_5;
     QLabel *label_13;
-    QLabel *label_14;
-    QPushButton *pushButton_5;
-    QPushButton *pushButton_6;
-    QPushButton *pushButton_7;
-    QPushButton *pushButton_8;
-    QPushButton *pushButton_9;
-    QPushButton *pushButton_10;
-    QPushButton *pushButton_11;
-    QPushButton *pushButton_12;
-    QPushButton *pushButton_13;
-    QPushButton *pushButton_14;
-    QPushButton *pushButton_15;
-    QPushButton *pushButton_16;
-    QPushButton *pushButton_17;
-    QPushButton *pushButton_18;
-    QPushButton *pushButton_19;
-    QPushButton *pushButton_20;
-    QPushButton *pushButton_21;
-    QPushButton *pushButton_22;
-    QPushButton *pushButton_23;
-    QPushButton *pushButton_24;
+    QSpinBox *fanSpinBox;
+    QWidget *headControlWidget;
+    QGridLayout *gridLayout_8;
     QGroupBox *groupBox_6;
     QGridLayout *gridLayout_5;
     QWidget *widget;
+    QGridLayout *gridLayout_7;
     QScrollBar *layerScrollBar;
+    QGroupBox *groupBox_2;
+    QGridLayout *gridLayout;
+    QPlainTextEdit *inConsole;
+    QLineEdit *outLine;
     QMenuBar *menuBar;
     QMenu *menuPlik;
     QMenu *menuO_Programie;
@@ -118,7 +108,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(763, 611);
+        MainWindow->resize(988, 683);
         MainWindow->setLayoutDirection(Qt::LeftToRight);
         MainWindow->setUnifiedTitleAndToolBarOnMac(false);
         actionWczytaj = new QAction(MainWindow);
@@ -138,41 +128,6 @@ public:
 
         gridLayout_4->addWidget(progressBar, 5, 0, 1, 4);
 
-        groupBox_2 = new QGroupBox(centralWidget);
-        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        groupBox_2->setMaximumSize(QSize(16777215, 200));
-        gridLayout = new QGridLayout(groupBox_2);
-        gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        inConsole = new QPlainTextEdit(groupBox_2);
-        inConsole->setObjectName(QString::fromUtf8("inConsole"));
-
-        gridLayout->addWidget(inConsole, 0, 0, 1, 1);
-
-
-        gridLayout_4->addWidget(groupBox_2, 6, 0, 1, 3);
-
-        groupBox_3 = new QGroupBox(centralWidget);
-        groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
-        groupBox_3->setMaximumSize(QSize(16777215, 200));
-        gridLayout_2 = new QGridLayout(groupBox_3);
-        gridLayout_2->setSpacing(6);
-        gridLayout_2->setContentsMargins(11, 11, 11, 11);
-        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        outConsole = new QPlainTextEdit(groupBox_3);
-        outConsole->setObjectName(QString::fromUtf8("outConsole"));
-
-        gridLayout_2->addWidget(outConsole, 0, 0, 1, 1);
-
-        outLine = new QLineEdit(groupBox_3);
-        outLine->setObjectName(QString::fromUtf8("outLine"));
-
-        gridLayout_2->addWidget(outLine, 1, 0, 1, 1);
-
-
-        gridLayout_4->addWidget(groupBox_3, 6, 3, 1, 1);
-
         widget_2 = new QWidget(centralWidget);
         widget_2->setObjectName(QString::fromUtf8("widget_2"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -180,6 +135,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(widget_2->sizePolicy().hasHeightForWidth());
         widget_2->setSizePolicy(sizePolicy);
+        widget_2->setMaximumSize(QSize(420, 16777215));
         verticalLayout = new QVBoxLayout(widget_2);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -266,196 +222,162 @@ public:
 
         verticalLayout->addWidget(groupBox_4);
 
-        groupBox_5 = new QGroupBox(widget_2);
-        groupBox_5->setObjectName(QString::fromUtf8("groupBox_5"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        groupBox_7 = new QGroupBox(widget_2);
+        groupBox_7->setObjectName(QString::fromUtf8("groupBox_7"));
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Minimum);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(groupBox_5->sizePolicy().hasHeightForWidth());
-        groupBox_5->setSizePolicy(sizePolicy1);
+        sizePolicy1.setHeightForWidth(groupBox_7->sizePolicy().hasHeightForWidth());
+        groupBox_7->setSizePolicy(sizePolicy1);
+        groupBox_7->setCheckable(true);
+        gridLayout_2 = new QGridLayout(groupBox_7);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(0, 0, 0, 0);
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        gridLayout_2->setSizeConstraint(QLayout::SetMaximumSize);
+        tempGraphWidget = new QWidget(groupBox_7);
+        tempGraphWidget->setObjectName(QString::fromUtf8("tempGraphWidget"));
+        sizePolicy.setHeightForWidth(tempGraphWidget->sizePolicy().hasHeightForWidth());
+        tempGraphWidget->setSizePolicy(sizePolicy);
+        gridLayout_6 = new QGridLayout(tempGraphWidget);
+        gridLayout_6->setSpacing(6);
+        gridLayout_6->setContentsMargins(11, 11, 11, 11);
+        gridLayout_6->setObjectName(QString::fromUtf8("gridLayout_6"));
+        gridLayout_6->setSizeConstraint(QLayout::SetMaximumSize);
+
+        gridLayout_2->addWidget(tempGraphWidget, 0, 0, 1, 1);
+
+
+        verticalLayout->addWidget(groupBox_7);
+
+        groupBox_5 = new QGroupBox(widget_2);
+        groupBox_5->setObjectName(QString::fromUtf8("groupBox_5"));
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(groupBox_5->sizePolicy().hasHeightForWidth());
+        groupBox_5->setSizePolicy(sizePolicy2);
         gridLayout_3 = new QGridLayout(groupBox_5);
         gridLayout_3->setSpacing(6);
         gridLayout_3->setContentsMargins(11, 11, 11, 11);
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
-        label_5 = new QLabel(groupBox_5);
-        label_5->setObjectName(QString::fromUtf8("label_5"));
-        label_5->setAlignment(Qt::AlignCenter);
-
-        gridLayout_3->addWidget(label_5, 0, 1, 1, 1);
-
-        label_6 = new QLabel(groupBox_5);
-        label_6->setObjectName(QString::fromUtf8("label_6"));
-        label_6->setAlignment(Qt::AlignCenter);
-
-        gridLayout_3->addWidget(label_6, 0, 2, 1, 1);
-
-        label_7 = new QLabel(groupBox_5);
-        label_7->setObjectName(QString::fromUtf8("label_7"));
-        label_7->setAlignment(Qt::AlignCenter);
-
-        gridLayout_3->addWidget(label_7, 0, 3, 1, 1);
-
-        label_8 = new QLabel(groupBox_5);
+        widget_4 = new QWidget(groupBox_5);
+        widget_4->setObjectName(QString::fromUtf8("widget_4"));
+        horizontalLayout_2 = new QHBoxLayout(widget_4);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        label_8 = new QLabel(widget_4);
         label_8->setObjectName(QString::fromUtf8("label_8"));
 
-        gridLayout_3->addWidget(label_8, 1, 0, 1, 1);
+        horizontalLayout_2->addWidget(label_8);
 
-        homeX = new QPushButton(groupBox_5);
+        homeX = new QPushButton(widget_4);
         homeX->setObjectName(QString::fromUtf8("homeX"));
+        homeX->setMaximumSize(QSize(500, 16777215));
 
-        gridLayout_3->addWidget(homeX, 1, 1, 1, 1);
+        horizontalLayout_2->addWidget(homeX);
 
-        homeY = new QPushButton(groupBox_5);
+        homeY = new QPushButton(widget_4);
         homeY->setObjectName(QString::fromUtf8("homeY"));
+        homeY->setMaximumSize(QSize(500, 16777215));
 
-        gridLayout_3->addWidget(homeY, 1, 2, 1, 1);
+        horizontalLayout_2->addWidget(homeY);
 
-        homeZ = new QPushButton(groupBox_5);
+        homeZ = new QPushButton(widget_4);
         homeZ->setObjectName(QString::fromUtf8("homeZ"));
+        homeZ->setMaximumSize(QSize(500, 16777215));
 
-        gridLayout_3->addWidget(homeZ, 1, 3, 1, 1);
+        horizontalLayout_2->addWidget(homeZ);
 
-        label_9 = new QLabel(groupBox_5);
-        label_9->setObjectName(QString::fromUtf8("label_9"));
-        label_9->setAlignment(Qt::AlignCenter);
-
-        gridLayout_3->addWidget(label_9, 0, 4, 1, 1);
-
-        homeAll = new QPushButton(groupBox_5);
+        homeAll = new QPushButton(widget_4);
         homeAll->setObjectName(QString::fromUtf8("homeAll"));
+        homeAll->setMaximumSize(QSize(500, 16777215));
 
-        gridLayout_3->addWidget(homeAll, 1, 4, 1, 1);
+        horizontalLayout_2->addWidget(homeAll);
 
-        label_10 = new QLabel(groupBox_5);
+
+        gridLayout_3->addWidget(widget_4, 0, 0, 1, 5);
+
+        widget_3 = new QWidget(groupBox_5);
+        widget_3->setObjectName(QString::fromUtf8("widget_3"));
+        formLayout_2 = new QFormLayout(widget_3);
+        formLayout_2->setSpacing(6);
+        formLayout_2->setContentsMargins(11, 11, 11, 11);
+        formLayout_2->setObjectName(QString::fromUtf8("formLayout_2"));
+        label_6 = new QLabel(widget_3);
+        label_6->setObjectName(QString::fromUtf8("label_6"));
+
+        formLayout_2->setWidget(1, QFormLayout::LabelRole, label_6);
+
+        label_7 = new QLabel(widget_3);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+
+        formLayout_2->setWidget(2, QFormLayout::LabelRole, label_7);
+
+        label_10 = new QLabel(widget_3);
         label_10->setObjectName(QString::fromUtf8("label_10"));
 
-        gridLayout_3->addWidget(label_10, 2, 0, 1, 1);
+        formLayout_2->setWidget(4, QFormLayout::LabelRole, label_10);
 
-        label_11 = new QLabel(groupBox_5);
+        label_11 = new QLabel(widget_3);
         label_11->setObjectName(QString::fromUtf8("label_11"));
 
-        gridLayout_3->addWidget(label_11, 3, 0, 1, 1);
+        formLayout_2->setWidget(5, QFormLayout::LabelRole, label_11);
 
-        label_12 = new QLabel(groupBox_5);
+        label_12 = new QLabel(widget_3);
         label_12->setObjectName(QString::fromUtf8("label_12"));
 
-        gridLayout_3->addWidget(label_12, 4, 0, 1, 1);
+        formLayout_2->setWidget(6, QFormLayout::LabelRole, label_12);
 
-        label_13 = new QLabel(groupBox_5);
+        speedSpinBox = new QSpinBox(widget_3);
+        speedSpinBox->setObjectName(QString::fromUtf8("speedSpinBox"));
+        speedSpinBox->setMaximum(20000);
+        speedSpinBox->setValue(1500);
+
+        formLayout_2->setWidget(6, QFormLayout::FieldRole, speedSpinBox);
+
+        label_9 = new QLabel(widget_3);
+        label_9->setObjectName(QString::fromUtf8("label_9"));
+
+        formLayout_2->setWidget(3, QFormLayout::SpanningRole, label_9);
+
+        label_5 = new QLabel(widget_3);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+
+        formLayout_2->setWidget(0, QFormLayout::SpanningRole, label_5);
+
+        label_13 = new QLabel(widget_3);
         label_13->setObjectName(QString::fromUtf8("label_13"));
 
-        gridLayout_3->addWidget(label_13, 5, 0, 1, 1);
+        formLayout_2->setWidget(7, QFormLayout::LabelRole, label_13);
 
-        label_14 = new QLabel(groupBox_5);
-        label_14->setObjectName(QString::fromUtf8("label_14"));
+        fanSpinBox = new QSpinBox(widget_3);
+        fanSpinBox->setObjectName(QString::fromUtf8("fanSpinBox"));
+        fanSpinBox->setMaximum(100);
+        fanSpinBox->setSingleStep(5);
 
-        gridLayout_3->addWidget(label_14, 6, 0, 1, 1);
+        formLayout_2->setWidget(7, QFormLayout::FieldRole, fanSpinBox);
 
-        pushButton_5 = new QPushButton(groupBox_5);
-        pushButton_5->setObjectName(QString::fromUtf8("pushButton_5"));
 
-        gridLayout_3->addWidget(pushButton_5, 2, 1, 1, 1);
+        gridLayout_3->addWidget(widget_3, 2, 0, 1, 2);
 
-        pushButton_6 = new QPushButton(groupBox_5);
-        pushButton_6->setObjectName(QString::fromUtf8("pushButton_6"));
+        headControlWidget = new QWidget(groupBox_5);
+        headControlWidget->setObjectName(QString::fromUtf8("headControlWidget"));
+        headControlWidget->setMinimumSize(QSize(220, 220));
+        headControlWidget->setMaximumSize(QSize(200, 200));
+        gridLayout_8 = new QGridLayout(headControlWidget);
+        gridLayout_8->setSpacing(6);
+        gridLayout_8->setContentsMargins(0, 0, 0, 0);
+        gridLayout_8->setObjectName(QString::fromUtf8("gridLayout_8"));
 
-        gridLayout_3->addWidget(pushButton_6, 2, 2, 1, 1);
-
-        pushButton_7 = new QPushButton(groupBox_5);
-        pushButton_7->setObjectName(QString::fromUtf8("pushButton_7"));
-
-        gridLayout_3->addWidget(pushButton_7, 2, 3, 1, 1);
-
-        pushButton_8 = new QPushButton(groupBox_5);
-        pushButton_8->setObjectName(QString::fromUtf8("pushButton_8"));
-
-        gridLayout_3->addWidget(pushButton_8, 2, 4, 1, 1);
-
-        pushButton_9 = new QPushButton(groupBox_5);
-        pushButton_9->setObjectName(QString::fromUtf8("pushButton_9"));
-
-        gridLayout_3->addWidget(pushButton_9, 3, 1, 1, 1);
-
-        pushButton_10 = new QPushButton(groupBox_5);
-        pushButton_10->setObjectName(QString::fromUtf8("pushButton_10"));
-
-        gridLayout_3->addWidget(pushButton_10, 3, 2, 1, 1);
-
-        pushButton_11 = new QPushButton(groupBox_5);
-        pushButton_11->setObjectName(QString::fromUtf8("pushButton_11"));
-
-        gridLayout_3->addWidget(pushButton_11, 3, 3, 1, 1);
-
-        pushButton_12 = new QPushButton(groupBox_5);
-        pushButton_12->setObjectName(QString::fromUtf8("pushButton_12"));
-
-        gridLayout_3->addWidget(pushButton_12, 3, 4, 1, 1);
-
-        pushButton_13 = new QPushButton(groupBox_5);
-        pushButton_13->setObjectName(QString::fromUtf8("pushButton_13"));
-
-        gridLayout_3->addWidget(pushButton_13, 4, 1, 1, 1);
-
-        pushButton_14 = new QPushButton(groupBox_5);
-        pushButton_14->setObjectName(QString::fromUtf8("pushButton_14"));
-
-        gridLayout_3->addWidget(pushButton_14, 4, 2, 1, 1);
-
-        pushButton_15 = new QPushButton(groupBox_5);
-        pushButton_15->setObjectName(QString::fromUtf8("pushButton_15"));
-
-        gridLayout_3->addWidget(pushButton_15, 4, 3, 1, 1);
-
-        pushButton_16 = new QPushButton(groupBox_5);
-        pushButton_16->setObjectName(QString::fromUtf8("pushButton_16"));
-
-        gridLayout_3->addWidget(pushButton_16, 4, 4, 1, 1);
-
-        pushButton_17 = new QPushButton(groupBox_5);
-        pushButton_17->setObjectName(QString::fromUtf8("pushButton_17"));
-
-        gridLayout_3->addWidget(pushButton_17, 5, 1, 1, 1);
-
-        pushButton_18 = new QPushButton(groupBox_5);
-        pushButton_18->setObjectName(QString::fromUtf8("pushButton_18"));
-
-        gridLayout_3->addWidget(pushButton_18, 5, 2, 1, 1);
-
-        pushButton_19 = new QPushButton(groupBox_5);
-        pushButton_19->setObjectName(QString::fromUtf8("pushButton_19"));
-
-        gridLayout_3->addWidget(pushButton_19, 5, 3, 1, 1);
-
-        pushButton_20 = new QPushButton(groupBox_5);
-        pushButton_20->setObjectName(QString::fromUtf8("pushButton_20"));
-
-        gridLayout_3->addWidget(pushButton_20, 5, 4, 1, 1);
-
-        pushButton_21 = new QPushButton(groupBox_5);
-        pushButton_21->setObjectName(QString::fromUtf8("pushButton_21"));
-
-        gridLayout_3->addWidget(pushButton_21, 6, 1, 1, 1);
-
-        pushButton_22 = new QPushButton(groupBox_5);
-        pushButton_22->setObjectName(QString::fromUtf8("pushButton_22"));
-
-        gridLayout_3->addWidget(pushButton_22, 6, 2, 1, 1);
-
-        pushButton_23 = new QPushButton(groupBox_5);
-        pushButton_23->setObjectName(QString::fromUtf8("pushButton_23"));
-
-        gridLayout_3->addWidget(pushButton_23, 6, 3, 1, 1);
-
-        pushButton_24 = new QPushButton(groupBox_5);
-        pushButton_24->setObjectName(QString::fromUtf8("pushButton_24"));
-
-        gridLayout_3->addWidget(pushButton_24, 6, 4, 1, 1);
+        gridLayout_3->addWidget(headControlWidget, 2, 2, 1, 1);
 
 
         verticalLayout->addWidget(groupBox_5);
 
 
-        gridLayout_4->addWidget(widget_2, 0, 0, 1, 1);
+        gridLayout_4->addWidget(widget_2, 0, 0, 2, 1);
 
         groupBox_6 = new QGroupBox(centralWidget);
         groupBox_6->setObjectName(QString::fromUtf8("groupBox_6"));
@@ -469,6 +391,10 @@ public:
         widget->setObjectName(QString::fromUtf8("widget"));
         sizePolicy.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
         widget->setSizePolicy(sizePolicy);
+        gridLayout_7 = new QGridLayout(widget);
+        gridLayout_7->setSpacing(6);
+        gridLayout_7->setContentsMargins(11, 11, 11, 11);
+        gridLayout_7->setObjectName(QString::fromUtf8("gridLayout_7"));
 
         gridLayout_5->addWidget(widget, 0, 1, 1, 1);
 
@@ -482,12 +408,36 @@ public:
         gridLayout_5->addWidget(layerScrollBar, 0, 3, 1, 1);
 
 
-        gridLayout_4->addWidget(groupBox_6, 0, 2, 1, 2);
+        gridLayout_4->addWidget(groupBox_6, 0, 1, 1, 1);
+
+        groupBox_2 = new QGroupBox(centralWidget);
+        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
+        sizePolicy.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
+        groupBox_2->setSizePolicy(sizePolicy);
+        groupBox_2->setMaximumSize(QSize(16777215, 200));
+        gridLayout = new QGridLayout(groupBox_2);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        inConsole = new QPlainTextEdit(groupBox_2);
+        inConsole->setObjectName(QString::fromUtf8("inConsole"));
+
+        gridLayout->addWidget(inConsole, 0, 0, 1, 1);
+
+        outLine = new QLineEdit(groupBox_2);
+        outLine->setObjectName(QString::fromUtf8("outLine"));
+        sizePolicy.setHeightForWidth(outLine->sizePolicy().hasHeightForWidth());
+        outLine->setSizePolicy(sizePolicy);
+
+        gridLayout->addWidget(outLine, 1, 0, 1, 1);
+
+
+        gridLayout_4->addWidget(groupBox_2, 1, 1, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 763, 20));
+        menuBar->setGeometry(QRect(0, 0, 988, 20));
         menuPlik = new QMenu(menuBar);
         menuPlik->setObjectName(QString::fromUtf8("menuPlik"));
         menuO_Programie = new QMenu(menuBar);
@@ -516,8 +466,6 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "YARRH v0.0.1", 0, QApplication::UnicodeUTF8));
         actionWczytaj->setText(QApplication::translate("MainWindow", "Wczytaj", 0, QApplication::UnicodeUTF8));
-        groupBox_2->setTitle(QApplication::translate("MainWindow", "In", 0, QApplication::UnicodeUTF8));
-        groupBox_3->setTitle(QApplication::translate("MainWindow", "Out", 0, QApplication::UnicodeUTF8));
         groupBox->setTitle(QApplication::translate("MainWindow", "Ustawienia portu", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("MainWindow", "Port:", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("MainWindow", "Baud:", 0, QApplication::UnicodeUTF8));
@@ -530,42 +478,25 @@ public:
         label_15->setText(QApplication::translate("MainWindow", "Ilo\305\233c warstw:", 0, QApplication::UnicodeUTF8));
         layersLbl->setText(QString());
         printBtn->setText(QApplication::translate("MainWindow", "Drukuj", 0, QApplication::UnicodeUTF8));
-        groupBox_5->setTitle(QApplication::translate("MainWindow", "Sterowanie drukark\304\205", 0, QApplication::UnicodeUTF8));
-        label_5->setText(QApplication::translate("MainWindow", "X", 0, QApplication::UnicodeUTF8));
-        label_6->setText(QApplication::translate("MainWindow", "Y", 0, QApplication::UnicodeUTF8));
-        label_7->setText(QApplication::translate("MainWindow", "Z", 0, QApplication::UnicodeUTF8));
+        groupBox_7->setTitle(QApplication::translate("MainWindow", "Odczyt temperatury", 0, QApplication::UnicodeUTF8));
+        groupBox_5->setTitle(QApplication::translate("MainWindow", "Sterowanie osiami", 0, QApplication::UnicodeUTF8));
         label_8->setText(QApplication::translate("MainWindow", "Home", 0, QApplication::UnicodeUTF8));
-        homeX->setText(QString());
-        homeY->setText(QString());
-        homeZ->setText(QString());
-        label_9->setText(QApplication::translate("MainWindow", "All", 0, QApplication::UnicodeUTF8));
-        homeAll->setText(QString());
-        label_10->setText(QApplication::translate("MainWindow", "+100mm", 0, QApplication::UnicodeUTF8));
-        label_11->setText(QApplication::translate("MainWindow", "+10mm", 0, QApplication::UnicodeUTF8));
-        label_12->setText(QApplication::translate("MainWindow", "+1mm", 0, QApplication::UnicodeUTF8));
-        label_13->setText(QApplication::translate("MainWindow", "+0.1mm", 0, QApplication::UnicodeUTF8));
-        label_14->setText(QApplication::translate("MainWindow", "-0.1mm", 0, QApplication::UnicodeUTF8));
-        pushButton_5->setText(QString());
-        pushButton_6->setText(QString());
-        pushButton_7->setText(QString());
-        pushButton_8->setText(QString());
-        pushButton_9->setText(QString());
-        pushButton_10->setText(QString());
-        pushButton_11->setText(QString());
-        pushButton_12->setText(QString());
-        pushButton_13->setText(QString());
-        pushButton_14->setText(QString());
-        pushButton_15->setText(QString());
-        pushButton_16->setText(QString());
-        pushButton_17->setText(QString());
-        pushButton_18->setText(QString());
-        pushButton_19->setText(QString());
-        pushButton_20->setText(QString());
-        pushButton_21->setText(QString());
-        pushButton_22->setText(QString());
-        pushButton_23->setText(QString());
-        pushButton_24->setText(QString());
+        homeX->setText(QApplication::translate("MainWindow", "X", 0, QApplication::UnicodeUTF8));
+        homeY->setText(QApplication::translate("MainWindow", "Y", 0, QApplication::UnicodeUTF8));
+        homeZ->setText(QApplication::translate("MainWindow", "Z", 0, QApplication::UnicodeUTF8));
+        homeAll->setText(QApplication::translate("MainWindow", "All", 0, QApplication::UnicodeUTF8));
+        label_6->setText(QApplication::translate("MainWindow", "X: 0", 0, QApplication::UnicodeUTF8));
+        label_7->setText(QApplication::translate("MainWindow", "Y: 0", 0, QApplication::UnicodeUTF8));
+        label_10->setText(QApplication::translate("MainWindow", "X: 0", 0, QApplication::UnicodeUTF8));
+        label_11->setText(QApplication::translate("MainWindow", "Y: 0", 0, QApplication::UnicodeUTF8));
+        label_12->setText(QApplication::translate("MainWindow", "Pr\304\231dko\305\233\304\207", 0, QApplication::UnicodeUTF8));
+        speedSpinBox->setSuffix(QApplication::translate("MainWindow", " mm/min", 0, QApplication::UnicodeUTF8));
+        label_9->setText(QApplication::translate("MainWindow", "Ustaw pozycje", 0, QApplication::UnicodeUTF8));
+        label_5->setText(QApplication::translate("MainWindow", "Aktualna pozycja", 0, QApplication::UnicodeUTF8));
+        label_13->setText(QApplication::translate("MainWindow", "Wentylator", 0, QApplication::UnicodeUTF8));
+        fanSpinBox->setSuffix(QApplication::translate("MainWindow", " %", 0, QApplication::UnicodeUTF8));
         groupBox_6->setTitle(QApplication::translate("MainWindow", "Podgl\304\205d", 0, QApplication::UnicodeUTF8));
+        groupBox_2->setTitle(QApplication::translate("MainWindow", "Konsola", 0, QApplication::UnicodeUTF8));
         menuPlik->setTitle(QApplication::translate("MainWindow", "Plik", 0, QApplication::UnicodeUTF8));
         menuO_Programie->setTitle(QApplication::translate("MainWindow", "O Programie", 0, QApplication::UnicodeUTF8));
     } // retranslateUi

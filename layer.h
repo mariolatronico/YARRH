@@ -12,6 +12,8 @@ class Layer : public QObject
 public:
     explicit Layer(QObject *parent = 0);
     QList<QVector3D> vertexes;
+    void draw(float scale);
+    void render();
 signals:
 
 public slots:
