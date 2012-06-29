@@ -10,6 +10,8 @@
 #include "qextserialenumerator.h"
 #include "glwidget.h"
 #include "gcodeobject.h"
+#include "graphwidget.h"
+#include "headcontrol.h"
 
 namespace Ui {
     class MainWindow;
@@ -31,6 +33,8 @@ private:
     QString fileContent;
     QStringList gcodeLines;
     GlWidget *glWidget;
+    GraphWidget *graphWidget;
+    headControl *controlWidget;
     QTime startTime;
     QTime durationTime;
     QTime eta;
@@ -50,6 +54,9 @@ private slots:
     void homeAll();
     //set layers
     void setLayers(int layers);
+    //void move head x/y
+    void moveHead(QPoint point);
+    void setFan(int percent);
 };
 
 #endif // MAINWINDOW_H

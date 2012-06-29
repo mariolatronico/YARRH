@@ -8,6 +8,20 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     //gl widget
     this->glWidget = new GlWidget(ui->widget);
+    ui->widget->layout()->addWidget(this->glWidget);
+    //graph widget
+    this->graphWidget = new GraphWidget(ui->tempGraphWidget);
+    ui->tempGraphWidget->layout()->addWidget(this->graphWidget);
+    //graphics view for head movement
+    this->controlWidget = new headControl(ui->headControlWidget);
+    ui->headControlWidget->layout()->addWidget(this->controlWidget);
+
+    //test path for temperature graph
+    Path* temp1 = new Path();
+    temp1->addPoint(QPoint(0,0));
+    temp1->addPoint(QPoint(60,250));
+    this->graphWidget->addPath(temp1);
+
     //port object
     PortSettings settings = {BAUD9600, DATA_8, PAR_NONE, STOP_1, FLOW_OFF, 10};
     this->portObj = new QextSerialPort("",settings,QextSerialPort::EventDriven);
@@ -32,8 +46,16 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->outLine, SIGNAL(returnPressed()), this, SLOT(writeToPort()));
     connect(ui->printBtn,SIGNAL(toggled(bool)), this, SLOT(printObject(bool)));
 
+    //connecting menu actions
     connect(ui->actionWczytaj, SIGNAL(triggered()), this, SLOT(loadFile()));
+
+    //connecying layer scroll bar
     connect(ui->layerScrollBar, SIGNAL(valueChanged(int)), this, SLOT(setLayers(int)));
+
+    //connect head move widget
+    connect(this->controlWidget, SIGNAL(clicked(QPoint)), this, SLOT(moveHead(QPoint)));
+    //connect fan spin box
+    connect(ui->fanSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setFan(int)));
     ui->printBtn->setDisabled(true);
     //connecting move btns
     connect(ui->homeX, SIGNAL(clicked()), this, SLOT(homeX()));
@@ -88,7 +110,7 @@ void MainWindow::connectClicked(){
 
 //writing to port
 void MainWindow::writeToPort(){
-    ui->outConsole->appendPlainText(ui->outLine->text());
+    ui->inConsole->appendPlainText(ui->outLine->text());
     qDebug() << portObj->write(ui->outLine->text().toUpper().toLatin1()+"\n\r");
     ui->outLine->clear();
 }
@@ -152,7 +174,7 @@ void MainWindow::loadFile(){
     progress.setMaximum(gcodesTemp.size());
 
     //parsing input file
-    qreal x=0,y=0,z=0;
+    qreal x=0,y=0,z=-1;
     GCodeObject* tempObject = new GCodeObject(this->glWidget);
     int layerCount=0;
     float prevZ=0;
@@ -178,6 +200,7 @@ void MainWindow::loadFile(){
         }
         if(temp.contains("Z")){
             z=(qreal)temp.mid(temp.indexOf("Z")+1,temp.indexOf(" ",temp.indexOf("Z"))-temp.indexOf("Z")).toFloat();
+            qDebug() << z;
             if(z>prevZ){
                 layerCount++;
             }
@@ -256,7 +279,30 @@ void MainWindow::homeAll(){
     }
 }
 
+//moving head
+void MainWindow::moveHead(QPoint point){
+    if(this->portObj->isReadable()){
+        sendLine("G1 F"+QString::number(ui->speedSpinBox->value()));
+        sendLine("G1 X"+QString::number(point.x())+" Y"+QString::number(200-point.y()));
+    }
+    else{
+        ui->inConsole->appendPlainText(tr("Drukarka niepołaczona"));
+    }
+}
+
 //setting layers displayed
 void MainWindow::setLayers(int layers){
     this->glWidget->setLayers(layers);
+}
+
+//setting fan speed
+void MainWindow::setFan(int percent){
+    float value=255*((float)percent/(float)100);
+    qDebug() << QString::number((int)value);
+    if(this->portObj->isReadable()){
+        sendLine("M106 S"+QString::number((int)value));
+    }
+    else{
+        ui->inConsole->appendPlainText(tr("Drukarka niepołaczona"));
+    }
 }
