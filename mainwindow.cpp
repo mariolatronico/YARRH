@@ -6,9 +6,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //setting string codecs
+    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+    QTextCodec::setCodecForTr(QTextCodec::codecForName ("UTF-8"));
     //gl widget
     this->glWidget = new GlWidget(ui->widget);
     ui->widget->layout()->addWidget(this->glWidget);
+    QThread *glThread = new QThread();
     //graph widget
     this->graphWidget = new GraphWidget(ui->tempGraphWidget);
     ui->tempGraphWidget->layout()->addWidget(this->graphWidget);
@@ -16,18 +20,31 @@ MainWindow::MainWindow(QWidget *parent) :
     this->controlWidget = new headControl(ui->headControlWidget);
     ui->headControlWidget->layout()->addWidget(this->controlWidget);
 
-    //test path for temperature graph
-    Path* temp1 = new Path();
-    temp1->addPoint(QPoint(0,0));
-    temp1->addPoint(QPoint(60,250));
-    this->graphWidget->addPath(temp1);
+    //setting up printer and its thread
+    this->printerObj = new Printer();
+    QThread *qthread = new QThread();
 
-    //port object
-    PortSettings settings = {BAUD9600, DATA_8, PAR_NONE, STOP_1, FLOW_OFF, 10};
-    this->portObj = new QextSerialPort("",settings,QextSerialPort::EventDriven);
+    //connecting ui to printer
+    connect(printerObj, SIGNAL(write_to_console(QString)), ui->inConsole, SLOT(appendPlainText(QString)), Qt::QueuedConnection);
+    connect(ui->fanSpinBox, SIGNAL(valueChanged(int)), printerObj, SLOT(setFan(int)), Qt::QueuedConnection);
+    //connecting move btns
+    connect(ui->homeX, SIGNAL(clicked()), printerObj, SLOT(homeX()), Qt::QueuedConnection);
+    connect(ui->homeY, SIGNAL(clicked()), printerObj, SLOT(homeY()), Qt::QueuedConnection);
+    connect(ui->homeZ, SIGNAL(clicked()), printerObj, SLOT(homeZ()), Qt::QueuedConnection);
+    connect(ui->homeAll, SIGNAL(clicked()), printerObj, SLOT(homeAll()), Qt::QueuedConnection);
+    //disable steppers
+    connect(ui->disableStpBtn, SIGNAL(clicked()), printerObj, SLOT(disableSteppers()), Qt::QueuedConnection);
+    //connect head move widget
+    connect(this->controlWidget, SIGNAL(clicked(QPoint)), this, SLOT(moveHead(QPoint)), Qt::QueuedConnection);
+    //connect monit temp checkbox
+    connect(ui->monitTempChck, SIGNAL(toggled(bool)), printerObj, SLOT(setMonitorTemperature(bool)),Qt::QueuedConnection);
+    //connect printer to temp widget
+    connect(printerObj, SIGNAL(currentTemp(double,double,double)), this, SLOT(drawTemp(double,double,double)));
+    connect(printerObj, SIGNAL(progress(int)), this, SLOT(updateProgress(int)));
 
-    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
-    QTextCodec::setCodecForTr(QTextCodec::codecForName ("UTF-8"));
+    printerObj->moveToThread(qthread);
+    qthread->start(QThread::HighestPriority);
+
 
     this->portEnum = new QextSerialEnumerator(this);
     this->portEnum->setUpNotifications();
@@ -41,27 +58,22 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->portEnum, SIGNAL(deviceDiscovered(const QextPortInfo &)), this, SLOT(deviceConnected(const QextPortInfo &)));
     connect(this->portEnum, SIGNAL(deviceDiscovered(const QextPortInfo &)), this, SLOT(deviceConnected(const QextPortInfo &)));
 
-
+    //connect btn
     connect(ui->connectBtn, SIGNAL(clicked()), this, SLOT(connectClicked()));
-    connect(ui->outLine, SIGNAL(returnPressed()), this, SLOT(writeToPort()));
-    connect(ui->printBtn,SIGNAL(toggled(bool)), this, SLOT(printObject(bool)));
-
+    //print btn
+    connect(ui->printBtn,SIGNAL(clicked()), this, SLOT(startPrint()));
+    //pause btn
+    connect(ui->pauseBtn, SIGNAL(toggled(bool)), this, SLOT(pausePrint(bool)));
     //connecting menu actions
     connect(ui->actionWczytaj, SIGNAL(triggered()), this, SLOT(loadFile()));
 
-    //connecying layer scroll bar
+    //connecting layer scroll bar
     connect(ui->layerScrollBar, SIGNAL(valueChanged(int)), this, SLOT(setLayers(int)));
+    //connecting travel moves checkbox
+    connect(ui->showTravelChkBox, SIGNAL(toggled(bool)),this->glWidget, SLOT(showTravel(bool)));
 
-    //connect head move widget
-    connect(this->controlWidget, SIGNAL(clicked(QPoint)), this, SLOT(moveHead(QPoint)));
-    //connect fan spin box
-    connect(ui->fanSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setFan(int)));
     ui->printBtn->setDisabled(true);
-    //connecting move btns
-    connect(ui->homeX, SIGNAL(clicked()), this, SLOT(homeX()));
-    connect(ui->homeY, SIGNAL(clicked()), this, SLOT(homeY()));
-    connect(ui->homeZ, SIGNAL(clicked()), this, SLOT(homeZ()));
-    connect(ui->homeAll, SIGNAL(clicked()), this, SLOT(homeAll()));
+    ui->pauseBtn->setDisabled(true);
     ui->baudCombo->addItem("1200", BAUD1200);
     ui->baudCombo->addItem("2400", BAUD2400);
     ui->baudCombo->addItem("4800", BAUD4800);
@@ -71,6 +83,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->baudCombo->addItem("57600", BAUD57600);
     ui->baudCombo->addItem("115200", BAUD115200);
     ui->baudCombo->setCurrentIndex(7);
+    qDebug() << "parent" << QThread::currentThreadId();
 }
 
 MainWindow::~MainWindow()
@@ -91,61 +104,8 @@ void MainWindow::deviceDisconnected(const QextPortInfo & info){
 
 //connecting to port
 void MainWindow::connectClicked(){
-    ui->inConsole->appendPlainText(tr("łącze..."));
-    if(ui->portCombo->currentText()!=""){
-        PortSettings settings = {BAUD9600, DATA_8, PAR_NONE, STOP_1, FLOW_OFF, 10};
-        this->portObj = new QextSerialPort(ui->portCombo->currentText(),settings,QextSerialPort::EventDriven);
-
-        this->portObj->setBaudRate((BaudRateType)ui->baudCombo->itemData(ui->baudCombo->currentIndex()).toInt());
-
-        if(this->portObj->open(QIODevice::ReadWrite)){
-            ui->inConsole->appendPlainText(tr("Drukarka połączona"));
-            connect(this->portObj, SIGNAL(readyRead()), this, SLOT(readFromPort()));
-        }
-        else{
-           ui->inConsole->appendPlainText(tr("Nie udało się połączyć"));
-        }
-    }
-}
-
-//writing to port
-void MainWindow::writeToPort(){
-    ui->inConsole->appendPlainText(ui->outLine->text());
-    qDebug() << portObj->write(ui->outLine->text().toUpper().toLatin1()+"\n\r");
-    ui->outLine->clear();
-}
-
-//sendind single line to port
-void MainWindow::sendLine(QString line){
-    portObj->write(line.toUpper().toLatin1()+"\n\r");
-}
-
-//reading from port
-void MainWindow::readFromPort(){
-    QString buffer;
-    buffer=portObj->readAll();
-    buffer.replace("\n","");
-    buffer.replace("\r","");
-    //ui->inConsole->appendPlainText(buffer);
-
-    //if we are printing then continue
-    if(buffer.contains("ok") && ui->printBtn->isChecked()){
-        if(this->gcodeLines.size()>0){
-            sendLine(this->gcodeLines.takeFirst());
-            ui->progressBar->setValue(ui->progressBar->maximum()-this->gcodeLines.size());
-            //calculating ETA
-            this->durationTime=QTime(0,0,0);
-            this->durationTime=this->durationTime.addSecs(startTime.secsTo(QTime::currentTime()));
-            qDebug() << this->durationTime;
-            float linesPerSec=(float)ui->progressBar->value()/(float)startTime.secsTo(QTime::currentTime());
-            qDebug() << (float)this->gcodeLines.size()/linesPerSec;
-            this->eta=QTime(0,0,0).addSecs((int)((float)this->gcodeLines.size()/linesPerSec));
-            ui->progressBar->setFormat(this->durationTime.toString("hh:mm:ss")+"/"+this->eta.toString("hh:mm:ss")+" %p%");
-        }
-        else{
-            ui->inConsole->appendPlainText(tr("Wydruk zakończony"));
-        }
-    }
+    //connecting to printer port and starting printer thread
+    QMetaObject::invokeMethod(printerObj,"connectPort",Qt::QueuedConnection,Q_ARG(QString, ui->portCombo->currentText()),Q_ARG(int,ui->baudCombo->itemData(ui->baudCombo->currentIndex()).toInt()));
 }
 
 //loading file
@@ -174,7 +134,7 @@ void MainWindow::loadFile(){
     progress.setMaximum(gcodesTemp.size());
 
     //parsing input file
-    qreal x=0,y=0,z=-1;
+    qreal x=0,y=0,z=-1, travel=0;
     GCodeObject* tempObject = new GCodeObject(this->glWidget);
     int layerCount=0;
     float prevZ=0;
@@ -200,14 +160,19 @@ void MainWindow::loadFile(){
         }
         if(temp.contains("Z")){
             z=(qreal)temp.mid(temp.indexOf("Z")+1,temp.indexOf(" ",temp.indexOf("Z"))-temp.indexOf("Z")).toFloat();
-            qDebug() << z;
             if(z>prevZ){
                 layerCount++;
             }
             prevZ=z;
         }
         if(temp.contains("X") || temp.contains("Y") || temp.contains("Z")){
-            tempObject->addVertex(x,y,z,layerCount);
+            if(temp.contains("E")){
+                travel=0;
+            }
+            else{
+                travel=1;
+            }
+            tempObject->addVertex(x,y,z,travel,layerCount);
         }
     }
     ui->layerScrollBar->setMaximum(layerCount);
@@ -222,71 +187,15 @@ void MainWindow::loadFile(){
 }
 
 //printing object
-void MainWindow::printObject(bool status){
-    if(ui->printBtn->isChecked()==true){
-        ui->printBtn->setText("Pauza");
+void MainWindow::startPrint(){
+    if(printerObj->isConnected()){
         this->startTime=QTime::currentTime();
         ui->inConsole->appendPlainText("Wydruk rozpoczęty o "+ this->startTime.toString("hh:mm:ss"));
-
-        if(this->portObj->isReadable()){
-            sendLine(gcodeLines.takeFirst());
-            ui->progressBar->setValue(ui->progressBar->maximum()-this->gcodeLines.size());
-            qDebug() << ui->progressBar->maximum()-this->gcodeLines.size();
-        }
-        else{
-            ui->inConsole->appendPlainText(tr("Drukarka niepołaczona"));
-        }
-    }
-    else{
-        ui->printBtn->setText(tr("Drukuj"));
-        ui->inConsole->appendPlainText(tr("Wydruk wstrzymany"));
-    }
-}
-
-
-//homing axis
-void MainWindow::homeX(){
-    if(this->portObj->isReadable()){
-        sendLine("G28 X0");
-    }
-    else{
-        ui->inConsole->appendPlainText(tr("Drukarka niepołaczona"));
-    }
-}
-
-void MainWindow::homeY(){
-    if(this->portObj->isReadable()){
-        sendLine("G28 Y0");
-    }
-    else{
-        ui->inConsole->appendPlainText(tr("Drukarka niepołaczona"));
-    }
-}
-void MainWindow::homeZ(){
-    if(this->portObj->isReadable()){
-        sendLine("G28 Z0");
-    }
-    else{
-        ui->inConsole->appendPlainText(tr("Drukarka niepołaczona"));
-    }
-}
-void MainWindow::homeAll(){
-    if(this->portObj->isReadable()){
-        sendLine("G28 X0 Y0 Z0");
-    }
-    else{
-        ui->inConsole->appendPlainText(tr("Drukarka niepołaczona"));
-    }
-}
-
-//moving head
-void MainWindow::moveHead(QPoint point){
-    if(this->portObj->isReadable()){
-        sendLine("G1 F"+QString::number(ui->speedSpinBox->value()));
-        sendLine("G1 X"+QString::number(point.x())+" Y"+QString::number(200-point.y()));
-    }
-    else{
-        ui->inConsole->appendPlainText(tr("Drukarka niepołaczona"));
+        QMetaObject::invokeMethod(printerObj,"loadToBuffer",Qt::QueuedConnection,Q_ARG(QStringList, this->gcodeLines));
+        ui->progressBar->setMaximum(this->gcodeLines.size());
+        this->gcodeLines.clear();
+        QMetaObject::invokeMethod(printerObj,"startPrint",Qt::QueuedConnection);
+        ui->pauseBtn->setEnabled(true);
     }
 }
 
@@ -295,14 +204,37 @@ void MainWindow::setLayers(int layers){
     this->glWidget->setLayers(layers);
 }
 
-//setting fan speed
-void MainWindow::setFan(int percent){
-    float value=255*((float)percent/(float)100);
-    qDebug() << QString::number((int)value);
-    if(this->portObj->isReadable()){
-        sendLine("M106 S"+QString::number((int)value));
+//slot to connect diffrent signals
+void MainWindow::moveHead(QPoint point){
+    QMetaObject::invokeMethod(printerObj,"moveHead",Qt::QueuedConnection,Q_ARG(QPoint, point),Q_ARG(int, ui->speedSpinBox->value()));
+}
+
+//pausing print
+
+void MainWindow::pausePrint(bool pause){
+    if(pause){
+        ui->pauseBtn->setText("Wznów");
+        QMetaObject::invokeMethod(printerObj,"stopPrint",Qt::QueuedConnection);
     }
     else{
-        ui->inConsole->appendPlainText(tr("Drukarka niepołaczona"));
+        ui->pauseBtn->setText("Pauza");
+        QMetaObject::invokeMethod(printerObj,"startPrint",Qt::QueuedConnection);
     }
+}
+
+//draw temp on graph
+
+void MainWindow::drawTemp(double t1, double t2, double hb){
+    this->graphWidget->addMeasurment(t1,t2,hb);
+}
+
+//update print progress
+void MainWindow::updateProgress(int progress){
+    ui->progressBar->setValue(ui->progressBar->maximum()-progress);
+    //calculating ETA
+    this->durationTime=QTime(0,0,0);
+    this->durationTime=this->durationTime.addSecs(startTime.secsTo(QTime::currentTime()));
+    float linesPerSec=(float)ui->progressBar->value()/(float)startTime.secsTo(QTime::currentTime());
+    this->eta=QTime(0,0,0).addSecs((int)((float)progress/linesPerSec));
+    ui->progressBar->setFormat(this->durationTime.toString("hh:mm:ss")+"/"+this->eta.toString("hh:mm:ss")+" %p%");
 }

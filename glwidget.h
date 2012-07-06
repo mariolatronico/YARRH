@@ -24,7 +24,7 @@ public slots:
     void setXRotation(int angle);
     void setYRotation(int angle);
     void setZRotation(int angle);
-
+    void showTravel(bool show);
 signals:
     void xRotationChanged(int angle);
     void yRotationChanged(int angle);
@@ -45,6 +45,7 @@ private:
     float yMove;
     float zoom;
     int layers;
+    bool show_travel;
     QPoint lastPos;
     QColor qtGreen;
     QColor qtPurple;

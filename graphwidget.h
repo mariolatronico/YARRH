@@ -29,10 +29,14 @@ class Path {
 
 class GraphWidget : public QWidget
 {
+private:
         QSet <Path*> paths;
         QPointF trans;
         double s_scale;
         QPoint prevPos;
+        Path *t1;
+        Path *t2;
+        Path *t3;
 protected:
         virtual void paintEvent(QPaintEvent*);
         virtual void mouseMoveEvent ( QMouseEvent *);
@@ -53,6 +57,7 @@ public:
         GraphWidget(QWidget *parent=NULL);
         QSize minimumSizeHint() const;
         QSize sizeHint() const;
+        void addMeasurment(double, double, double);
 };
 
 #endif // GRAPHWIDGET_H

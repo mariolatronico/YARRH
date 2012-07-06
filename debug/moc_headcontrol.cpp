@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'headcontrol.h'
 **
-** Created: Wed 27. Jun 23:37:47 2012
+** Created: Fri 6. Jul 22:06:08 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.2)
 **
 ** WARNING! All changes made in this file will be lost!

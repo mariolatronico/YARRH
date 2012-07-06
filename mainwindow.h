@@ -12,6 +12,7 @@
 #include "gcodeobject.h"
 #include "graphwidget.h"
 #include "headcontrol.h"
+#include "printer.h"
 
 namespace Ui {
     class MainWindow;
@@ -27,9 +28,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    //enumarator portow
+    //port enumarator
     QextSerialEnumerator *portEnum;
-    QextSerialPort *portObj;
     QString fileContent;
     QStringList gcodeLines;
     GlWidget *glWidget;
@@ -38,25 +38,21 @@ private:
     QTime startTime;
     QTime durationTime;
     QTime eta;
+    //Printer obj
+    Printer *printerObj;
 private slots:
     void deviceConnected(const QextPortInfo &);
     void deviceDisconnected(const QextPortInfo &);
     void connectClicked();
-    void writeToPort();
-    void sendLine(QString line);
-    void readFromPort();
     void loadFile();
-    void printObject(bool status);
-    //moving axis
-    void homeX();
-    void homeY();
-    void homeZ();
-    void homeAll();
+    void startPrint();
     //set layers
     void setLayers(int layers);
-    //void move head x/y
     void moveHead(QPoint point);
-    void setFan(int percent);
+    //pausing print
+    void pausePrint(bool);
+    void drawTemp(double, double,double);
+    void updateProgress(int);
 };
 
 #endif // MAINWINDOW_H

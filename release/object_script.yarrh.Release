@@ -1,13 +1,13 @@
 INPUT(
 ./release\main.o
 ./release\mainwindow.o
+./release\portthread.o
 ./release\glwidget.o
 ./release\gcodeobject.o
 ./release\layer.o
 ./release\graphwidget.o
 ./release\headcontrol.o
 ./release\headcontrolline.o
-./release\printer.o
 ./release\qextserialport.o
 ./release\qextserialenumerator.o
 ./release\qextserialport_win.o
@@ -15,8 +15,8 @@ INPUT(
 ./release\moc_mainwindow.o
 ./release\moc_glwidget.o
 ./release\moc_gcodeobject.o
+./release\moc_portthread.o
 ./release\moc_layer.o
 ./release\moc_headcontrol.o
 ./release\moc_headcontrolline.o
-./release\moc_printer.o
 );

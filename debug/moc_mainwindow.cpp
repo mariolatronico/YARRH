@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Thu 28. Jun 21:45:35 2012
+** Created: Sat 7. Jul 01:13:40 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.2)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      15,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -35,17 +35,12 @@ static const uint qt_meta_data_MainWindow[] = {
       42,   11,   11,   11, 0x08,
       75,   11,   11,   11, 0x08,
       92,   11,   11,   11, 0x08,
-     111,  106,   11,   11, 0x08,
-     129,   11,   11,   11, 0x08,
-     144,   11,   11,   11, 0x08,
-     162,  155,   11,   11, 0x08,
-     180,   11,   11,   11, 0x08,
-     188,   11,   11,   11, 0x08,
-     196,   11,   11,   11, 0x08,
-     204,   11,   11,   11, 0x08,
-     221,  214,   11,   11, 0x08,
-     242,  236,   11,   11, 0x08,
-     267,  259,   11,   11, 0x08,
+     103,   11,   11,   11, 0x08,
+     123,  116,   11,   11, 0x08,
+     144,  138,   11,   11, 0x08,
+     161,   11,   11,   11, 0x08,
+     181,  178,   11,   11, 0x08,
+     212,   11,   11,   11, 0x08,
 
        0        // eod
 };
@@ -53,12 +48,11 @@ static const uint qt_meta_data_MainWindow[] = {
 static const char qt_meta_stringdata_MainWindow[] = {
     "MainWindow\0\0deviceConnected(QextPortInfo)\0"
     "deviceDisconnected(QextPortInfo)\0"
-    "connectClicked()\0writeToPort()\0line\0"
-    "sendLine(QString)\0readFromPort()\0"
-    "loadFile()\0status\0printObject(bool)\0"
-    "homeX()\0homeY()\0homeZ()\0homeAll()\0"
+    "connectClicked()\0loadFile()\0startPrint()\0"
     "layers\0setLayers(int)\0point\0"
-    "moveHead(QPoint)\0percent\0setFan(int)\0"
+    "moveHead(QPoint)\0pausePrint(bool)\0,,\0"
+    "drawTemp(double,double,double)\0"
+    "updateProgress(int)\0"
 };
 
 void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -70,18 +64,13 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 0: _t->deviceConnected((*reinterpret_cast< const QextPortInfo(*)>(_a[1]))); break;
         case 1: _t->deviceDisconnected((*reinterpret_cast< const QextPortInfo(*)>(_a[1]))); break;
         case 2: _t->connectClicked(); break;
-        case 3: _t->writeToPort(); break;
-        case 4: _t->sendLine((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 5: _t->readFromPort(); break;
-        case 6: _t->loadFile(); break;
-        case 7: _t->printObject((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 8: _t->homeX(); break;
-        case 9: _t->homeY(); break;
-        case 10: _t->homeZ(); break;
-        case 11: _t->homeAll(); break;
-        case 12: _t->setLayers((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 13: _t->moveHead((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
-        case 14: _t->setFan((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 3: _t->loadFile(); break;
+        case 4: _t->startPrint(); break;
+        case 5: _t->setLayers((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 6: _t->moveHead((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
+        case 7: _t->pausePrint((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 8: _t->drawTemp((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< double(*)>(_a[2])),(*reinterpret_cast< double(*)>(_a[3]))); break;
+        case 9: _t->updateProgress((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -119,9 +108,9 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 15)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 10;
     }
     return _id;
 }

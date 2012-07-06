@@ -12,26 +12,30 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    portthread.cpp \
     glwidget.cpp \
     gcodeobject.cpp \
     layer.cpp \
     graphwidget.cpp \
     headcontrol.cpp \
-    headcontrolline.cpp
+    headcontrolline.cpp \
+    printer.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
     gcodeobject.h \
-    portthread.h \
     layer.h \
     graphwidget.h \
     headcontrol.h \
-    headcontrolline.h
+    headcontrolline.h \
+    printer.h
 
 FORMS    += mainwindow.ui
 
 include(qextserialport/qextserialport.pri)
+
+
+
+
 
 
 

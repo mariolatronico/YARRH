@@ -22,6 +22,7 @@ GlWidget::GlWidget(QWidget *parent)
     xMove = 0;
     yMove = 0;
     layers = 5000;
+    show_travel=false;
     qtGreen = QColor::fromCmykF(0.40, 0.0, 1.0, 0.0);
     qtPurple = QColor::fromCmykF(0.39, 0.39, 0.0, 0.0);
 }
@@ -123,11 +124,11 @@ void GlWidget::setXRotation(int angle)
        glRotatef(yRot / 16.0, 0.0, 1.0, 0.0);
        glRotatef(zRot / 16.0, 0.0, 0.0, 1.0);
        glTranslatef(-1.0+xMove, -1.0+yMove, 0.0);
+       for(int i=0; i<this->objects.size(); i++){
+           this->objects.at(i)->draw(0.01,this->layers, show_travel);
+       }
        drawAxis();
        drawGrid();
-       for(int i=0; i<this->objects.size(); i++){
-           this->objects.at(i)->draw(0.01,this->layers);
-       }
    }
 //mouse press event
   void GlWidget::mousePressEvent(QMouseEvent *event)
@@ -361,5 +362,10 @@ void GlWidget::setXRotation(int angle)
 
   void GlWidget::setLayers(int layers){
       this->layers=layers;
+      updateGL();
+  }
+
+  void GlWidget::showTravel(bool show){
+      this->show_travel=show;
       updateGL();
   }

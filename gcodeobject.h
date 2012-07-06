@@ -15,14 +15,14 @@ class GCodeObject : public QObject
 public:
     GCodeObject(QObject *parent);
     ~GCodeObject();
-    void addVertex(qreal xpos, qreal ypos, qreal zpos, int layer);
-    void draw(float scale, int layers);
+    void addVertex(qreal xpos, qreal ypos, qreal zpos, qreal travel, int layer);
+    void draw(float scale, int layers, bool show_travel);
     void setLayerHeight(float layerHeight);
     float getLayerHeight();
 private:
     QList<Layer*> layerList;
     QMap<int, QVector4D> cylinderList;
-    void renderCylinder(float x1, float y1, float z1, float x2,float y2, float z2, float radius,int subdivisions, bool lastlayer);
+    void renderCylinder(float x1, float y1, float z1, float x2,float y2, float z2, float radius,int subdivisions, bool lastlayer, qreal travel);
     float layerHeight;
     int currentLayer;
 };
