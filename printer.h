@@ -9,6 +9,7 @@
 #include <QTextCodec>
 #include <QThread>
 #include <QTimer>
+#include <QVector3D>
 #include "qextserialport.h"
 #include "qextserialenumerator.h"
 
@@ -20,10 +21,10 @@ class Printer : public QObject
 private:
      QextSerialPort *portObj;
      QStringList gCodeBuffer;
-     int writeToPort(QString command);
      bool isPrinting;
      bool monitorTemperature;
      QTimer *temperatureTimer;
+     QVector3D curr_pos;
 public:
     explicit Printer(QObject *parent = 0);
     bool isConnected();
@@ -31,8 +32,12 @@ signals:
     void write_to_console(QString);
     void currentTemp(double,double,double);
     void progress(int);
+    void currentPosition(QVector3D);
 public slots:
+    //read
     void readFromPort();
+    //write
+    int writeToPort(QString command);
     //connecting to port
     bool connectPort(QString port, int baud);
     //slots for printer control
@@ -41,17 +46,21 @@ public slots:
     void homeY();
     void homeZ();
     void homeAll();
-    //void move head x/y
+    //move head x/y
     void moveHead(QPoint point, int speed);
+    //move head Z
+    void moveHeadZ(double z, int speed);
     //setting fan speed
     void setFan(int percent);
     //disable stepper
     void disableSteppers();
-    void loadToBuffer(QStringList buffer);
+    void loadToBuffer(QStringList buffer, bool clear);
     void startPrint();
     void stopPrint();
     void setMonitorTemperature(bool);
     void getTemperature();
+    void setTemp1(int);
+    void setTemp3(int);
 };
 
 #endif // PRINTER_H
