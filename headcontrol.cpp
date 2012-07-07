@@ -17,6 +17,8 @@ headControl::headControl(QWidget* parent)
             for(int y = 0; y <= 200; y = y + 10) {
                 HeadControlLine* controlPoint = new HeadControlLine(QPoint(x,y));
                 connect(controlPoint, SIGNAL(clicked(QPoint)), this, SIGNAL(clicked(QPoint)));
+                connect(controlPoint, SIGNAL(isHovered(QPoint)), this, SIGNAL(hovered(QPoint)));
+
                 scene->addItem(controlPoint);
             }
         }

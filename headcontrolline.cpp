@@ -29,6 +29,7 @@ void HeadControlLine::mousePressEvent(QGraphicsSceneMouseEvent *event){
 
 void HeadControlLine::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
     hovered=true;
+    emit isHovered(p1);
     this->update(this->boundingRect());
 }
 

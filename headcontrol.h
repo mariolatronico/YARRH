@@ -17,6 +17,7 @@ private:
     QGraphicsScene* scene;
 signals:
     void clicked(QPoint);
+    void hovered(QPoint);
 };
 
 #endif // HEADCONTROL_H

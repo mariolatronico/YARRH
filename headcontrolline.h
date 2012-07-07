@@ -22,6 +22,7 @@ protected:
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
 signals:
     void clicked(QPoint);
+    void isHovered(QPoint);
 public slots:
     
 };
