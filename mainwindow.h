@@ -13,6 +13,7 @@
 #include "graphwidget.h"
 #include "headcontrol.h"
 #include "printer.h"
+#include "aboutwindow.h"
 
 namespace Ui {
     class MainWindow;
@@ -25,7 +26,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+protected:
+    void closeEvent(QCloseEvent *e);
 private:
     Ui::MainWindow *ui;
     //port enumarator
@@ -38,8 +40,13 @@ private:
     QTime startTime;
     QTime durationTime;
     QTime eta;
+    QString lastOpendDir;
     //Printer obj
     Printer *printerObj;
+    //about window
+    AboutWindow *aboutWindow;
+    void saveSettings();
+    void restoreSettings();
 private slots:
     void deviceConnected(const QextPortInfo &);
     void deviceDisconnected(const QextPortInfo &);
@@ -53,6 +60,17 @@ private slots:
     void pausePrint(bool);
     void drawTemp(double, double,double);
     void updateProgress(int);
+    //setting temperatures
+    void setTemp1(bool);
+    void setTemp2(bool);
+    void setTemp3(bool);
+
+    void moveZ(int);
+    void updateZ(int);
+    void on_actionO_Programie_triggered();
+    void updateHeadGoToXY(QPoint);
+    void updateHeadPosition(QVector3D);
+    void on_outLine_returnPressed();
 };
 
 #endif // MAINWINDOW_H
