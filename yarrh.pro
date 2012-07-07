@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     graphwidget.cpp \
     headcontrol.cpp \
     headcontrolline.cpp \
-    printer.cpp
+    printer.cpp \
+    aboutwindow.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -27,11 +28,19 @@ HEADERS  += mainwindow.h \
     graphwidget.h \
     headcontrol.h \
     headcontrolline.h \
-    printer.h
+    printer.h \
+    aboutwindow.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    aboutwindow.ui
 
 include(qextserialport/qextserialport.pri)
+
+RESOURCES += \
+    resource.qrc
+
+TRANSLATIONS = yarrh_pl.ts \
+               yarrh_en.ts
 
 
 

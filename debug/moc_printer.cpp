@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'printer.h'
 **
-** Created: Sat 7. Jul 01:08:01 2012
+** Created: Sat 7. Jul 02:56:09 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.2)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_Printer[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      17,   14, // methods
+      19,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -50,6 +50,8 @@ static const uint qt_meta_data_Printer[] = {
      292,    8,    8,    8, 0x0a,
      304,    8,    8,    8, 0x0a,
      332,    8,    8,    8, 0x0a,
+     349,    8,    8,    8, 0x0a,
+     363,    8,    8,    8, 0x0a,
 
        0        // eod
 };
@@ -65,7 +67,8 @@ static const char qt_meta_stringdata_Printer[] = {
     "buffer\0loadToBuffer(QStringList)\0"
     "startPrint()\0stopPrint()\0"
     "setMonitorTemperature(bool)\0"
-    "getTemperature()\0"
+    "getTemperature()\0setTemp1(int)\0"
+    "setTemp3(int)\0"
 };
 
 void Printer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -92,6 +95,8 @@ void Printer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 14: _t->stopPrint(); break;
         case 15: _t->setMonitorTemperature((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 16: _t->getTemperature(); break;
+        case 17: _t->setTemp1((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 18: _t->setTemp3((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -129,9 +134,9 @@ int Printer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 17)
+        if (_id < 19)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 17;
+        _id -= 19;
     }
     return _id;
 }

@@ -2,7 +2,6 @@
 #include <QtOpenGL>
 #include <GL/glu.h>
 #include <GL/gl.h>
-#include <GL/glext.h>
 
 GCodeObject::GCodeObject(QObject *parent)
 {
@@ -34,11 +33,17 @@ void GCodeObject::draw(float scale, int layers, bool show_travel){
 
 void GCodeObject::addVertex(qreal xpos, qreal ypos, qreal zpos, qreal travel, int layer){
     QVector4D vector(xpos,ypos,zpos,travel);
+
+    if(this->layerList.size()==0){
+       currentLayer=0;
+       this->layerList.append(new Layer(layer,this));
+    }
+
     if(layer!=currentLayer){
         currentLayer=layer;
         this->layerList.append(new Layer(layer,this));
     }
-    this->layerList.at(layer-1)->vertexes.append(vector);
+    this->layerList.last()->vertexes.append(vector);
 }
 
 void GCodeObject::renderCylinder(float x1, float y1, float z1, float x2,float y2, float z2, float radius,int subdivisions, bool lastlayer, qreal travel)

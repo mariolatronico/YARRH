@@ -8,6 +8,7 @@ INPUT(
 ./debug\headcontrol.o
 ./debug\headcontrolline.o
 ./debug\printer.o
+./debug\aboutwindow.o
 ./debug\qextserialport.o
 ./debug\qextserialenumerator.o
 ./debug\qextserialport_win.o
@@ -19,4 +20,6 @@ INPUT(
 ./debug\moc_headcontrol.o
 ./debug\moc_headcontrolline.o
 ./debug\moc_printer.o
+./debug\moc_aboutwindow.o
+./debug\qrc_resource.o
 );
