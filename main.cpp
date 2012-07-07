@@ -4,6 +4,12 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    QString locale = QLocale::system().name();
+
+    QTranslator translator;
+    translator.load(QString("translations/yarrh_") + locale);
+    a.installTranslator(&translator);
+
     MainWindow w;
     w.show();
     if (!((QGLFormat::openGLVersionFlags() & QGLFormat::OpenGL_Version_2_0) ||
