@@ -10,7 +10,7 @@ Path::Path(const QVector<double> &x, const QVector<double> &y)
         }
 }
 
-Path::Path() : s_color(Qt::red)
+Path::Path() : s_color(Qt::red), s_target(0)
 {
 }
 
@@ -19,11 +19,13 @@ GraphWidget::GraphWidget(QWidget *parent/*=NULL*/) : QWidget(parent), trans(0, 0
         setFocusPolicy(Qt::StrongFocus);
         t1 = new Path();
         t1->addPoint(QPointF(0,0));
+        t1->setColor(QColor(255,7,00));
         t2 = new Path();
         t2->addPoint(QPointF(0,0));
+        t2->setColor(QColor(255,250,0));
         t3 = new Path();
         t3->addPoint(QPointF(0,0));
-
+        t3->setColor(QColor(0,209,14));
 }
 
 bool GraphWidget::addPath(Path* p)
@@ -70,6 +72,14 @@ void GraphWidget::paintEvent(QPaintEvent *event)
 
         p.setRenderHint(QPainter::Antialiasing, true);
         //draw t1 //could make some loop but mehh...
+        p.setPen(QColor(166,4,0));
+        p.drawLine( 1, yToCanvY(t1->target()), this->width(), yToCanvY(t1->target()) );
+
+        p.setPen(QColor(166,163,0));
+        p.drawLine( 1, yToCanvY(t2->target()), this->width(), yToCanvY(t2->target()) );
+
+        p.setPen(QColor(0,130,9));
+        p.drawLine( 1, yToCanvY(t3->target()), this->width(), yToCanvY(t3->target()) );
 
         if (t1->size()>0){
             p.setPen(t1->color());
@@ -122,5 +132,14 @@ void GraphWidget::addMeasurment(double temp1, double temp2, double temphb){
     t1->addPoint(QPointF(t1->size(),temp1));
     t2->addPoint(QPointF(t2->size(),temp2));
     t3->addPoint(QPointF(t3->size(),temphb));
+    repaint();
+}
+void GraphWidget::setTargets(double temp1, double temp2, double temp3){
+    if(temp1>=0)
+        t1->setTarget(temp1);
+    if(temp2>=0)
+        t2->setTarget(temp2);
+    if(temp3>=0)
+        t3->setTarget(temp3);
     repaint();
 }

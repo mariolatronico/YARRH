@@ -14,9 +14,12 @@
 class Path {
                 QVector < QPointF > v_data;
                 QColor s_color;
+                double s_target;
         public:
                 inline QColor color() { return s_color; }
+                inline double target() {return s_target; }
                 inline void setColor(QColor clr) { s_color = clr; }
+                inline void setTarget(double trg) { s_target = trg; }
                 inline QVector < QPointF > data() { return v_data; }
                 inline QPointF& operator[] (int i) { return v_data[i]; }
                 inline void addPoint(const QPointF& pnt) { v_data.append(pnt); }
@@ -58,6 +61,7 @@ public:
         QSize minimumSizeHint() const;
         QSize sizeHint() const;
         void addMeasurment(double, double, double);
+        void setTargets(double, double, double);
 };
 
 #endif // GRAPHWIDGET_H
