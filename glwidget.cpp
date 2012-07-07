@@ -2,7 +2,6 @@
 #include <QtOpenGL>
 #include <GL/glu.h>
 #include <GL/gl.h>
-#include <GL/glext.h>
 #include <math.h>
 #include "glwidget.h"
 
@@ -358,6 +357,10 @@ void GlWidget::setXRotation(int angle)
 
   void GlWidget::addObject(GCodeObject *object){
       this->objects.append(object);
+  }
+  //clearing object list... not sure if deletes them also, will check later
+  void GlWidget::clearObjects(){
+      this->objects.clear();
   }
 
   void GlWidget::setLayers(int layers){

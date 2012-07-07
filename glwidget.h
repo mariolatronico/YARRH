@@ -19,6 +19,7 @@ public:
     QSize minimumSizeHint() const;
     QSize sizeHint() const;
     void addObject(GCodeObject* object);
+    void clearObjects();
     void setLayers(int layers);
 public slots:
     void setXRotation(int angle);
