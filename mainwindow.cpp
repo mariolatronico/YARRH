@@ -419,6 +419,8 @@ void MainWindow::on_outLine_returnPressed()
     ui->outLine->clear();
 }
 
+
+//hiding console
 void MainWindow::on_groupBox_2_toggled(bool arg1)
 {
     if(!arg1){
