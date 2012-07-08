@@ -25,6 +25,8 @@ private:
      bool monitorTemperature;
      QTimer *temperatureTimer;
      QVector3D curr_pos;
+     QString inBuffer;
+     QStringList responseBuffer;
 public:
     explicit Printer(QObject *parent = 0);
     bool isConnected();

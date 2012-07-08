@@ -12,6 +12,8 @@ Printer::Printer(QObject *parent)
     curr_pos.setX(0);
     curr_pos.setY(0);
     curr_pos.setZ(0);
+    inBuffer.clear();
+    responseBuffer.clear();
 }
 
 bool Printer::isConnected(){
@@ -57,7 +59,7 @@ int Printer::writeToPort(QString command){
     emit currentPosition(curr_pos);
 
     if(this->isConnected()){
-        return portObj->write(command.toUpper().toLatin1()+"\n\r");
+        return portObj->write(command.toUpper().toLatin1()+"\n");
     }
     else{
         write_to_console(tr("Printer offline"));
@@ -67,23 +69,32 @@ int Printer::writeToPort(QString command){
 
 //reading from port
 void Printer::readFromPort(){
-    QString buffer;
-    buffer=portObj->readAll();
-    buffer.replace("\n","");
-    buffer.replace("\r","");
+    //add data to buffer
+    inBuffer.append(portObj->readAll());
 
-    //if we are printing then continue
-    if(buffer.contains("ok")){
-        if(buffer.contains("T:") && buffer.contains("B:")){
-            emit currentTemp(buffer.mid(buffer.indexOf("T:")+2,buffer.indexOf(".",buffer.indexOf("T:"))-buffer.indexOf("T:")+2).toDouble(),0.0,buffer.mid(buffer.indexOf("B:")+2,buffer.indexOf(".",buffer.indexOf("B:"))-buffer.indexOf("B:")+2).toDouble());
+    //send full responces to fifo
+    responseBuffer.append(inBuffer.left(inBuffer.lastIndexOf("\n")+1).split("\n",QString::SkipEmptyParts));
+
+    //rlear buffer
+
+    inBuffer.remove(0,inBuffer.lastIndexOf("\n")+1);
+    //proccess all responces from fifo
+    while(responseBuffer.size()>0){
+        QString lastResponse=responseBuffer.takeFirst();
+        //if we are printing then continue
+        if(lastResponse.contains("ok")){
+            if(lastResponse.contains("T:") && lastResponse.contains("B:")){
+                emit currentTemp(lastResponse.mid(lastResponse.indexOf("T:")+2,lastResponse.indexOf(".",lastResponse.indexOf("T:"))-lastResponse.indexOf("T:")+2).toDouble(),0.0,lastResponse.mid(lastResponse.indexOf("B:")+2,lastResponse.indexOf(".",lastResponse.indexOf("B:"))-lastResponse.indexOf("B:")+2).toDouble());
+            }
+            if(this->gCodeBuffer.size()>0 && this->isPrinting){
+                writeToPort(this->gCodeBuffer.takeFirst());
+                qDebug() << this->gCodeBuffer.size();
+                emit progress(this->gCodeBuffer.size());
+            }
         }
-        if(this->gCodeBuffer.size()>0 && this->isPrinting){
-            writeToPort(this->gCodeBuffer.takeFirst());
-            emit progress(this->gCodeBuffer.size());
+        else{
+            write_to_console(lastResponse);
         }
-    }
-    else{
-        write_to_console("Error: "+buffer);
     }
 }
 
