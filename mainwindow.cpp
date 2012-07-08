@@ -72,7 +72,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionWczytaj, SIGNAL(triggered()), this, SLOT(loadFile()));
     //connect temperature buttons
     connect(ui->t1Btn, SIGNAL(toggled(bool)), this, SLOT(setTemp1(bool)));
-    connect(ui->t2Btn, SIGNAL(toggled(bool)), this, SLOT(setTemp2(bool)));
     connect(ui->hbBtn, SIGNAL(toggled(bool)), this, SLOT(setTemp3(bool)));
     //connecting layer scroll bar
     connect(ui->layerScrollBar, SIGNAL(valueChanged(int)), this, SLOT(setLayers(int)));
@@ -94,8 +93,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->baudCombo->addItem("38400", BAUD38400);
     ui->baudCombo->addItem("57600", BAUD57600);
     ui->baudCombo->addItem("115200", BAUD115200);
-    ui->baudCombo->setCurrentIndex(7);
-    ui->widget_10->hide();
+    ui->baudCombo->addItem("250000", BAUD250000);
+    ui->baudCombo->setCurrentIndex(8);
     //restore user settings
     restoreSettings();
 }
@@ -291,14 +290,7 @@ void MainWindow::setTemp1(bool on){
 }
 
 void MainWindow::setTemp2(bool on){
-    if(on){
-        ui->t2Btn->setText("Off");
-        this->graphWidget->setTargets(-1,200,-1);
-    }
-    else{
-        ui->t2Btn->setText("On");
-        this->graphWidget->setTargets(-1,0,-1);
-    }
+
 }
 
 void MainWindow::setTemp3(bool on){
@@ -363,6 +355,7 @@ void MainWindow::saveSettings(){
     settings.setValue("Zspeed",ui->speedZSpinBox->value());
     settings.setValue("mainWindowPos", this->pos());
     settings.setValue("mainWindowSize",this->size());
+    settings.setValue("baudRateSelected", ui->baudCombo->currentIndex());
     //write temperature setting
     settings.beginWriteArray("temp1Values");
     for(int i=0; i<ui->t1Combo->count(); i++){
@@ -390,7 +383,7 @@ void MainWindow::restoreSettings(){
     ui->speedZSpinBox->setValue(settings.value("Zspeed").toInt());
     this->move(settings.value("mainWindowPos").toPoint());
     this->resize(settings.value("mainWindowSize").toSize());
-
+    ui->baudCombo->setCurrentIndex(settings.value("baudRateSelected").toInt());
     //restore temp1 combo
     int size = settings.beginReadArray("temp1Values");
     int currentIndex=0;
@@ -421,5 +414,6 @@ void MainWindow::restoreSettings(){
 //writing command to console
 void MainWindow::on_outLine_returnPressed()
 {
-
+    QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, ui->outLine->text()));
+    ui->outLine->clear();
 }
