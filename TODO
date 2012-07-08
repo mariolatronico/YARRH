@@ -1,0 +1,8 @@
+- a good looking icon. ;)
+- switch between mm/min and mm/s. mm/min is not very common for me.
+- a button to disconnect. This is sometimes the only way to quickly stop the printer. Disable all motors does not work unless the print buffer is empty.
+- have a way to "pause at the next layer".
+- raise the speed! Even on my big gaming computer - it is really, really slow. ;) You might check if there are ways to use parallel computing or leverage the power of the GPU.
+- The 3D-view is cut at the borders when the YARRH-Window is too wide (tested on my big screen). It seems the 3D-view is at a fixed size.
+- Add buttons to reset the view or to set it to a specific view (right, front, top...).
+- repeair temp measurment in sprinter firmware
