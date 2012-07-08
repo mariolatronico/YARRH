@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "YARRH"
-#define MyAppVersion "0.0.2"
+#define MyAppVersion "0.1.0"
 #define MyAppPublisher "3d-printers"
 #define MyAppURL "http://www.3d-printers.pl/"
 #define MyAppExeName "yarrh.exe"
@@ -37,6 +37,9 @@ Source: "C:\Documents and Settings\abdel\yarrh\bin\windows\yarrh.exe"; DestDir: 
 Source: "C:\Documents and Settings\abdel\yarrh\bin\windows\QtCore4.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Documents and Settings\abdel\yarrh\bin\windows\QtGui4.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Documents and Settings\abdel\yarrh\bin\windows\QtOpenGL4.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Documents and Settings\abdel\yarrh\bin\windows\yarrh.intermediate.manifest"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Documents and Settings\abdel\yarrh\bin\windows\translations\yarrh_en.qm"; DestDir: "{app}\translations"; Flags: ignoreversion
+Source: "C:\Documents and Settings\abdel\yarrh\bin\windows\translations\yarrh_pl.qm"; DestDir: "{app}\translations"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
