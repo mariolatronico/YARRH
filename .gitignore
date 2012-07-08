@@ -44,3 +44,9 @@ Thumbs.db
 release/
 debug/
 bin/
+
+# makefiles #
+######################
+Makefile*
+object_script*
+*.user

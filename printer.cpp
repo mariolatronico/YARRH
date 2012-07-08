@@ -75,9 +75,9 @@ void Printer::readFromPort(){
     //send full responces to fifo
     responseBuffer.append(inBuffer.left(inBuffer.lastIndexOf("\n")+1).split("\n",QString::SkipEmptyParts));
 
-    //rlear buffer
-
+    //clear buffer
     inBuffer.remove(0,inBuffer.lastIndexOf("\n")+1);
+
     //proccess all responces from fifo
     while(responseBuffer.size()>0){
         QString lastResponse=responseBuffer.takeFirst();
