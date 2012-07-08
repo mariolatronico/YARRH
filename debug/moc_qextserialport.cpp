@@ -1,8 +1,8 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'qextserialport.h'
 **
-** Created: Fri 6. Jul 22:05:52 2012
-**      by: The Qt Meta Object Compiler version 63 (Qt 4.8.2)
+** Created: Sun 8. Jul 14:02:56 2012
+**      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -10,8 +10,8 @@
 #include "../qextserialport/qextserialport.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'qextserialport.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 63
-#error "This file was generated using the moc from 4.8.2. It"
+#elif Q_MOC_OUTPUT_REVISION != 62
+#error "This file was generated using the moc from 4.7.4. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,7 +20,7 @@ QT_BEGIN_MOC_NAMESPACE
 static const uint qt_meta_data_QextSerialPort[] = {
 
  // content:
-       6,       // revision
+       5,       // revision
        0,       // classname
        0,    0, // classinfo
       15,   14, // methods
@@ -77,39 +77,9 @@ static const char qt_meta_stringdata_QextSerialPort[] = {
     "queryMode\0Polling\0EventDriven\0"
 };
 
-void QextSerialPort::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
-{
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        Q_ASSERT(staticMetaObject.cast(_o));
-        QextSerialPort *_t = static_cast<QextSerialPort *>(_o);
-        switch (_id) {
-        case 0: _t->dsrChanged((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 1: _t->setPortName((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 2: _t->setQueryMode((*reinterpret_cast< QueryMode(*)>(_a[1]))); break;
-        case 3: _t->setBaudRate((*reinterpret_cast< BaudRateType(*)>(_a[1]))); break;
-        case 4: _t->setDataBits((*reinterpret_cast< DataBitsType(*)>(_a[1]))); break;
-        case 5: _t->setParity((*reinterpret_cast< ParityType(*)>(_a[1]))); break;
-        case 6: _t->setStopBits((*reinterpret_cast< StopBitsType(*)>(_a[1]))); break;
-        case 7: _t->setFlowControl((*reinterpret_cast< FlowType(*)>(_a[1]))); break;
-        case 8: _t->setTimeout((*reinterpret_cast< long(*)>(_a[1]))); break;
-        case 9: _t->setDtr((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 10: _t->setDtr(); break;
-        case 11: _t->setRts((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 12: _t->setRts(); break;
-        case 13: _t->d_func()->_q_onWinEvent((*reinterpret_cast< HANDLE(*)>(_a[1]))); break;
-        case 14: _t->d_func()->_q_canRead(); break;
-        default: ;
-        }
-    }
-}
-
-const QMetaObjectExtraData QextSerialPort::staticMetaObjectExtraData = {
-    0,  qt_static_metacall 
-};
-
 const QMetaObject QextSerialPort::staticMetaObject = {
     { &QIODevice::staticMetaObject, qt_meta_stringdata_QextSerialPort,
-      qt_meta_data_QextSerialPort, &staticMetaObjectExtraData }
+      qt_meta_data_QextSerialPort, 0 }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
@@ -135,8 +105,24 @@ int QextSerialPort::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 15)
-            qt_static_metacall(this, _c, _id, _a);
+        switch (_id) {
+        case 0: dsrChanged((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 1: setPortName((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 2: setQueryMode((*reinterpret_cast< QueryMode(*)>(_a[1]))); break;
+        case 3: setBaudRate((*reinterpret_cast< BaudRateType(*)>(_a[1]))); break;
+        case 4: setDataBits((*reinterpret_cast< DataBitsType(*)>(_a[1]))); break;
+        case 5: setParity((*reinterpret_cast< ParityType(*)>(_a[1]))); break;
+        case 6: setStopBits((*reinterpret_cast< StopBitsType(*)>(_a[1]))); break;
+        case 7: setFlowControl((*reinterpret_cast< FlowType(*)>(_a[1]))); break;
+        case 8: setTimeout((*reinterpret_cast< long(*)>(_a[1]))); break;
+        case 9: setDtr((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 10: setDtr(); break;
+        case 11: setRts((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 12: setRts(); break;
+        case 13: d_func()->_q_onWinEvent((*reinterpret_cast< HANDLE(*)>(_a[1]))); break;
+        case 14: d_func()->_q_canRead(); break;
+        default: ;
+        }
         _id -= 15;
     }
 #ifndef QT_NO_PROPERTIES

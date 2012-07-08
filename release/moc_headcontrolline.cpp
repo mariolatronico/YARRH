@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'headcontrolline.h'
 **
-** Created: Sat 7. Jul 18:59:00 2012
+** Created: Sun 8. Jul 12:21:33 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!

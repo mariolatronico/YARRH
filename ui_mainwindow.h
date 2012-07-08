@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sun 8. Jul 03:13:27 2012
+** Created: Sun 8. Jul 15:16:20 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -32,7 +32,6 @@
 #include <QtGui/QScrollBar>
 #include <QtGui/QSlider>
 #include <QtGui/QSpinBox>
-#include <QtGui/QStatusBar>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
 
@@ -46,6 +45,20 @@ public:
     QWidget *centralWidget;
     QGridLayout *gridLayout_4;
     QProgressBar *progressBar;
+    QGroupBox *groupBox_6;
+    QGridLayout *gridLayout_5;
+    QWidget *widget;
+    QGridLayout *gridLayout_7;
+    QScrollBar *layerScrollBar;
+    QWidget *widget_5;
+    QHBoxLayout *horizontalLayout_3;
+    QCheckBox *showTravelChkBox;
+    QLabel *label_7;
+    QLabel *currentLayer;
+    QGroupBox *groupBox_2;
+    QGridLayout *gridLayout;
+    QPlainTextEdit *inConsole;
+    QLineEdit *outLine;
     QWidget *widget_2;
     QVBoxLayout *verticalLayout;
     QGroupBox *groupBox;
@@ -63,8 +76,6 @@ public:
     QLabel *fileNameLbl;
     QLabel *label_4;
     QLabel *filamentLbl;
-    QLabel *label_15;
-    QLabel *layersLbl;
     QWidget *widget_7;
     QHBoxLayout *horizontalLayout_4;
     QPushButton *printBtn;
@@ -119,28 +130,15 @@ public:
     QSlider *zSlider;
     QWidget *headControlWidget;
     QGridLayout *gridLayout_8;
-    QGroupBox *groupBox_6;
-    QGridLayout *gridLayout_5;
-    QWidget *widget;
-    QGridLayout *gridLayout_7;
-    QScrollBar *layerScrollBar;
-    QWidget *widget_5;
-    QHBoxLayout *horizontalLayout_3;
-    QCheckBox *showTravelChkBox;
-    QGroupBox *groupBox_2;
-    QGridLayout *gridLayout;
-    QPlainTextEdit *inConsole;
-    QLineEdit *outLine;
     QMenuBar *menuBar;
     QMenu *menuPlik;
     QMenu *menuO_Programie;
-    QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(729, 586);
+        MainWindow->resize(838, 542);
         MainWindow->setLayoutDirection(Qt::LeftToRight);
         MainWindow->setUnifiedTitleAndToolBarOnMac(false);
         actionWczytaj = new QAction(MainWindow);
@@ -162,14 +160,101 @@ public:
 
         gridLayout_4->addWidget(progressBar, 5, 0, 1, 4);
 
-        widget_2 = new QWidget(centralWidget);
-        widget_2->setObjectName(QString::fromUtf8("widget_2"));
+        groupBox_6 = new QGroupBox(centralWidget);
+        groupBox_6->setObjectName(QString::fromUtf8("groupBox_6"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(groupBox_6->sizePolicy().hasHeightForWidth());
+        groupBox_6->setSizePolicy(sizePolicy);
+        gridLayout_5 = new QGridLayout(groupBox_6);
+        gridLayout_5->setSpacing(6);
+        gridLayout_5->setContentsMargins(2, 2, 2, 2);
+        gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
+        widget = new QWidget(groupBox_6);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        sizePolicy.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
+        widget->setSizePolicy(sizePolicy);
+        gridLayout_7 = new QGridLayout(widget);
+        gridLayout_7->setSpacing(6);
+        gridLayout_7->setContentsMargins(0, 0, 0, 0);
+        gridLayout_7->setObjectName(QString::fromUtf8("gridLayout_7"));
+
+        gridLayout_5->addWidget(widget, 1, 1, 1, 1);
+
+        layerScrollBar = new QScrollBar(groupBox_6);
+        layerScrollBar->setObjectName(QString::fromUtf8("layerScrollBar"));
+        layerScrollBar->setMinimum(1);
+        layerScrollBar->setMaximum(1);
+        layerScrollBar->setValue(1);
+        layerScrollBar->setSliderPosition(1);
+        layerScrollBar->setOrientation(Qt::Vertical);
+        layerScrollBar->setInvertedAppearance(false);
+        layerScrollBar->setInvertedControls(true);
+
+        gridLayout_5->addWidget(layerScrollBar, 1, 3, 1, 1);
+
+        widget_5 = new QWidget(groupBox_6);
+        widget_5->setObjectName(QString::fromUtf8("widget_5"));
+        horizontalLayout_3 = new QHBoxLayout(widget_5);
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        horizontalLayout_3->setContentsMargins(-1, 0, -1, 0);
+        showTravelChkBox = new QCheckBox(widget_5);
+        showTravelChkBox->setObjectName(QString::fromUtf8("showTravelChkBox"));
+
+        horizontalLayout_3->addWidget(showTravelChkBox);
+
+        label_7 = new QLabel(widget_5);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+        label_7->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        horizontalLayout_3->addWidget(label_7);
+
+        currentLayer = new QLabel(widget_5);
+        currentLayer->setObjectName(QString::fromUtf8("currentLayer"));
+
+        horizontalLayout_3->addWidget(currentLayer);
+
+
+        gridLayout_5->addWidget(widget_5, 0, 1, 1, 2);
+
+
+        gridLayout_4->addWidget(groupBox_6, 0, 1, 1, 1);
+
+        groupBox_2 = new QGroupBox(centralWidget);
+        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
+        sizePolicy.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
+        groupBox_2->setSizePolicy(sizePolicy);
+        groupBox_2->setMaximumSize(QSize(16777215, 150));
+        groupBox_2->setCheckable(true);
+        gridLayout = new QGridLayout(groupBox_2);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setVerticalSpacing(2);
+        gridLayout->setContentsMargins(-1, 2, -1, 2);
+        inConsole = new QPlainTextEdit(groupBox_2);
+        inConsole->setObjectName(QString::fromUtf8("inConsole"));
+
+        gridLayout->addWidget(inConsole, 0, 0, 1, 1);
+
+        outLine = new QLineEdit(groupBox_2);
+        outLine->setObjectName(QString::fromUtf8("outLine"));
+        sizePolicy.setHeightForWidth(outLine->sizePolicy().hasHeightForWidth());
+        outLine->setSizePolicy(sizePolicy);
+
+        gridLayout->addWidget(outLine, 1, 0, 1, 1);
+
+
+        gridLayout_4->addWidget(groupBox_2, 1, 1, 1, 1);
+
+        widget_2 = new QWidget(centralWidget);
+        widget_2->setObjectName(QString::fromUtf8("widget_2"));
         sizePolicy.setHeightForWidth(widget_2->sizePolicy().hasHeightForWidth());
         widget_2->setSizePolicy(sizePolicy);
-        widget_2->setMaximumSize(QSize(455, 16777215));
+        widget_2->setMaximumSize(QSize(500, 16777215));
         verticalLayout = new QVBoxLayout(widget_2);
         verticalLayout->setSpacing(2);
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -178,9 +263,8 @@ public:
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
         horizontalLayout = new QHBoxLayout(groupBox);
         horizontalLayout->setSpacing(6);
-        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setContentsMargins(2, 2, 2, 2);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        horizontalLayout->setContentsMargins(-1, 0, -1, 2);
         label = new QLabel(groupBox);
         label->setObjectName(QString::fromUtf8("label"));
 
@@ -214,15 +298,15 @@ public:
         groupBox_4->setObjectName(QString::fromUtf8("groupBox_4"));
         verticalLayout_2 = new QVBoxLayout(groupBox_4);
         verticalLayout_2->setSpacing(0);
-        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setContentsMargins(2, 2, 2, 2);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        verticalLayout_2->setContentsMargins(-1, 0, -1, 0);
         widget_6 = new QWidget(groupBox_4);
         widget_6->setObjectName(QString::fromUtf8("widget_6"));
         formLayout = new QFormLayout(widget_6);
         formLayout->setSpacing(6);
         formLayout->setContentsMargins(11, 11, 11, 11);
         formLayout->setObjectName(QString::fromUtf8("formLayout"));
+        formLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
         formLayout->setContentsMargins(-1, 0, -1, 2);
         label_3 = new QLabel(widget_6);
         label_3->setObjectName(QString::fromUtf8("label_3"));
@@ -243,16 +327,6 @@ public:
         filamentLbl->setObjectName(QString::fromUtf8("filamentLbl"));
 
         formLayout->setWidget(1, QFormLayout::FieldRole, filamentLbl);
-
-        label_15 = new QLabel(widget_6);
-        label_15->setObjectName(QString::fromUtf8("label_15"));
-
-        formLayout->setWidget(2, QFormLayout::LabelRole, label_15);
-
-        layersLbl = new QLabel(widget_6);
-        layersLbl->setObjectName(QString::fromUtf8("layersLbl"));
-
-        formLayout->setWidget(2, QFormLayout::FieldRole, layersLbl);
 
 
         verticalLayout_2->addWidget(widget_6);
@@ -294,7 +368,7 @@ public:
         groupBox_7->setChecked(false);
         horizontalLayout_5 = new QHBoxLayout(groupBox_7);
         horizontalLayout_5->setSpacing(6);
-        horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_5->setContentsMargins(2, 2, 2, 2);
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
         horizontalLayout_5->setSizeConstraint(QLayout::SetMaximumSize);
         widget_8 = new QWidget(groupBox_7);
@@ -392,7 +466,7 @@ public:
         tempGraphWidget->setSizePolicy(sizePolicy);
         gridLayout_6 = new QGridLayout(tempGraphWidget);
         gridLayout_6->setSpacing(6);
-        gridLayout_6->setContentsMargins(11, 11, 11, 11);
+        gridLayout_6->setContentsMargins(0, 0, 0, 0);
         gridLayout_6->setObjectName(QString::fromUtf8("gridLayout_6"));
         gridLayout_6->setSizeConstraint(QLayout::SetMaximumSize);
 
@@ -410,7 +484,7 @@ public:
         groupBox_5->setSizePolicy(sizePolicy2);
         verticalLayout_3 = new QVBoxLayout(groupBox_5);
         verticalLayout_3->setSpacing(0);
-        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_3->setContentsMargins(2, 2, 2, 2);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         widget_4 = new QWidget(groupBox_5);
         widget_4->setObjectName(QString::fromUtf8("widget_4"));
@@ -464,6 +538,8 @@ public:
         formLayout_2->setContentsMargins(11, 11, 11, 11);
         formLayout_2->setObjectName(QString::fromUtf8("formLayout_2"));
         formLayout_2->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
+        formLayout_2->setHorizontalSpacing(2);
+        formLayout_2->setVerticalSpacing(2);
         label_5 = new QLabel(widget_3);
         label_5->setObjectName(QString::fromUtf8("label_5"));
 
@@ -576,88 +652,15 @@ public:
 
         gridLayout_4->addWidget(widget_2, 0, 0, 2, 1);
 
-        groupBox_6 = new QGroupBox(centralWidget);
-        groupBox_6->setObjectName(QString::fromUtf8("groupBox_6"));
-        sizePolicy.setHeightForWidth(groupBox_6->sizePolicy().hasHeightForWidth());
-        groupBox_6->setSizePolicy(sizePolicy);
-        gridLayout_5 = new QGridLayout(groupBox_6);
-        gridLayout_5->setSpacing(6);
-        gridLayout_5->setContentsMargins(11, 11, 11, 11);
-        gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
-        widget = new QWidget(groupBox_6);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        sizePolicy.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
-        widget->setSizePolicy(sizePolicy);
-        gridLayout_7 = new QGridLayout(widget);
-        gridLayout_7->setSpacing(6);
-        gridLayout_7->setContentsMargins(11, 11, 11, 11);
-        gridLayout_7->setObjectName(QString::fromUtf8("gridLayout_7"));
-
-        gridLayout_5->addWidget(widget, 1, 1, 1, 1);
-
-        layerScrollBar = new QScrollBar(groupBox_6);
-        layerScrollBar->setObjectName(QString::fromUtf8("layerScrollBar"));
-        layerScrollBar->setMinimum(1);
-        layerScrollBar->setValue(99);
-        layerScrollBar->setSliderPosition(99);
-        layerScrollBar->setOrientation(Qt::Vertical);
-        layerScrollBar->setInvertedAppearance(true);
-
-        gridLayout_5->addWidget(layerScrollBar, 1, 3, 1, 1);
-
-        widget_5 = new QWidget(groupBox_6);
-        widget_5->setObjectName(QString::fromUtf8("widget_5"));
-        horizontalLayout_3 = new QHBoxLayout(widget_5);
-        horizontalLayout_3->setSpacing(6);
-        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
-        showTravelChkBox = new QCheckBox(widget_5);
-        showTravelChkBox->setObjectName(QString::fromUtf8("showTravelChkBox"));
-
-        horizontalLayout_3->addWidget(showTravelChkBox);
-
-
-        gridLayout_5->addWidget(widget_5, 0, 1, 1, 1);
-
-
-        gridLayout_4->addWidget(groupBox_6, 0, 1, 1, 1);
-
-        groupBox_2 = new QGroupBox(centralWidget);
-        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        sizePolicy.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
-        groupBox_2->setSizePolicy(sizePolicy);
-        groupBox_2->setMaximumSize(QSize(16777215, 150));
-        gridLayout = new QGridLayout(groupBox_2);
-        gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        inConsole = new QPlainTextEdit(groupBox_2);
-        inConsole->setObjectName(QString::fromUtf8("inConsole"));
-
-        gridLayout->addWidget(inConsole, 0, 0, 1, 1);
-
-        outLine = new QLineEdit(groupBox_2);
-        outLine->setObjectName(QString::fromUtf8("outLine"));
-        sizePolicy.setHeightForWidth(outLine->sizePolicy().hasHeightForWidth());
-        outLine->setSizePolicy(sizePolicy);
-
-        gridLayout->addWidget(outLine, 1, 0, 1, 1);
-
-
-        gridLayout_4->addWidget(groupBox_2, 1, 1, 1, 1);
-
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 729, 20));
+        menuBar->setGeometry(QRect(0, 0, 838, 20));
         menuPlik = new QMenu(menuBar);
         menuPlik->setObjectName(QString::fromUtf8("menuPlik"));
         menuO_Programie = new QMenu(menuBar);
         menuO_Programie->setObjectName(QString::fromUtf8("menuO_Programie"));
         MainWindow->setMenuBar(menuBar);
-        statusBar = new QStatusBar(MainWindow);
-        statusBar->setObjectName(QString::fromUtf8("statusBar"));
-        MainWindow->setStatusBar(statusBar);
 
         menuBar->addAction(menuPlik->menuAction());
         menuBar->addAction(menuO_Programie->menuAction());
@@ -677,6 +680,11 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "YARRH v0.1.0", 0, QApplication::UnicodeUTF8));
         actionWczytaj->setText(QApplication::translate("MainWindow", "Load", 0, QApplication::UnicodeUTF8));
         actionO_Programie->setText(QApplication::translate("MainWindow", "About YARRH", 0, QApplication::UnicodeUTF8));
+        groupBox_6->setTitle(QApplication::translate("MainWindow", "Object view", 0, QApplication::UnicodeUTF8));
+        showTravelChkBox->setText(QApplication::translate("MainWindow", "Show travel moves", 0, QApplication::UnicodeUTF8));
+        label_7->setText(QApplication::translate("MainWindow", "Current layer:", 0, QApplication::UnicodeUTF8));
+        currentLayer->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
+        groupBox_2->setTitle(QApplication::translate("MainWindow", "Console", 0, QApplication::UnicodeUTF8));
         groupBox->setTitle(QApplication::translate("MainWindow", "Port settings", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("MainWindow", "Port:", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("MainWindow", "Baud:", 0, QApplication::UnicodeUTF8));
@@ -686,8 +694,6 @@ public:
         fileNameLbl->setText(QString());
         label_4->setText(QApplication::translate("MainWindow", "Needed filament:", 0, QApplication::UnicodeUTF8));
         filamentLbl->setText(QString());
-        label_15->setText(QApplication::translate("MainWindow", "Number of layers:", 0, QApplication::UnicodeUTF8));
-        layersLbl->setText(QString());
         printBtn->setText(QApplication::translate("MainWindow", "Print", 0, QApplication::UnicodeUTF8));
         pauseBtn->setText(QApplication::translate("MainWindow", "Pause", 0, QApplication::UnicodeUTF8));
         groupBox_7->setTitle(QApplication::translate("MainWindow", "Temperature", 0, QApplication::UnicodeUTF8));
@@ -719,9 +725,6 @@ public:
         label_13->setText(QApplication::translate("MainWindow", "Fan", 0, QApplication::UnicodeUTF8));
         fanSpinBox->setSuffix(QApplication::translate("MainWindow", " %", 0, QApplication::UnicodeUTF8));
         disableStpBtn->setText(QApplication::translate("MainWindow", "Disable motors", 0, QApplication::UnicodeUTF8));
-        groupBox_6->setTitle(QApplication::translate("MainWindow", "Object view", 0, QApplication::UnicodeUTF8));
-        showTravelChkBox->setText(QApplication::translate("MainWindow", "Show travel moves", 0, QApplication::UnicodeUTF8));
-        groupBox_2->setTitle(QApplication::translate("MainWindow", "Console", 0, QApplication::UnicodeUTF8));
         menuPlik->setTitle(QApplication::translate("MainWindow", "File", 0, QApplication::UnicodeUTF8));
         menuO_Programie->setTitle(QApplication::translate("MainWindow", "Help", 0, QApplication::UnicodeUTF8));
     } // retranslateUi

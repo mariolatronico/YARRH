@@ -13,6 +13,7 @@ INPUT(
 ./release\qextserialenumerator.o
 ./release\qextserialport_win.o
 ./release\qextserialenumerator_win.o
+./release\qextwineventnotifier_p.o
 ./release\moc_mainwindow.o
 ./release\moc_glwidget.o
 ./release\moc_gcodeobject.o
@@ -21,5 +22,6 @@ INPUT(
 ./release\moc_headcontrolline.o
 ./release\moc_printer.o
 ./release\moc_aboutwindow.o
+./release\moc_qextwineventnotifier_p.o
 ./release\qrc_resource.o
 );

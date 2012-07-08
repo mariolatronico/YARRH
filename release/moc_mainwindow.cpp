@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Sun 8. Jul 03:28:55 2012
+** Created: Sun 8. Jul 12:57:42 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      19,   14, // methods
+      20,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -50,6 +50,7 @@ static const uint qt_meta_data_MainWindow[] = {
      334,   11,   11,   11, 0x08,
      359,   11,   11,   11, 0x08,
      389,   11,   11,   11, 0x08,
+     421,  416,   11,   11, 0x08,
 
        0        // eod
 };
@@ -66,7 +67,8 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "updateZ(int)\0on_actionO_Programie_triggered()\0"
     "updateHeadGoToXY(QPoint)\0"
     "updateHeadPosition(QVector3D)\0"
-    "on_outLine_returnPressed()\0"
+    "on_outLine_returnPressed()\0arg1\0"
+    "on_groupBox_2_toggled(bool)\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -117,9 +119,10 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 16: updateHeadGoToXY((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
         case 17: updateHeadPosition((*reinterpret_cast< QVector3D(*)>(_a[1]))); break;
         case 18: on_outLine_returnPressed(); break;
+        case 19: on_groupBox_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
         default: ;
         }
-        _id -= 19;
+        _id -= 20;
     }
     return _id;
 }
