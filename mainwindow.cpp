@@ -93,7 +93,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->baudCombo->addItem("38400", BAUD38400);
     ui->baudCombo->addItem("57600", BAUD57600);
     ui->baudCombo->addItem("115200", BAUD115200);
+#if defined(Q_OS_WIN) || defined(qdoc)
     ui->baudCombo->addItem("250000", BAUD250000);
+#endif  //Q_OS_WIN
     ui->baudCombo->setCurrentIndex(8);
     //restore user settings
     restoreSettings();
@@ -196,7 +198,8 @@ void MainWindow::loadFile(){
         }
     }
     ui->layerScrollBar->setMaximum(layerCount);
-    ui->layerScrollBar->setValue(layerCount);
+    ui->layerScrollBar->setValue(1);
+    ui->currentLayer->setText(QString::number(layerCount)+"/"+QString::number(layerCount));
 
     ui->progressBar->setMaximum(this->gcodeLines.size());
     this->glWidget->setLayers(layerCount);
@@ -204,8 +207,6 @@ void MainWindow::loadFile(){
 
     //enable print button
     ui->printBtn->setEnabled(true);
-    ui->statusBar->showMessage(tr("File loaded"), 2000);
-    ui->layersLbl->setText(QString::number(layerCount));
     //disable pause btn
     ui->pauseBtn->setEnabled(false);
     ui->pauseBtn->blockSignals(true);
@@ -228,8 +229,8 @@ void MainWindow::startPrint(){
 
 //setting layers displayed
 void MainWindow::setLayers(int layers){
-    this->glWidget->setLayers(layers);
-    qDebug() << layers;
+    this->glWidget->setLayers(ui->layerScrollBar->maximum()-layers+1);
+    ui->currentLayer->setText(QString::number(ui->layerScrollBar->maximum()-layers+1)+"/"+QString::number(ui->layerScrollBar->maximum()));
 }
 
 //slot to connect diffrent signals
@@ -416,4 +417,14 @@ void MainWindow::on_outLine_returnPressed()
 {
     QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, ui->outLine->text()));
     ui->outLine->clear();
+}
+
+void MainWindow::on_groupBox_2_toggled(bool arg1)
+{
+    if(!arg1){
+        ui->groupBox_2->setMaximumHeight(15);
+    }
+    else{
+        ui->groupBox_2->setMaximumHeight(100);
+    }
 }

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>729</width>
-    <height>586</height>
+    <width>838</width>
+    <height>542</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,6 +43,146 @@
       </property>
      </widget>
     </item>
+    <item row="0" column="1">
+     <widget class="QGroupBox" name="groupBox_6">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="title">
+       <string>Object view</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <property name="margin">
+        <number>2</number>
+       </property>
+       <item row="1" column="1">
+        <widget class="QWidget" name="widget" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_7">
+          <property name="margin">
+           <number>0</number>
+          </property>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QScrollBar" name="layerScrollBar">
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>1</number>
+         </property>
+         <property name="value">
+          <number>1</number>
+         </property>
+         <property name="sliderPosition">
+          <number>1</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="invertedAppearance">
+          <bool>false</bool>
+         </property>
+         <property name="invertedControls">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" colspan="2">
+        <widget class="QWidget" name="widget_5" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QCheckBox" name="showTravelChkBox">
+            <property name="text">
+             <string>Show travel moves</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>Current layer:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="currentLayer">
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>150</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>Console</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <property name="topMargin">
+        <number>2</number>
+       </property>
+       <property name="bottomMargin">
+        <number>2</number>
+       </property>
+       <property name="verticalSpacing">
+        <number>2</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QPlainTextEdit" name="inConsole"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLineEdit" name="outLine">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
     <item row="0" column="0" rowspan="2">
      <widget class="QWidget" name="widget_2" native="true">
       <property name="sizePolicy">
@@ -53,7 +193,7 @@
       </property>
       <property name="maximumSize">
        <size>
-        <width>455</width>
+        <width>500</width>
         <height>16777215</height>
        </size>
       </property>
@@ -70,10 +210,7 @@
           <string>Port settings</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout">
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
+          <property name="margin">
            <number>2</number>
           </property>
           <item>
@@ -123,15 +260,15 @@
           <property name="spacing">
            <number>0</number>
           </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
+          <property name="margin">
+           <number>2</number>
           </property>
           <item>
            <widget class="QWidget" name="widget_6" native="true">
             <layout class="QFormLayout" name="formLayout">
+             <property name="fieldGrowthPolicy">
+              <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+             </property>
              <property name="topMargin">
               <number>0</number>
              </property>
@@ -161,20 +298,6 @@
              </item>
              <item row="1" column="1">
               <widget class="QLabel" name="filamentLbl">
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_15">
-               <property name="text">
-                <string>Number of layers:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QLabel" name="layersLbl">
                <property name="text">
                 <string/>
                </property>
@@ -243,7 +366,7 @@
            <enum>QLayout::SetMaximumSize</enum>
           </property>
           <property name="margin">
-           <number>0</number>
+           <number>2</number>
           </property>
           <item>
            <widget class="QWidget" name="widget_8" native="true">
@@ -428,6 +551,9 @@
              <property name="sizeConstraint">
               <enum>QLayout::SetMaximumSize</enum>
              </property>
+             <property name="margin">
+              <number>0</number>
+             </property>
             </layout>
            </widget>
           </item>
@@ -448,6 +574,9 @@
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <property name="spacing">
            <number>0</number>
+          </property>
+          <property name="margin">
+           <number>2</number>
           </property>
           <item>
            <widget class="QWidget" name="widget_4" native="true">
@@ -531,6 +660,12 @@
                <layout class="QFormLayout" name="formLayout_2">
                 <property name="fieldGrowthPolicy">
                  <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+                </property>
+                <property name="horizontalSpacing">
+                 <number>2</number>
+                </property>
+                <property name="verticalSpacing">
+                 <number>2</number>
                 </property>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_5">
@@ -704,98 +839,6 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="1">
-     <widget class="QGroupBox" name="groupBox_6">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="title">
-       <string>Object view</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_5">
-       <item row="1" column="1">
-        <widget class="QWidget" name="widget" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_7"/>
-        </widget>
-       </item>
-       <item row="1" column="3">
-        <widget class="QScrollBar" name="layerScrollBar">
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="value">
-          <number>99</number>
-         </property>
-         <property name="sliderPosition">
-          <number>99</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="invertedAppearance">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QWidget" name="widget_5" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QCheckBox" name="showTravelChkBox">
-            <property name="text">
-             <string>Show travel moves</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QGroupBox" name="groupBox_2">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>150</height>
-       </size>
-      </property>
-      <property name="title">
-       <string>Console</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0">
-        <widget class="QPlainTextEdit" name="inConsole"/>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLineEdit" name="outLine">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -803,7 +846,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>729</width>
+     <width>838</width>
      <height>20</height>
     </rect>
    </property>
@@ -822,7 +865,6 @@
    <addaction name="menuPlik"/>
    <addaction name="menuO_Programie"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionWczytaj">
    <property name="text">
     <string>Load</string>

@@ -71,6 +71,7 @@ private slots:
     void updateHeadGoToXY(QPoint);
     void updateHeadPosition(QVector3D);
     void on_outLine_returnPressed();
+    void on_groupBox_2_toggled(bool arg1);
 };
 
 #endif // MAINWINDOW_H
