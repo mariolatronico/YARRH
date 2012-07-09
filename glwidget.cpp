@@ -90,7 +90,7 @@ void GlWidget::setXRotation(int angle)
        qglClearColor(qtPurple.dark());
        glEnable(GL_DEPTH_TEST);
        glEnable(GL_CULL_FACE);
-       //glShadeModel(GL_SMOOTH);
+       glShadeModel(GL_FLAT);
        glEnable(GL_LIGHTING);
        glEnable(GL_LIGHT0);
        glEnable(GL_MULTISAMPLE);
