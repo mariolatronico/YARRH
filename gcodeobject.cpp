@@ -46,31 +46,26 @@ void GCodeObject::addVertex(qreal xpos, qreal ypos, qreal zpos, qreal travel, in
     this->layerList.last()->vertexes.append(vector);
 }
 
-void GCodeObject::renderCylinder(float x1, float y1, float z1, float x2,float y2, float z2, float radius,int subdivisions, bool lastlayer, qreal travel)
+void GCodeObject::renderCylinder(qreal x1, qreal y1, qreal z1, qreal x2,qreal y2, qreal z2, qreal radius,int subdivisions, bool lastlayer, qreal travel)
 {
     GLfloat   gray[4]={0.9,0.9,0.9,1.0};
     GLfloat   red[4]={1.0,0.0,0.0,1.0};
     GLfloat   green[4]={0.0,1.0,0.0,1.0};
     GLfloat fCurrentColor[4];
-    float vx = x2-x1;
-    float vy = y2-y1;
-    float vz = z2-z1;
-    //handle the degenerate case with an approximation
-    if(vz == 0)
-    vz = .00000001;
-    float v = sqrt( vx*vx + vy*vy + vz*vz );
-    float ax = 57.2957795*acos( vz/v );
-    if ( vz < 0.0 )
-    ax = -ax;
-    float rx = -vy*vz;
-    float ry = vx*vz;
+    qreal vx = x2-x1;
+    qreal vy = y2-y1;
+    qreal vz = .00000001;
+    qreal v = sqrt( vx*vx + vy*vy + vz*vz );
+    qreal rx = -vy*vz;
+    qreal ry = vx*vz;
     // Get the current color
     glGetFloatv(GL_CURRENT_COLOR, fCurrentColor);
-
+    qDebug() << vx << vy << vz;
+    qDebug() << rx <<ry;
 //    GLUquadricObj *quadric=gluNewQuadric();
     glPushMatrix();
     glTranslatef( x1,y1,z1 );
-    glRotatef(ax, rx, ry, 0.0);
+    glRotatef(90.0, rx, ry, 0.0);
 //    //draw the cylinder
 //    if(lastlayer)
 //        glColor4fv(red);

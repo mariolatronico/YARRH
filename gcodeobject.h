@@ -22,7 +22,7 @@ public:
 private:
     QList<Layer*> layerList;
     QMap<int, QVector4D> cylinderList;
-    void renderCylinder(float x1, float y1, float z1, float x2,float y2, float z2, float radius,int subdivisions, bool lastlayer, qreal travel);
+    void renderCylinder(qreal x1, qreal y1, qreal z1, qreal x2,qreal y2, qreal z2, qreal radius,int subdivisions, bool lastlayer, qreal travel);
     float layerHeight;
     int currentLayer;
 };
