@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>imgs/donate.gif</file>
+		<file>translations/yarrh_en.qm</file>
+        <file>translations/yarrh_pl.qm</file>
     </qresource>
+
 </RCC>

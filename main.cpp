@@ -1,4 +1,5 @@
 #include <QtGui/QApplication>
+#include <QDebug>
 #include "mainwindow.h"
 
 int main(int argc, char *argv[])
@@ -7,7 +8,7 @@ int main(int argc, char *argv[])
     QString locale = QLocale::system().name();
 
     QTranslator translator;
-    translator.load(QString("./translations/yarrh_") + locale);
+    qDebug() << translator.load(QString(":/translations/yarrh_")+locale);
     a.installTranslator(&translator);
 
     MainWindow w;
