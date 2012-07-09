@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Mon 9. Jul 03:44:32 2012
+** Created: Mon 9. Jul 20:13:24 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -118,11 +118,11 @@ public:
     QSpinBox *speedSpinBox;
     QLabel *label_6;
     QSpinBox *speedZSpinBox;
+    QPushButton *extrudeBtn;
+    QSpinBox *extrudeLenghtSpinBox;
+    QPushButton *retracktBtn;
+    QSpinBox *extrudeSpeedSpinBox;
     QPushButton *disableStpBtn;
-    QPushButton *pushButton;
-    QSpinBox *spinBox;
-    QPushButton *pushButton_2;
-    QSpinBox *spinBox_2;
     QWidget *widget_10;
     QHBoxLayout *horizontalLayout_7;
     QLabel *label_8;
@@ -293,6 +293,7 @@ public:
 
         connectBtn = new QPushButton(groupBox);
         connectBtn->setObjectName(QString::fromUtf8("connectBtn"));
+        connectBtn->setCheckable(true);
 
         horizontalLayout->addWidget(connectBtn);
 
@@ -376,6 +377,8 @@ public:
         horizontalLayout_5->setContentsMargins(2, 0, 2, 0);
         widget_8 = new QWidget(groupBox_7);
         widget_8->setObjectName(QString::fromUtf8("widget_8"));
+        sizePolicy1.setHeightForWidth(widget_8->sizePolicy().hasHeightForWidth());
+        widget_8->setSizePolicy(sizePolicy1);
         gridLayout_2 = new QGridLayout(widget_8);
         gridLayout_2->setSpacing(2);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -527,91 +530,91 @@ public:
         label_5 = new QLabel(widget_3);
         label_5->setObjectName(QString::fromUtf8("label_5"));
 
-        formLayout_2->setWidget(3, QFormLayout::LabelRole, label_5);
+        formLayout_2->setWidget(4, QFormLayout::LabelRole, label_5);
 
         label_19 = new QLabel(widget_3);
         label_19->setObjectName(QString::fromUtf8("label_19"));
 
-        formLayout_2->setWidget(3, QFormLayout::FieldRole, label_19);
+        formLayout_2->setWidget(4, QFormLayout::FieldRole, label_19);
 
         xAt = new QLabel(widget_3);
         xAt->setObjectName(QString::fromUtf8("xAt"));
 
-        formLayout_2->setWidget(4, QFormLayout::LabelRole, xAt);
+        formLayout_2->setWidget(5, QFormLayout::LabelRole, xAt);
 
         xMoveTo = new QLabel(widget_3);
         xMoveTo->setObjectName(QString::fromUtf8("xMoveTo"));
 
-        formLayout_2->setWidget(4, QFormLayout::FieldRole, xMoveTo);
+        formLayout_2->setWidget(5, QFormLayout::FieldRole, xMoveTo);
 
         yAt = new QLabel(widget_3);
         yAt->setObjectName(QString::fromUtf8("yAt"));
 
-        formLayout_2->setWidget(5, QFormLayout::LabelRole, yAt);
+        formLayout_2->setWidget(6, QFormLayout::LabelRole, yAt);
 
         yMoveTo = new QLabel(widget_3);
         yMoveTo->setObjectName(QString::fromUtf8("yMoveTo"));
 
-        formLayout_2->setWidget(5, QFormLayout::FieldRole, yMoveTo);
+        formLayout_2->setWidget(6, QFormLayout::FieldRole, yMoveTo);
 
         zAt = new QLabel(widget_3);
         zAt->setObjectName(QString::fromUtf8("zAt"));
 
-        formLayout_2->setWidget(6, QFormLayout::LabelRole, zAt);
+        formLayout_2->setWidget(7, QFormLayout::LabelRole, zAt);
 
         zMoveTo = new QLabel(widget_3);
         zMoveTo->setObjectName(QString::fromUtf8("zMoveTo"));
 
-        formLayout_2->setWidget(6, QFormLayout::FieldRole, zMoveTo);
+        formLayout_2->setWidget(7, QFormLayout::FieldRole, zMoveTo);
 
         label_12 = new QLabel(widget_3);
         label_12->setObjectName(QString::fromUtf8("label_12"));
 
-        formLayout_2->setWidget(9, QFormLayout::LabelRole, label_12);
+        formLayout_2->setWidget(10, QFormLayout::LabelRole, label_12);
 
         speedSpinBox = new QSpinBox(widget_3);
         speedSpinBox->setObjectName(QString::fromUtf8("speedSpinBox"));
         speedSpinBox->setMaximum(20000);
         speedSpinBox->setValue(1500);
 
-        formLayout_2->setWidget(9, QFormLayout::FieldRole, speedSpinBox);
+        formLayout_2->setWidget(10, QFormLayout::FieldRole, speedSpinBox);
 
         label_6 = new QLabel(widget_3);
         label_6->setObjectName(QString::fromUtf8("label_6"));
 
-        formLayout_2->setWidget(10, QFormLayout::LabelRole, label_6);
+        formLayout_2->setWidget(11, QFormLayout::LabelRole, label_6);
 
         speedZSpinBox = new QSpinBox(widget_3);
         speedZSpinBox->setObjectName(QString::fromUtf8("speedZSpinBox"));
         speedZSpinBox->setMinimum(0);
         speedZSpinBox->setMaximum(1000);
 
-        formLayout_2->setWidget(10, QFormLayout::FieldRole, speedZSpinBox);
+        formLayout_2->setWidget(11, QFormLayout::FieldRole, speedZSpinBox);
+
+        extrudeBtn = new QPushButton(widget_3);
+        extrudeBtn->setObjectName(QString::fromUtf8("extrudeBtn"));
+
+        formLayout_2->setWidget(14, QFormLayout::LabelRole, extrudeBtn);
+
+        extrudeLenghtSpinBox = new QSpinBox(widget_3);
+        extrudeLenghtSpinBox->setObjectName(QString::fromUtf8("extrudeLenghtSpinBox"));
+
+        formLayout_2->setWidget(14, QFormLayout::FieldRole, extrudeLenghtSpinBox);
+
+        retracktBtn = new QPushButton(widget_3);
+        retracktBtn->setObjectName(QString::fromUtf8("retracktBtn"));
+
+        formLayout_2->setWidget(15, QFormLayout::LabelRole, retracktBtn);
+
+        extrudeSpeedSpinBox = new QSpinBox(widget_3);
+        extrudeSpeedSpinBox->setObjectName(QString::fromUtf8("extrudeSpeedSpinBox"));
+
+        formLayout_2->setWidget(15, QFormLayout::FieldRole, extrudeSpeedSpinBox);
 
         disableStpBtn = new QPushButton(widget_3);
         disableStpBtn->setObjectName(QString::fromUtf8("disableStpBtn"));
 
-        formLayout_2->setWidget(12, QFormLayout::SpanningRole, disableStpBtn);
-
-        pushButton = new QPushButton(widget_3);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-
-        formLayout_2->setWidget(13, QFormLayout::LabelRole, pushButton);
-
-        spinBox = new QSpinBox(widget_3);
-        spinBox->setObjectName(QString::fromUtf8("spinBox"));
-
-        formLayout_2->setWidget(13, QFormLayout::FieldRole, spinBox);
-
-        pushButton_2 = new QPushButton(widget_3);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-
-        formLayout_2->setWidget(14, QFormLayout::LabelRole, pushButton_2);
-
-        spinBox_2 = new QSpinBox(widget_3);
-        spinBox_2->setObjectName(QString::fromUtf8("spinBox_2"));
-
-        formLayout_2->setWidget(14, QFormLayout::FieldRole, spinBox_2);
+        formLayout_2->setWidget(1, QFormLayout::SpanningRole, disableStpBtn);
 
         widget_10 = new QWidget(widget_3);
         widget_10->setObjectName(QString::fromUtf8("widget_10"));
@@ -650,7 +653,7 @@ public:
         horizontalLayout_7->addWidget(homeAll);
 
 
-        formLayout_2->setWidget(0, QFormLayout::SpanningRole, widget_10);
+        formLayout_2->setWidget(3, QFormLayout::SpanningRole, widget_10);
 
 
         horizontalLayout_9->addWidget(widget_3);
@@ -708,7 +711,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "YARRH v0.1.0", 0, QApplication::UnicodeUTF8));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "YARRH", 0, QApplication::UnicodeUTF8));
         actionWczytaj->setText(QApplication::translate("MainWindow", "Load", 0, QApplication::UnicodeUTF8));
         actionO_Programie->setText(QApplication::translate("MainWindow", "About YARRH", 0, QApplication::UnicodeUTF8));
         groupBox_6->setTitle(QApplication::translate("MainWindow", "Object view", 0, QApplication::UnicodeUTF8));
@@ -749,11 +752,11 @@ public:
         speedSpinBox->setSuffix(QApplication::translate("MainWindow", " mm/min", 0, QApplication::UnicodeUTF8));
         label_6->setText(QApplication::translate("MainWindow", "Z Speed", 0, QApplication::UnicodeUTF8));
         speedZSpinBox->setSuffix(QApplication::translate("MainWindow", " mm/min", 0, QApplication::UnicodeUTF8));
+        extrudeBtn->setText(QApplication::translate("MainWindow", "Extrude", 0, QApplication::UnicodeUTF8));
+        extrudeLenghtSpinBox->setSuffix(QApplication::translate("MainWindow", " mm", 0, QApplication::UnicodeUTF8));
+        retracktBtn->setText(QApplication::translate("MainWindow", "Retract", 0, QApplication::UnicodeUTF8));
+        extrudeSpeedSpinBox->setSuffix(QApplication::translate("MainWindow", " mm/s", 0, QApplication::UnicodeUTF8));
         disableStpBtn->setText(QApplication::translate("MainWindow", "Disable motors", 0, QApplication::UnicodeUTF8));
-        pushButton->setText(QApplication::translate("MainWindow", "Extrude", 0, QApplication::UnicodeUTF8));
-        spinBox->setSuffix(QApplication::translate("MainWindow", " mm", 0, QApplication::UnicodeUTF8));
-        pushButton_2->setText(QApplication::translate("MainWindow", "Retract", 0, QApplication::UnicodeUTF8));
-        spinBox_2->setSuffix(QApplication::translate("MainWindow", " mm/s", 0, QApplication::UnicodeUTF8));
         label_8->setText(QApplication::translate("MainWindow", "Home", 0, QApplication::UnicodeUTF8));
         homeX->setText(QApplication::translate("MainWindow", "X", 0, QApplication::UnicodeUTF8));
         homeY->setText(QApplication::translate("MainWindow", "Y", 0, QApplication::UnicodeUTF8));

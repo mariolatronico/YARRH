@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'aboutwindow.ui'
 **
-** Created: Sun 8. Jul 16:32:48 2012
+** Created: Mon 9. Jul 18:54:10 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -32,7 +32,7 @@ public:
     QFrame *line;
     QWidget *widget_2;
     QVBoxLayout *verticalLayout;
-    QLabel *label_4;
+    QLabel *versionLbl;
     QLabel *label_2;
     QLabel *label_5;
     QLabel *label_6;
@@ -70,11 +70,11 @@ public:
         widget_2->setObjectName(QString::fromUtf8("widget_2"));
         verticalLayout = new QVBoxLayout(widget_2);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        label_4 = new QLabel(widget_2);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
-        label_4->setAlignment(Qt::AlignCenter);
+        versionLbl = new QLabel(widget_2);
+        versionLbl->setObjectName(QString::fromUtf8("versionLbl"));
+        versionLbl->setAlignment(Qt::AlignCenter);
 
-        verticalLayout->addWidget(label_4);
+        verticalLayout->addWidget(versionLbl);
 
         label_2 = new QLabel(widget_2);
         label_2->setObjectName(QString::fromUtf8("label_2"));
@@ -149,7 +149,7 @@ public:
     {
         AboutWindow->setWindowTitle(QApplication::translate("AboutWindow", "About YARRH", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("AboutWindow", "YARRH: Yet Another RepRap Host", 0, QApplication::UnicodeUTF8));
-        label_4->setText(QApplication::translate("AboutWindow", "v 0.1.0", 0, QApplication::UnicodeUTF8));
+        versionLbl->setText(QApplication::translate("AboutWindow", "v 0.1.0", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("AboutWindow", "Arkadiusz \305\232piewak", 0, QApplication::UnicodeUTF8));
         label_5->setText(QApplication::translate("AboutWindow", "arek@okinet.pl", 0, QApplication::UnicodeUTF8));
         label_6->setText(QApplication::translate("AboutWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
