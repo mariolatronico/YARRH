@@ -60,8 +60,6 @@ void GCodeObject::renderCylinder(qreal x1, qreal y1, qreal z1, qreal x2,qreal y2
     qreal ry = vx*vz;
     // Get the current color
     glGetFloatv(GL_CURRENT_COLOR, fCurrentColor);
-    qDebug() << vx << vy << vz;
-    qDebug() << rx <<ry;
 //    GLUquadricObj *quadric=gluNewQuadric();
     glPushMatrix();
     glTranslatef( x1,y1,z1 );
