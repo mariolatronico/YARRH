@@ -33,3 +33,7 @@ void AboutWindow::on_label_3_linkActivated(const QString &link)
 {
     QDesktopServices::openUrl(QUrl(link));
 }
+
+void AboutWindow::setVersion(int major, int minor, int revision){
+    ui->versionLbl->setText("v"+QString::number(major)+"."+QString::number(minor)+"."+QString::number(revision));
+}

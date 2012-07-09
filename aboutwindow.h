@@ -17,7 +17,7 @@ class AboutWindow : public QWidget
 public:
     explicit AboutWindow(QWidget *parent = 0);
     ~AboutWindow();
-
+    void setVersion(int major, int minor, int revision);
 private:
     Ui::AboutWindow *ui;
 private slots:
