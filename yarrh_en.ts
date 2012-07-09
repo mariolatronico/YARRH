@@ -30,12 +30,29 @@
         <translation>arek@okinet.pl</translation>
     </message>
     <message>
-        <location filename="aboutwindow.ui" line="82"/>
-        <source>http://3d-printers.pl</source>
-        <translation>http://3d-printers.pl</translation>
+        <location filename="aboutwindow.ui" line="85"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://github.com/wuflnor/YARRH/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/wuflnor/YARRH/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="aboutwindow.ui" line="151"/>
+        <location filename="aboutwindow.ui" line="102"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://3d-printers.pl&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://3d-printers.pl&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>http://3d-printers.pl</source>
+        <translation type="obsolete">http://3d-printers.pl</translation>
+    </message>
+    <message>
+        <location filename="aboutwindow.ui" line="175"/>
         <source>Close</source>
         <translation>Close</translation>
     </message>
@@ -44,265 +61,295 @@
     <name>MainWindow</name>
     <message>
         <location filename="mainwindow.ui" line="14"/>
-        <source>YARRH v0.1.0</source>
-        <translation>YARRH v0.1.0</translation>
+        <source>YARRH</source>
+        <oldsource>YARRH v0.1.0</oldsource>
+        <translation>YARRH</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="73"/>
+        <location filename="mainwindow.ui" line="219"/>
         <source>Port:</source>
         <translation>Port:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="87"/>
+        <location filename="mainwindow.ui" line="236"/>
         <source>Baud:</source>
         <translation>Baud:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="120"/>
         <source>Name:</source>
         <oldsource>Nazwa:</oldsource>
-        <translation>Name:</translation>
+        <translation type="obsolete">Name:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="134"/>
+        <location filename="mainwindow.ui" line="293"/>
         <source>Needed filament:</source>
         <oldsource>Potrzebny filament:</oldsource>
         <translation>Needed filament:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="67"/>
+        <location filename="mainwindow.ui" line="210"/>
         <source>Port settings</source>
         <translation>Port settings</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="101"/>
+        <location filename="mainwindow.ui" line="253"/>
+        <location filename="mainwindow.cpp" line="133"/>
         <source>Connect</source>
         <translation>Connect</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="111"/>
+        <location filename="mainwindow.ui" line="266"/>
+        <location filename="mainwindow.ui" line="929"/>
+        <location filename="mainwindow.cpp" line="141"/>
         <source>File</source>
         <translation>File</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="148"/>
         <source>Number of layers:</source>
         <oldsource>Number of layers</oldsource>
-        <translation>Number of layers:</translation>
+        <translation type="obsolete">Number of layers:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="168"/>
+        <location filename="mainwindow.ui" line="328"/>
         <source>Print</source>
         <translation>Print</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="181"/>
-        <location filename="mainwindow.cpp" line="210"/>
-        <location filename="mainwindow.cpp" line="246"/>
+        <location filename="mainwindow.ui" line="341"/>
+        <location filename="mainwindow.cpp" line="226"/>
+        <location filename="mainwindow.cpp" line="262"/>
         <source>Pause</source>
         <oldsource>Pauza</oldsource>
         <translation>Pause</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="203"/>
+        <location filename="mainwindow.ui" line="363"/>
         <source>Temperature</source>
         <oldsource>Temperatura</oldsource>
         <translation>Temperature</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="236"/>
+        <location filename="mainwindow.ui" line="437"/>
         <source>T1</source>
         <translation>T1</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="247"/>
-        <location filename="mainwindow.ui" line="312"/>
         <source>230</source>
-        <translation>230</translation>
+        <translation type="obsolete">230</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="266"/>
-        <location filename="mainwindow.ui" line="331"/>
-        <location filename="mainwindow.ui" line="396"/>
+        <location filename="mainwindow.ui" line="408"/>
+        <location filename="mainwindow.ui" line="508"/>
+        <location filename="mainwindow.ui" line="556"/>
         <source>On</source>
         <translation>On</translation>
     </message>
     <message utf8="true">
-        <location filename="mainwindow.ui" line="288"/>
-        <location filename="mainwindow.ui" line="353"/>
-        <location filename="mainwindow.ui" line="418"/>
+        <location filename="mainwindow.ui" line="430"/>
+        <location filename="mainwindow.ui" line="543"/>
         <source> 0 °C</source>
         <translation> 0 °C</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="301"/>
         <source>T2</source>
-        <translation>T2</translation>
+        <translation type="obsolete">T2</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="366"/>
+        <location filename="mainwindow.ui" line="444"/>
         <source>HB</source>
         <translation>HB</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="377"/>
         <source>110</source>
-        <translation>110</translation>
+        <translation type="obsolete">110</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="428"/>
+        <location filename="mainwindow.ui" line="569"/>
         <source>Monitor</source>
         <oldsource>Monitoruj</oldsource>
         <translation>Monitor</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="462"/>
+        <location filename="mainwindow.ui" line="623"/>
         <source>Axis control</source>
         <translation>Axis control</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="546"/>
+        <location filename="mainwindow.ui" line="675"/>
         <source>Go to:</source>
         <translation>Go to:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="595"/>
+        <location filename="mainwindow.ui" line="724"/>
         <source>XY speed</source>
         <translation>XY speed</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="615"/>
+        <location filename="mainwindow.ui" line="744"/>
         <source>Z Speed</source>
         <translation>Z Speed</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="635"/>
+        <location filename="mainwindow.ui" line="457"/>
         <source>Fan</source>
         <translation>Fan</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="655"/>
+        <location filename="mainwindow.ui" line="792"/>
         <source>Disable motors</source>
         <translation>Disable motors</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="711"/>
+        <location filename="mainwindow.ui" line="55"/>
         <source>Object view</source>
         <translation>Object view</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="750"/>
+        <location filename="mainwindow.ui" line="113"/>
         <source>Show travel moves</source>
         <translation>Show travel moves</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="813"/>
+        <location filename="mainwindow.ui" line="120"/>
+        <source>Current layer:</source>
+        <translation>Current layer:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="130"/>
+        <source>0</source>
+        <translation>0</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="764"/>
+        <source>Extrude</source>
+        <translation>Extrude</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="771"/>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="778"/>
+        <source>Retract</source>
+        <translation>Retract</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="785"/>
+        <source> mm/s</source>
+        <translation> mm/s</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="935"/>
         <source>Help</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="831"/>
+        <location filename="mainwindow.ui" line="944"/>
         <source>Load</source>
         <translation>Load</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="836"/>
+        <location filename="mainwindow.ui" line="949"/>
         <source>About YARRH</source>
         <translation>About YARRH</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="471"/>
+        <location filename="mainwindow.ui" line="805"/>
         <source>Home</source>
         <translation>Home</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="484"/>
+        <location filename="mainwindow.ui" line="818"/>
         <source>X</source>
         <translation>X</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="497"/>
+        <location filename="mainwindow.ui" line="831"/>
         <source>Y</source>
         <translation>Y</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="510"/>
+        <location filename="mainwindow.ui" line="844"/>
         <source>Z</source>
         <translation>Z</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="523"/>
+        <location filename="mainwindow.ui" line="860"/>
         <source>All</source>
         <translation>All</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="539"/>
+        <location filename="mainwindow.ui" line="668"/>
         <source>Position</source>
         <oldsource>Pozycja</oldsource>
         <translation>Position</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="553"/>
-        <location filename="mainwindow.ui" line="560"/>
+        <location filename="mainwindow.ui" line="682"/>
+        <location filename="mainwindow.ui" line="689"/>
         <source>X: 0</source>
         <translation>X: 0</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="567"/>
-        <location filename="mainwindow.ui" line="574"/>
+        <location filename="mainwindow.ui" line="696"/>
+        <location filename="mainwindow.ui" line="703"/>
         <source>Y: 0</source>
         <translation>Y: 0</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="581"/>
-        <location filename="mainwindow.ui" line="588"/>
+        <location filename="mainwindow.ui" line="710"/>
+        <location filename="mainwindow.ui" line="717"/>
         <source>Z: 0</source>
         <translation>Z: 0</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="602"/>
-        <location filename="mainwindow.ui" line="622"/>
+        <location filename="mainwindow.ui" line="731"/>
+        <location filename="mainwindow.ui" line="751"/>
         <source> mm/min</source>
         <translation> mm/min</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="642"/>
+        <location filename="mainwindow.ui" line="518"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="775"/>
+        <location filename="mainwindow.ui" line="155"/>
         <source>Console</source>
         <oldsource>Konsola</oldsource>
         <translation>Console</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="807"/>
         <source>Plik</source>
-        <translation>File</translation>
+        <translation type="obsolete">File</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="125"/>
+        <location filename="mainwindow.cpp" line="129"/>
+        <source>Disconnect</source>
+        <translation>Disconnect</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="139"/>
         <source>Open file</source>
         <translation>Open file</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="125"/>
+        <location filename="mainwindow.cpp" line="139"/>
         <source>Print files (*.g *.gcode)</source>
         <translation>Print files (*.g *.gcode)</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="137"/>
+        <location filename="mainwindow.cpp" line="154"/>
         <source>Parsing file</source>
         <translation>Parsing file</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="203"/>
         <source>File loaded</source>
-        <translation>File loaded</translation>
+        <translation type="obsolete">File loaded</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="242"/>
+        <location filename="mainwindow.cpp" line="258"/>
         <source>Resume</source>
         <translation>Resume</translation>
     </message>
@@ -310,28 +357,33 @@
 <context>
     <name>Printer</name>
     <message>
-        <location filename="printer.cpp" line="22"/>
+        <location filename="printer.cpp" line="24"/>
         <source>Connecting...</source>
         <translation>Connecting...</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="29"/>
+        <location filename="printer.cpp" line="31"/>
         <source>Printer connected</source>
         <translation>Printer connected</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="34"/>
+        <location filename="printer.cpp" line="36"/>
         <source>Unable to connect</source>
         <translation>Unable to connect</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="39"/>
+        <location filename="printer.cpp" line="41"/>
         <source>Unknown port name</source>
         <oldsource>Niepoprawny port</oldsource>
         <translation>Unknown port name</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="63"/>
+        <location filename="printer.cpp" line="48"/>
+        <source>Printer disconnected</source>
+        <translation>Printer disconnected</translation>
+    </message>
+    <message>
+        <location filename="printer.cpp" line="70"/>
         <source>Printer offline</source>
         <translation>Printer offline</translation>
     </message>
