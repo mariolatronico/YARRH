@@ -15,6 +15,11 @@
 #include "printer.h"
 #include "aboutwindow.h"
 
+//version number
+#define VERSION_MAJOR       0
+#define VERSION_MINOR       1
+#define VERSION_REVISION    1
+
 namespace Ui {
     class MainWindow;
 }
@@ -50,7 +55,7 @@ private:
 private slots:
     void deviceConnected(const QextPortInfo &);
     void deviceDisconnected(const QextPortInfo &);
-    void connectClicked();
+    void connectClicked(bool);
     void loadFile();
     void startPrint();
     //set layers
@@ -73,6 +78,8 @@ private slots:
     void on_outLine_returnPressed();
     void on_groupBox_2_toggled(bool arg1);
     void on_fanBtn_toggled(bool checked);
+    void on_extrudeBtn_clicked();
+    void on_retracktBtn_clicked();
 };
 
 #endif // MAINWINDOW_H

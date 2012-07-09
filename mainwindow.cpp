@@ -6,7 +6,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     //setting string codecs
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
     QTextCodec::setCodecForTr(QTextCodec::codecForName ("UTF-8"));
@@ -14,6 +13,9 @@ MainWindow::MainWindow(QWidget *parent) :
     this->aboutWindow = new AboutWindow();
     this->aboutWindow->hide();
     this->aboutWindow->move(this->geometry().center()-this->aboutWindow->geometry().center());
+    //set version number
+    this->setWindowTitle("YARRH v"+QString::number(VERSION_MAJOR)+"."+QString::number(VERSION_MINOR)+"."+QString::number(VERSION_REVISION));
+    this->aboutWindow->setVersion(VERSION_MAJOR,VERSION_MINOR,VERSION_REVISION);
     //gl widget
     this->glWidget = new GlWidget(ui->widget);
     ui->widget->layout()->addWidget(this->glWidget);
@@ -65,7 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->portEnum, SIGNAL(deviceDiscovered(const QextPortInfo &)), this, SLOT(deviceConnected(const QextPortInfo &)));
 
     //connect btn
-    connect(ui->connectBtn, SIGNAL(clicked()), this, SLOT(connectClicked()));
+    connect(ui->connectBtn, SIGNAL(toggled(bool)), this, SLOT(connectClicked(bool)));
     //print btn
     connect(ui->printBtn,SIGNAL(clicked()), this, SLOT(startPrint()));
     //pause btn
@@ -120,9 +122,16 @@ void MainWindow::deviceDisconnected(const QextPortInfo & info){
 
 
 //connecting to port
-void MainWindow::connectClicked(){
+void MainWindow::connectClicked(bool connect){
     //connecting to printer port
-    QMetaObject::invokeMethod(printerObj,"connectPort",Qt::QueuedConnection,Q_ARG(QString, ui->portCombo->currentText()),Q_ARG(int,ui->baudCombo->itemData(ui->baudCombo->currentIndex()).toInt()));
+    if(connect){
+        QMetaObject::invokeMethod(printerObj,"connectPort",Qt::QueuedConnection,Q_ARG(QString, ui->portCombo->currentText()),Q_ARG(int,ui->baudCombo->itemData(ui->baudCombo->currentIndex()).toInt()));
+        ui->connectBtn->setText(tr("Disconnect"));
+    }
+    else{
+        QMetaObject::invokeMethod(printerObj,"disconnectPort",Qt::QueuedConnection);
+        ui->connectBtn->setText(tr("Connect"));
+    }
 }
 
 //loading file
@@ -359,6 +368,9 @@ void MainWindow::saveSettings(){
     settings.setValue("mainWindowPos", this->pos());
     settings.setValue("mainWindowSize",this->size());
     settings.setValue("baudRateSelected", ui->baudCombo->currentIndex());
+    settings.setValue("showConsole", ui->groupBox_2->isChecked());
+    settings.setValue("extrudeLenght", ui->extrudeLenghtSpinBox->value());
+    settings.setValue("extrudeSpeed", ui->extrudeSpeedSpinBox->value());
     //write temperature setting
     settings.beginWriteArray("temp1Values");
     for(int i=0; i<ui->t1Combo->count(); i++){
@@ -387,6 +399,9 @@ void MainWindow::restoreSettings(){
     this->move(settings.value("mainWindowPos").toPoint());
     this->resize(settings.value("mainWindowSize").toSize());
     ui->baudCombo->setCurrentIndex(settings.value("baudRateSelected").toInt());
+    ui->groupBox_2->setChecked(settings.value("showConsole").toBool());
+    ui->extrudeLenghtSpinBox->setValue(settings.value("extrudeLenght").toInt());
+    ui->extrudeSpeedSpinBox->setValue(settings.value("extrudeSpeed").toInt());
     //restore temp1 combo
     int size = settings.beginReadArray("temp1Values");
     int currentIndex=0;
@@ -445,4 +460,18 @@ void MainWindow::on_fanBtn_toggled(bool on)
             ui->fanSpinBox->blockSignals(true);
             QMetaObject::invokeMethod(printerObj,"setFan",Qt::QueuedConnection,Q_ARG(int, 0));
         }
+}
+
+void MainWindow::on_extrudeBtn_clicked()
+{
+    QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, "G91"));
+    QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, "G1 E"+QString::number(ui->extrudeLenghtSpinBox->value())+" F"+QString::number(ui->extrudeSpeedSpinBox->value()*60)));
+    QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, "G90"));
+}
+
+void MainWindow::on_retracktBtn_clicked()
+{
+    QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, "G91"));
+    QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, "G1 E"+QString::number(ui->extrudeLenghtSpinBox->value()*-1)+" F"+QString::number(ui->extrudeSpeedSpinBox->value()*60)));
+    QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, "G90"));
 }

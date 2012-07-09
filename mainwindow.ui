@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>YARRH v0.1.0</string>
+   <string>YARRH</string>
   </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
@@ -251,6 +251,9 @@
            <widget class="QPushButton" name="connectBtn">
             <property name="text">
              <string>Connect</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -659,70 +662,70 @@
                 <property name="margin">
                  <number>0</number>
                 </property>
-                <item row="3" column="0">
+                <item row="4" column="0">
                  <widget class="QLabel" name="label_5">
                   <property name="text">
                    <string>Position</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
+                <item row="4" column="1">
                  <widget class="QLabel" name="label_19">
                   <property name="text">
                    <string>Go to:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="0">
+                <item row="5" column="0">
                  <widget class="QLabel" name="xAt">
                   <property name="text">
                    <string>X: 0</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
+                <item row="5" column="1">
                  <widget class="QLabel" name="xMoveTo">
                   <property name="text">
                    <string>X: 0</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="0">
+                <item row="6" column="0">
                  <widget class="QLabel" name="yAt">
                   <property name="text">
                    <string>Y: 0</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="1">
+                <item row="6" column="1">
                  <widget class="QLabel" name="yMoveTo">
                   <property name="text">
                    <string>Y: 0</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="0">
+                <item row="7" column="0">
                  <widget class="QLabel" name="zAt">
                   <property name="text">
                    <string>Z: 0</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="1">
+                <item row="7" column="1">
                  <widget class="QLabel" name="zMoveTo">
                   <property name="text">
                    <string>Z: 0</string>
                   </property>
                  </widget>
                 </item>
-                <item row="9" column="0">
+                <item row="10" column="0">
                  <widget class="QLabel" name="label_12">
                   <property name="text">
                    <string>XY speed</string>
                   </property>
                  </widget>
                 </item>
-                <item row="9" column="1">
+                <item row="10" column="1">
                  <widget class="QSpinBox" name="speedSpinBox">
                   <property name="suffix">
                    <string> mm/min</string>
@@ -735,14 +738,14 @@
                   </property>
                  </widget>
                 </item>
-                <item row="10" column="0">
+                <item row="11" column="0">
                  <widget class="QLabel" name="label_6">
                   <property name="text">
                    <string>Z Speed</string>
                   </property>
                  </widget>
                 </item>
-                <item row="10" column="1">
+                <item row="11" column="1">
                  <widget class="QSpinBox" name="speedZSpinBox">
                   <property name="suffix">
                    <string> mm/min</string>
@@ -755,42 +758,42 @@
                   </property>
                  </widget>
                 </item>
-                <item row="12" column="0" colspan="2">
+                <item row="14" column="0">
+                 <widget class="QPushButton" name="extrudeBtn">
+                  <property name="text">
+                   <string>Extrude</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="14" column="1">
+                 <widget class="QSpinBox" name="extrudeLenghtSpinBox">
+                  <property name="suffix">
+                   <string> mm</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="15" column="0">
+                 <widget class="QPushButton" name="retracktBtn">
+                  <property name="text">
+                   <string>Retract</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="15" column="1">
+                 <widget class="QSpinBox" name="extrudeSpeedSpinBox">
+                  <property name="suffix">
+                   <string> mm/s</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0" colspan="2">
                  <widget class="QPushButton" name="disableStpBtn">
                   <property name="text">
                    <string>Disable motors</string>
                   </property>
                  </widget>
                 </item>
-                <item row="13" column="0">
-                 <widget class="QPushButton" name="pushButton">
-                  <property name="text">
-                   <string>Extrude</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="13" column="1">
-                 <widget class="QSpinBox" name="spinBox">
-                  <property name="suffix">
-                   <string> mm</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="14" column="0">
-                 <widget class="QPushButton" name="pushButton_2">
-                  <property name="text">
-                   <string>Retract</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="14" column="1">
-                 <widget class="QSpinBox" name="spinBox_2">
-                  <property name="suffix">
-                   <string> mm/s</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0" colspan="2">
+                <item row="3" column="0" colspan="2">
                  <widget class="QWidget" name="widget_10" native="true">
                   <layout class="QHBoxLayout" name="horizontalLayout_7">
                    <property name="margin">
