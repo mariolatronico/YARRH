@@ -42,6 +42,7 @@ public slots:
     int writeToPort(QString command);
     //connecting to port
     bool connectPort(QString port, int baud);
+    bool disconnectPort();
     //slots for printer control
     //moving axis
     void homeX();

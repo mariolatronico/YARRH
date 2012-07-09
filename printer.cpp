@@ -43,6 +43,11 @@ bool Printer::connectPort(QString port, int baud){
     }
 }
 
+bool Printer::disconnectPort(){
+    this->portObj->close();
+    emit write_to_console(tr("Printer disconnected"));
+}
+
 //writing to port
 int Printer::writeToPort(QString command){
     //analizing command for position tracking
