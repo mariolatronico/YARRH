@@ -72,6 +72,7 @@ private slots:
     void updateHeadPosition(QVector3D);
     void on_outLine_returnPressed();
     void on_groupBox_2_toggled(bool arg1);
+    void on_fanBtn_toggled(bool checked);
 };
 
 #endif // MAINWINDOW_H

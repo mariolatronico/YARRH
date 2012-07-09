@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     //setting string codecs
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
     QTextCodec::setCodecForTr(QTextCodec::codecForName ("UTF-8"));
@@ -30,13 +31,14 @@ MainWindow::MainWindow(QWidget *parent) :
     //connecting ui to printer
     connect(printerObj, SIGNAL(write_to_console(QString)), ui->inConsole, SLOT(appendPlainText(QString)), Qt::QueuedConnection);
     connect(ui->fanSpinBox, SIGNAL(valueChanged(int)), printerObj, SLOT(setFan(int)), Qt::QueuedConnection);
+    ui->fanSpinBox->blockSignals(true);
     //connecting move btns
     connect(ui->homeX, SIGNAL(clicked()), printerObj, SLOT(homeX()), Qt::QueuedConnection);
     connect(ui->homeY, SIGNAL(clicked()), printerObj, SLOT(homeY()), Qt::QueuedConnection);
     connect(ui->homeZ, SIGNAL(clicked()), printerObj, SLOT(homeZ()), Qt::QueuedConnection);
     connect(ui->homeAll, SIGNAL(clicked()), printerObj, SLOT(homeAll()), Qt::QueuedConnection);
     //connect monit temp checkbox
-    connect(ui->monitTempChck, SIGNAL(toggled(bool)), printerObj, SLOT(setMonitorTemperature(bool)),Qt::QueuedConnection);
+    connect(ui->groupBox_3, SIGNAL(toggled(bool)), printerObj, SLOT(setMonitorTemperature(bool)),Qt::QueuedConnection);
     //connect printer to temp widget
     connect(printerObj, SIGNAL(currentTemp(double,double,double)), this, SLOT(drawTemp(double,double,double)));
     connect(printerObj, SIGNAL(progress(int)), this, SLOT(updateProgress(int)));
@@ -127,7 +129,7 @@ void MainWindow::connectClicked(){
 void MainWindow::loadFile(){
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open file"), this->lastOpendDir, tr("Print files (*.g *.gcode)"));
     //show filename in ui
-    ui->fileNameLbl->setText(fileName.right(fileName.length()-fileName.lastIndexOf("/")-1));
+    ui->groupBox_4->setTitle(tr("File")+" :"+fileName.right(fileName.length()-fileName.lastIndexOf("/")-1));
     //open file
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -257,8 +259,8 @@ void MainWindow::pausePrint(bool pause){
 
 void MainWindow::drawTemp(double t1, double t2, double hb){
     this->graphWidget->addMeasurment(t1,t2,hb);
-    ui->t1Label->setText(QString::number(t1)+" Â°C");
-    ui->t3Label->setText(QString::number(hb)+" Â°C");
+    ui->t1Label->setText(QString::number(t1)+" °C");
+    ui->t3Label->setText(QString::number(hb)+" °C");
 }
 
 //update print progress
@@ -429,4 +431,18 @@ void MainWindow::on_groupBox_2_toggled(bool arg1)
     else{
         ui->groupBox_2->setMaximumHeight(100);
     }
+}
+
+void MainWindow::on_fanBtn_toggled(bool on)
+{
+        if(on){
+            ui->fanBtn->setText("Off");
+             ui->fanSpinBox->blockSignals(false);
+            QMetaObject::invokeMethod(printerObj,"setFan",Qt::QueuedConnection,Q_ARG(int, ui->fanSpinBox->value()));
+        }
+        else{
+            ui->fanBtn->setText("On");
+            ui->fanSpinBox->blockSignals(true);
+            QMetaObject::invokeMethod(printerObj,"setFan",Qt::QueuedConnection,Q_ARG(int, 0));
+        }
 }
