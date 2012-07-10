@@ -35,6 +35,7 @@ signals:
     void currentTemp(double,double,double);
     void progress(int);
     void currentPosition(QVector3D);
+    void connected(bool);
 public slots:
     //read
     void readFromPort();

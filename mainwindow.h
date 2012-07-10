@@ -80,6 +80,7 @@ private slots:
     void on_fanBtn_toggled(bool checked);
     void on_extrudeBtn_clicked();
     void on_retracktBtn_clicked();
+    void printerConnected(bool);
 };
 
 #endif // MAINWINDOW_H

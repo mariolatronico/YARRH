@@ -40,10 +40,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->homeZ, SIGNAL(clicked()), printerObj, SLOT(homeZ()), Qt::QueuedConnection);
     connect(ui->homeAll, SIGNAL(clicked()), printerObj, SLOT(homeAll()), Qt::QueuedConnection);
     //connect monit temp checkbox
-    connect(ui->groupBox_3, SIGNAL(toggled(bool)), printerObj, SLOT(setMonitorTemperature(bool)),Qt::QueuedConnection);
+    connect(ui->graphGroupBox, SIGNAL(toggled(bool)), printerObj, SLOT(setMonitorTemperature(bool)),Qt::QueuedConnection);
     //connect printer to temp widget
     connect(printerObj, SIGNAL(currentTemp(double,double,double)), this, SLOT(drawTemp(double,double,double)));
     connect(printerObj, SIGNAL(progress(int)), this, SLOT(updateProgress(int)));
+    connect(printerObj, SIGNAL(connected(bool)), this, SLOT(printerConnected(bool)));
     //updating head position in ui
     connect(printerObj, SIGNAL(currentPosition(QVector3D)), this, SLOT(updateHeadPosition(QVector3D)));
     //connect z slider
@@ -89,6 +90,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->printBtn->setDisabled(true);
     ui->pauseBtn->setDisabled(true);
+    ui->axisControlGroup->setDisabled(true);
     ui->baudCombo->addItem("1200", BAUD1200);
     ui->baudCombo->addItem("2400", BAUD2400);
     ui->baudCombo->addItem("4800", BAUD4800);
@@ -126,11 +128,38 @@ void MainWindow::connectClicked(bool connect){
     //connecting to printer port
     if(connect){
         QMetaObject::invokeMethod(printerObj,"connectPort",Qt::QueuedConnection,Q_ARG(QString, ui->portCombo->currentText()),Q_ARG(int,ui->baudCombo->itemData(ui->baudCombo->currentIndex()).toInt()));
-        ui->connectBtn->setText(tr("Disconnect"));
     }
     else{
+        QMetaObject::invokeMethod(printerObj,"stopPrint",Qt::QueuedConnection);
         QMetaObject::invokeMethod(printerObj,"disconnectPort",Qt::QueuedConnection);
+    }
+}
+
+void MainWindow::printerConnected(bool connected){
+    //connecting to printer port
+    if(connected){
+            ui->connectBtn->setText(tr("Disconnect"));
+            ui->axisControlGroup->setDisabled(false);
+
+            if(this->gcodeLines.size()>0){
+                if(ui->progressBar->value()>0){
+                    ui->pauseBtn->setEnabled(true);
+                }
+                if(ui->pauseBtn->text()!=tr("Resume")){
+                    ui->printBtn->setEnabled(true);
+                }
+            }
+    }
+    else{
         ui->connectBtn->setText(tr("Connect"));
+
+        ui->connectBtn->blockSignals(true);
+        ui->connectBtn->setChecked(false);
+        ui->connectBtn->blockSignals(false);
+
+        ui->axisControlGroup->setDisabled(true);
+        ui->printBtn->setEnabled(false);
+        ui->pauseBtn->setEnabled(false);
     }
 }
 
@@ -213,11 +242,14 @@ void MainWindow::loadFile(){
     ui->currentLayer->setText(QString::number(layerCount)+"/"+QString::number(layerCount));
 
     ui->progressBar->setMaximum(this->gcodeLines.size());
+    ui->progressBar->setValue(0);
     this->glWidget->setLayers(layerCount);
     this->glWidget->addObject(tempObject);
 
     //enable print button
-    ui->printBtn->setEnabled(true);
+    if(printerObj->isConnected()){
+        ui->printBtn->setEnabled(true);
+    }
     //disable pause btn
     ui->pauseBtn->setEnabled(false);
     ui->pauseBtn->blockSignals(true);
@@ -235,6 +267,16 @@ void MainWindow::startPrint(){
         ui->progressBar->setMaximum(this->gcodeLines.size());
         QMetaObject::invokeMethod(printerObj,"startPrint",Qt::QueuedConnection);
         ui->pauseBtn->setEnabled(true);
+        //disable pause btn
+        ui->pauseBtn->setEnabled(true);
+        ui->pauseBtn->blockSignals(true);
+        ui->pauseBtn->setChecked(false);
+        ui->pauseBtn->blockSignals(false);
+        ui->pauseBtn->setText(tr("Pause"));
+        ui->printBtn->setEnabled(false);
+
+        //disable axis control while printing
+        ui->axisControlGroup->setDisabled(true);
     }
 }
 
@@ -257,10 +299,12 @@ void MainWindow::pausePrint(bool pause){
     if(pause){
         ui->pauseBtn->setText(tr("Resume"));
         QMetaObject::invokeMethod(printerObj,"stopPrint",Qt::QueuedConnection);
+        ui->axisControlGroup->setDisabled(false);
     }
     else{
         ui->pauseBtn->setText(tr("Pause"));
         QMetaObject::invokeMethod(printerObj,"startPrint",Qt::QueuedConnection);
+        ui->axisControlGroup->setDisabled(true);
     }
 }
 
@@ -371,6 +415,7 @@ void MainWindow::saveSettings(){
     settings.setValue("showConsole", ui->groupBox_2->isChecked());
     settings.setValue("extrudeLenght", ui->extrudeLenghtSpinBox->value());
     settings.setValue("extrudeSpeed", ui->extrudeSpeedSpinBox->value());
+    settings.setValue("monitorTemp", ui->graphGroupBox->isChecked());
     //write temperature setting
     settings.beginWriteArray("temp1Values");
     for(int i=0; i<ui->t1Combo->count(); i++){
@@ -402,6 +447,7 @@ void MainWindow::restoreSettings(){
     ui->groupBox_2->setChecked(settings.value("showConsole").toBool());
     ui->extrudeLenghtSpinBox->setValue(settings.value("extrudeLenght").toInt());
     ui->extrudeSpeedSpinBox->setValue(settings.value("extrudeSpeed").toInt());
+    ui->graphGroupBox->setChecked(settings.value("monitorTemp").toBool());
     //restore temp1 combo
     int size = settings.beginReadArray("temp1Values");
     int currentIndex=0;

@@ -30,15 +30,18 @@ bool Printer::connectPort(QString port, int baud){
         if(this->portObj->open(QIODevice::ReadWrite)){
             emit write_to_console(tr("Printer connected"));
             connect(this->portObj, SIGNAL(readyRead()), this, SLOT(readFromPort()));
+            emit connected(true);
             return true;
         }
         else{
            emit write_to_console(tr("Unable to connect"));
+           emit connected(false);
            return false;
         }
     }
     else{
         emit write_to_console(tr("Unknown port name"));
+        emit connected(false);
         return false;
     }
 }
@@ -46,6 +49,7 @@ bool Printer::connectPort(QString port, int baud){
 bool Printer::disconnectPort(){
     this->portObj->close();
     emit write_to_console(tr("Printer disconnected"));
+    emit connected(false);
     return true;
 }
 
@@ -175,7 +179,9 @@ void Printer::setMonitorTemperature(bool monitor){
 }
 
 void Printer::getTemperature(){
-    writeToPort("M105");
+    if(this->isConnected()){
+        writeToPort("M105");
+    }
 }
 
 void Printer::setTemp1(int temp){

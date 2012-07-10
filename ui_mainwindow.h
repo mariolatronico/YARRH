@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Mon 9. Jul 20:13:24 2012
+** Created: Tue 10. Jul 02:05:45 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -94,11 +94,11 @@ public:
     QSpinBox *fanSpinBox;
     QLabel *t3Label;
     QPushButton *fanBtn;
-    QGroupBox *groupBox_3;
+    QGroupBox *graphGroupBox;
     QVBoxLayout *verticalLayout_4;
     QWidget *tempGraphWidget;
     QGridLayout *gridLayout_6;
-    QGroupBox *groupBox_5;
+    QGroupBox *axisControlGroup;
     QVBoxLayout *verticalLayout_3;
     QWidget *widget_4;
     QHBoxLayout *horizontalLayout_2;
@@ -464,16 +464,16 @@ public:
 
         horizontalLayout_5->addWidget(widget_8);
 
-        groupBox_3 = new QGroupBox(groupBox_7);
-        groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
-        groupBox_3->setCheckable(true);
-        groupBox_3->setChecked(false);
-        verticalLayout_4 = new QVBoxLayout(groupBox_3);
+        graphGroupBox = new QGroupBox(groupBox_7);
+        graphGroupBox->setObjectName(QString::fromUtf8("graphGroupBox"));
+        graphGroupBox->setCheckable(true);
+        graphGroupBox->setChecked(false);
+        verticalLayout_4 = new QVBoxLayout(graphGroupBox);
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setContentsMargins(11, 11, 11, 11);
         verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
         verticalLayout_4->setContentsMargins(0, 2, 0, 2);
-        tempGraphWidget = new QWidget(groupBox_3);
+        tempGraphWidget = new QWidget(graphGroupBox);
         tempGraphWidget->setObjectName(QString::fromUtf8("tempGraphWidget"));
         sizePolicy.setHeightForWidth(tempGraphWidget->sizePolicy().hasHeightForWidth());
         tempGraphWidget->setSizePolicy(sizePolicy);
@@ -486,23 +486,23 @@ public:
         verticalLayout_4->addWidget(tempGraphWidget);
 
 
-        horizontalLayout_5->addWidget(groupBox_3);
+        horizontalLayout_5->addWidget(graphGroupBox);
 
 
         verticalLayout->addWidget(groupBox_7);
 
-        groupBox_5 = new QGroupBox(widget_2);
-        groupBox_5->setObjectName(QString::fromUtf8("groupBox_5"));
+        axisControlGroup = new QGroupBox(widget_2);
+        axisControlGroup->setObjectName(QString::fromUtf8("axisControlGroup"));
         QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy4.setHorizontalStretch(0);
         sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(groupBox_5->sizePolicy().hasHeightForWidth());
-        groupBox_5->setSizePolicy(sizePolicy4);
-        verticalLayout_3 = new QVBoxLayout(groupBox_5);
+        sizePolicy4.setHeightForWidth(axisControlGroup->sizePolicy().hasHeightForWidth());
+        axisControlGroup->setSizePolicy(sizePolicy4);
+        verticalLayout_3 = new QVBoxLayout(axisControlGroup);
         verticalLayout_3->setSpacing(0);
         verticalLayout_3->setContentsMargins(2, 2, 2, 2);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        widget_4 = new QWidget(groupBox_5);
+        widget_4 = new QWidget(axisControlGroup);
         widget_4->setObjectName(QString::fromUtf8("widget_4"));
         horizontalLayout_2 = new QHBoxLayout(widget_4);
         horizontalLayout_2->setSpacing(6);
@@ -512,7 +512,7 @@ public:
 
         verticalLayout_3->addWidget(widget_4);
 
-        widget_12 = new QWidget(groupBox_5);
+        widget_12 = new QWidget(axisControlGroup);
         widget_12->setObjectName(QString::fromUtf8("widget_12"));
         horizontalLayout_9 = new QHBoxLayout(widget_12);
         horizontalLayout_9->setSpacing(6);
@@ -681,7 +681,7 @@ public:
         verticalLayout_3->addWidget(widget_12);
 
 
-        verticalLayout->addWidget(groupBox_5);
+        verticalLayout->addWidget(axisControlGroup);
 
 
         gridLayout_4->addWidget(widget_2, 0, 0, 2, 1);
@@ -738,8 +738,8 @@ public:
         fanSpinBox->setSuffix(QApplication::translate("MainWindow", " %", 0, QApplication::UnicodeUTF8));
         t3Label->setText(QApplication::translate("MainWindow", " 0 \302\260C", 0, QApplication::UnicodeUTF8));
         fanBtn->setText(QApplication::translate("MainWindow", "On", 0, QApplication::UnicodeUTF8));
-        groupBox_3->setTitle(QApplication::translate("MainWindow", "Monitor", 0, QApplication::UnicodeUTF8));
-        groupBox_5->setTitle(QApplication::translate("MainWindow", "Axis control", 0, QApplication::UnicodeUTF8));
+        graphGroupBox->setTitle(QApplication::translate("MainWindow", "Monitor", 0, QApplication::UnicodeUTF8));
+        axisControlGroup->setTitle(QApplication::translate("MainWindow", "Axis control", 0, QApplication::UnicodeUTF8));
         label_5->setText(QApplication::translate("MainWindow", "Position", 0, QApplication::UnicodeUTF8));
         label_19->setText(QApplication::translate("MainWindow", "Go to:", 0, QApplication::UnicodeUTF8));
         xAt->setText(QApplication::translate("MainWindow", "X: 0", 0, QApplication::UnicodeUTF8));
