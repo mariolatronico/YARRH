@@ -91,6 +91,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->printBtn->setDisabled(true);
     ui->pauseBtn->setDisabled(true);
     ui->axisControlGroup->setDisabled(true);
+    ui->temperatureGroupBox->setDisabled(true);
     ui->baudCombo->addItem("1200", BAUD1200);
     ui->baudCombo->addItem("2400", BAUD2400);
     ui->baudCombo->addItem("4800", BAUD4800);
@@ -140,7 +141,7 @@ void MainWindow::printerConnected(bool connected){
     if(connected){
             ui->connectBtn->setText(tr("Disconnect"));
             ui->axisControlGroup->setDisabled(false);
-
+            ui->temperatureGroupBox->setDisabled(false);
             if(this->gcodeLines.size()>0){
                 if(ui->progressBar->value()>0){
                     ui->pauseBtn->setEnabled(true);
@@ -158,6 +159,8 @@ void MainWindow::printerConnected(bool connected){
         ui->connectBtn->blockSignals(false);
 
         ui->axisControlGroup->setDisabled(true);
+        ui->temperatureGroupBox->setDisabled(true);
+
         ui->printBtn->setEnabled(false);
         ui->pauseBtn->setEnabled(false);
     }

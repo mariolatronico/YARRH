@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Tue 10. Jul 02:05:45 2012
+** Created: Tue 10. Jul 03:26:39 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -79,7 +79,7 @@ public:
     QHBoxLayout *horizontalLayout_4;
     QPushButton *printBtn;
     QPushButton *pauseBtn;
-    QGroupBox *groupBox_7;
+    QGroupBox *temperatureGroupBox;
     QHBoxLayout *horizontalLayout_5;
     QWidget *widget_8;
     QGridLayout *gridLayout_2;
@@ -363,19 +363,19 @@ public:
 
         verticalLayout->addWidget(groupBox_4);
 
-        groupBox_7 = new QGroupBox(widget_2);
-        groupBox_7->setObjectName(QString::fromUtf8("groupBox_7"));
-        sizePolicy1.setHeightForWidth(groupBox_7->sizePolicy().hasHeightForWidth());
-        groupBox_7->setSizePolicy(sizePolicy1);
-        groupBox_7->setCheckable(false);
-        groupBox_7->setChecked(false);
-        horizontalLayout_5 = new QHBoxLayout(groupBox_7);
+        temperatureGroupBox = new QGroupBox(widget_2);
+        temperatureGroupBox->setObjectName(QString::fromUtf8("temperatureGroupBox"));
+        sizePolicy1.setHeightForWidth(temperatureGroupBox->sizePolicy().hasHeightForWidth());
+        temperatureGroupBox->setSizePolicy(sizePolicy1);
+        temperatureGroupBox->setCheckable(false);
+        temperatureGroupBox->setChecked(false);
+        horizontalLayout_5 = new QHBoxLayout(temperatureGroupBox);
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
         horizontalLayout_5->setSizeConstraint(QLayout::SetMaximumSize);
         horizontalLayout_5->setContentsMargins(2, 0, 2, 0);
-        widget_8 = new QWidget(groupBox_7);
+        widget_8 = new QWidget(temperatureGroupBox);
         widget_8->setObjectName(QString::fromUtf8("widget_8"));
         sizePolicy1.setHeightForWidth(widget_8->sizePolicy().hasHeightForWidth());
         widget_8->setSizePolicy(sizePolicy1);
@@ -464,7 +464,7 @@ public:
 
         horizontalLayout_5->addWidget(widget_8);
 
-        graphGroupBox = new QGroupBox(groupBox_7);
+        graphGroupBox = new QGroupBox(temperatureGroupBox);
         graphGroupBox->setObjectName(QString::fromUtf8("graphGroupBox"));
         graphGroupBox->setCheckable(true);
         graphGroupBox->setChecked(false);
@@ -489,7 +489,7 @@ public:
         horizontalLayout_5->addWidget(graphGroupBox);
 
 
-        verticalLayout->addWidget(groupBox_7);
+        verticalLayout->addWidget(temperatureGroupBox);
 
         axisControlGroup = new QGroupBox(widget_2);
         axisControlGroup->setObjectName(QString::fromUtf8("axisControlGroup"));
@@ -728,7 +728,7 @@ public:
         filamentLbl->setText(QString());
         printBtn->setText(QApplication::translate("MainWindow", "Print", 0, QApplication::UnicodeUTF8));
         pauseBtn->setText(QApplication::translate("MainWindow", "Pause", 0, QApplication::UnicodeUTF8));
-        groupBox_7->setTitle(QApplication::translate("MainWindow", "Temperature", 0, QApplication::UnicodeUTF8));
+        temperatureGroupBox->setTitle(QApplication::translate("MainWindow", "Temperature", 0, QApplication::UnicodeUTF8));
         t1Btn->setText(QApplication::translate("MainWindow", "On", 0, QApplication::UnicodeUTF8));
         t1Label->setText(QApplication::translate("MainWindow", " 0 \302\260C", 0, QApplication::UnicodeUTF8));
         label_14->setText(QApplication::translate("MainWindow", "T1", 0, QApplication::UnicodeUTF8));
