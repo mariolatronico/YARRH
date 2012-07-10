@@ -40,7 +40,10 @@ RESOURCES += \
     resource.qrc
 
 TRANSLATIONS = yarrh_pl.ts \
-               yarrh_en.ts
+               yarrh_en.ts \
+               yarrh_de.ts \
+               yarrh_bg.ts \
+               yarrh_fi.ts
 
 
 
