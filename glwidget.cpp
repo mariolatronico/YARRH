@@ -360,6 +360,9 @@ void GlWidget::setXRotation(int angle)
   }
   //clearing object list... not sure if deletes them also, will check later
   void GlWidget::clearObjects(){
+      for(int i=0; i<this->objects.size(); i++){
+          this->objects.at(i)->freeLists();
+      }
       this->objects.clear();
   }
 

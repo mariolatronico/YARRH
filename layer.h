@@ -3,20 +3,27 @@
 
 #include <QObject>
 #include <QVector4D>
+#include <QVector3D>
+#include <QtOpenGL>
+#include <gl/GL.h>
+#include <gl/GLU.h>
 
-//just a simple class to hold info about single object layer
-//maybee i will expant it, once o know what i need exactly
+//class that hold info about layer in opengl lists for faster rendering
 class Layer : public QObject
 {
     Q_OBJECT
 private:
     int layer_num;
+    void renderLine(QVector3D v1, QVector3D v2, qreal radius, qreal travel, bool last);
+    QVector3D calculateNormal(QVector3D v1, QVector3D v2, QVector3D v3);
 public:
-    explicit Layer(int layer_num, QObject *parent = 0);
+    explicit Layer(int layer, QObject *parent = 0);
     QList<QVector4D> vertexes;
     void draw(float scale);
     //generate lists
-    void render();
+    void render(float scale);
+    void display(float scale, bool last, bool show_travel);
+    void freeLists();
 signals:
 
 public slots:

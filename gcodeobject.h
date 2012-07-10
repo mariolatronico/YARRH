@@ -5,6 +5,8 @@
 #include <QVector3D>
 #include <QObject>
 #include <QtOpenGL>
+#include <gl/GL.h>
+#include <gl/GLU.h>
 #include "layer.h"
 
 //this class is for storing 3d pbject parset from raw gcode
@@ -19,10 +21,11 @@ public:
     void draw(float scale, int layers, bool show_travel);
     void setLayerHeight(float layerHeight);
     float getLayerHeight();
+    void render(float scale);
+    void freeLists();
 private:
     QList<Layer*> layerList;
     QMap<int, QVector4D> cylinderList;
-    void renderCylinder(qreal x1, qreal y1, qreal z1, qreal x2,qreal y2, qreal z2, qreal radius,int subdivisions, bool lastlayer, qreal travel);
     float layerHeight;
     int currentLayer;
 };
