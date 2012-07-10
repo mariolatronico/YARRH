@@ -18,7 +18,7 @@
 //version number
 #define VERSION_MAJOR       0
 #define VERSION_MINOR       1
-#define VERSION_REVISION    1
+#define VERSION_REVISION    2
 
 namespace Ui {
     class MainWindow;

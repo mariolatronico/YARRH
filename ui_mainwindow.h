@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Tue 10. Jul 03:26:39 2012
+** Created: Tue 10. Jul 11:27:39 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -648,7 +648,7 @@ public:
         homeAll = new QPushButton(widget_10);
         homeAll->setObjectName(QString::fromUtf8("homeAll"));
         homeAll->setMaximumSize(QSize(1600, 16777215));
-        homeAll->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
+        homeAll->setLocale(QLocale(QLocale::Polish, QLocale::Poland));
 
         horizontalLayout_7->addWidget(homeAll);
 

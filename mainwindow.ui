@@ -854,7 +854,7 @@
                       </size>
                      </property>
                      <property name="locale">
-                      <locale language="English" country="UnitedStates"/>
+                      <locale language="Polish" country="Poland"/>
                      </property>
                      <property name="text">
                       <string>All</string>

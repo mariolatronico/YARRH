@@ -247,6 +247,7 @@ void MainWindow::loadFile(){
     ui->progressBar->setMaximum(this->gcodeLines.size());
     ui->progressBar->setValue(0);
     this->glWidget->setLayers(layerCount);
+    tempObject->render(0.01);
     this->glWidget->addObject(tempObject);
 
     //enable print button
@@ -259,6 +260,7 @@ void MainWindow::loadFile(){
     ui->pauseBtn->setChecked(false);
     ui->pauseBtn->blockSignals(false);
     ui->pauseBtn->setText(tr("Pause"));
+    qDebug() << ui->progressBar->maximum();
 }
 
 //printing object
