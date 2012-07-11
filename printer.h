@@ -27,9 +27,12 @@ private:
      QVector3D curr_pos;
      QString inBuffer;
      QStringList responseBuffer;
+     double last_bed_temp;
+     double last_head_temp;
 public:
     explicit Printer(QObject *parent = 0);
     bool isConnected();
+    bool getIsPrinting();
 signals:
     void write_to_console(QString);
     void currentTemp(double,double,double);

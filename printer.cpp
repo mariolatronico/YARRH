@@ -5,13 +5,15 @@ Printer::Printer(QObject *parent)
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
     QTextCodec::setCodecForTr(QTextCodec::codecForName ("UTF-8"));
     PortSettings settings = {BAUD9600, DATA_8, PAR_NONE, STOP_1, FLOW_OFF, 10};
-    this->portObj = new QextSerialPort("",settings,QextSerialPort::EventDriven);
+    this->portObj = new QextSerialPort("",settings);
     this->isPrinting=false;
     this->temperatureTimer = new QTimer(this);
     connect(temperatureTimer, SIGNAL(timeout()), this, SLOT(getTemperature()));
     curr_pos.setX(0);
     curr_pos.setY(0);
     curr_pos.setZ(0);
+    last_bed_temp = 0;
+    last_head_temp = 0;
     inBuffer.clear();
     responseBuffer.clear();
 }
@@ -19,6 +21,11 @@ Printer::Printer(QObject *parent)
 bool Printer::isConnected(){
     return this->portObj->isReadable();
 }
+
+bool Printer::getIsPrinting(){
+    return this->isPrinting;
+}
+
 
 bool Printer::connectPort(QString port, int baud){
     emit write_to_console(tr("Connecting..."));
@@ -79,31 +86,47 @@ int Printer::writeToPort(QString command){
 
 //reading from port
 void Printer::readFromPort(){
-    //add data to buffer
-    inBuffer.append(portObj->readAll());
+    while(portObj->bytesAvailable()>0){
+        //add data to buffer
+        inBuffer.append(portObj->readAll());
 
-    //send full responces to fifo
-    responseBuffer.append(inBuffer.left(inBuffer.lastIndexOf("\n")+1).split("\n",QString::SkipEmptyParts));
+        //send full responces to fifo
+        responseBuffer.append(inBuffer.left(inBuffer.lastIndexOf("\n")+1).split("\n",QString::SkipEmptyParts));
+        qDebug() << inBuffer;
+        //clear buffer
+        inBuffer.remove(0,inBuffer.lastIndexOf("\n")+1);
 
-    //clear buffer
-    inBuffer.remove(0,inBuffer.lastIndexOf("\n")+1);
+        //proccess all responces from fifo
+        while(responseBuffer.size()>0){
+            QString lastResponse=responseBuffer.takeFirst();
+            //if its temp status
+            if(lastResponse.contains("T:") || lastResponse.contains("B:")){
+                bool ok;
 
-    //proccess all responces from fifo
-    while(responseBuffer.size()>0){
-        QString lastResponse=responseBuffer.takeFirst();
-        //if we are printing then continue
-        if(lastResponse.contains("ok")){
-            if(lastResponse.contains("T:") && lastResponse.contains("B:")){
-                emit currentTemp(lastResponse.mid(lastResponse.indexOf("T:")+2,lastResponse.indexOf(".",lastResponse.indexOf("T:"))-lastResponse.indexOf("T:")+2).toDouble(),0.0,lastResponse.mid(lastResponse.indexOf("B:")+2,lastResponse.indexOf(".",lastResponse.indexOf("B:"))-lastResponse.indexOf("B:")+2).toDouble());
+                double bed_temp = lastResponse.mid(lastResponse.indexOf("B:")+2,lastResponse.indexOf(".",lastResponse.indexOf("B:"))-lastResponse.indexOf("B:")+2).toDouble(&ok);
+                if(ok){
+                    last_bed_temp=bed_temp;
+                }
+                double head_temp = lastResponse.mid(lastResponse.indexOf("T:")+2,lastResponse.indexOf(".",lastResponse.indexOf("T:"))-lastResponse.indexOf("T:")+2).toDouble(&ok);
+                if(ok){
+                    last_head_temp=head_temp;
+                }
+
+                emit currentTemp(last_head_temp,0.0,last_bed_temp);
             }
-            if(this->gCodeBuffer.size()>0 && this->isPrinting){
-                writeToPort(this->gCodeBuffer.takeFirst());
-                qDebug() << this->gCodeBuffer.size();
-                emit progress(this->gCodeBuffer.size());
+            //if its response for position command
+            else{
+                //if we are printing then continue
+                if(lastResponse.contains("ok")){
+                        if(this->gCodeBuffer.size()>0 && this->isPrinting){
+                            writeToPort(this->gCodeBuffer.takeFirst());
+                            emit progress(this->gCodeBuffer.size());
+                        }
+                }
+                else{
+                    write_to_console(lastResponse);
+                }
             }
-        }
-        else{
-            write_to_console(lastResponse);
         }
     }
 }
@@ -171,7 +194,7 @@ void Printer::loadToBuffer(QStringList buffer, bool clear){
 void Printer::setMonitorTemperature(bool monitor){
     this->monitorTemperature=monitor;
     if(monitor){
-        this->temperatureTimer->start(1000);
+        this->temperatureTimer->start(2000);
     }
     else{
         this->temperatureTimer->stop();
