@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Tue 10. Jul 11:27:39 2012
+** Created: Wed 11. Jul 08:38:35 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -674,6 +674,8 @@ public:
         zSlider->setMaximum(200);
         zSlider->setTracking(false);
         zSlider->setOrientation(Qt::Vertical);
+        zSlider->setTickPosition(QSlider::TicksBelow);
+        zSlider->setTickInterval(10);
 
         horizontalLayout_9->addWidget(zSlider);
 

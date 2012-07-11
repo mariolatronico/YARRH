@@ -18,7 +18,7 @@
 //version number
 #define VERSION_MAJOR       0
 #define VERSION_MINOR       1
-#define VERSION_REVISION    2
+#define VERSION_REVISION    3
 
 namespace Ui {
     class MainWindow;
@@ -50,6 +50,10 @@ private:
     Printer *printerObj;
     //about window
     AboutWindow *aboutWindow;
+    //confirmation dialog
+    QMessageBox* msgBox;
+    qreal lastZ;
+    int currentLayer;
     void saveSettings();
     void restoreSettings();
 private slots:

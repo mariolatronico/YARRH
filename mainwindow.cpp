@@ -91,6 +91,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->printBtn->setDisabled(true);
     ui->pauseBtn->setDisabled(true);
     ui->axisControlGroup->setDisabled(true);
+    controlWidget->hidePoints(true);
     ui->temperatureGroupBox->setDisabled(true);
     ui->baudCombo->addItem("1200", BAUD1200);
     ui->baudCombo->addItem("2400", BAUD2400);
@@ -141,6 +142,7 @@ void MainWindow::printerConnected(bool connected){
     if(connected){
             ui->connectBtn->setText(tr("Disconnect"));
             ui->axisControlGroup->setDisabled(false);
+            controlWidget->hidePoints(false);
             ui->temperatureGroupBox->setDisabled(false);
             if(this->gcodeLines.size()>0){
                 if(ui->progressBar->value()>0){
@@ -159,6 +161,7 @@ void MainWindow::printerConnected(bool connected){
         ui->connectBtn->blockSignals(false);
 
         ui->axisControlGroup->setDisabled(true);
+        controlWidget->hidePoints(true);
         ui->temperatureGroupBox->setDisabled(true);
 
         ui->printBtn->setEnabled(false);
@@ -240,13 +243,13 @@ void MainWindow::loadFile(){
             tempObject->addVertex(x,y,z,travel,layerCount);
         }
     }
-    ui->layerScrollBar->setMaximum(layerCount);
+    ui->layerScrollBar->setMaximum(layerCount+1);
     ui->layerScrollBar->setValue(1);
     ui->currentLayer->setText(QString::number(layerCount)+"/"+QString::number(layerCount));
 
     ui->progressBar->setMaximum(this->gcodeLines.size());
     ui->progressBar->setValue(0);
-    this->glWidget->setLayers(layerCount);
+    this->glWidget->setLayers(ui->layerScrollBar->maximum());
     tempObject->render(0.01);
     this->glWidget->addObject(tempObject);
 
@@ -261,6 +264,7 @@ void MainWindow::loadFile(){
     ui->pauseBtn->blockSignals(false);
     ui->pauseBtn->setText(tr("Pause"));
     qDebug() << ui->progressBar->maximum();
+    this->currentLayer=0;
 }
 
 //printing object
@@ -282,13 +286,16 @@ void MainWindow::startPrint(){
 
         //disable axis control while printing
         ui->axisControlGroup->setDisabled(true);
+        controlWidget->hidePoints(true);
+        this->lastZ=0;
+        this->currentLayer=0;
     }
 }
 
 //setting layers displayed
 void MainWindow::setLayers(int layers){
     this->glWidget->setLayers(ui->layerScrollBar->maximum()-layers+1);
-    ui->currentLayer->setText(QString::number(ui->layerScrollBar->maximum()-layers+1)+"/"+QString::number(ui->layerScrollBar->maximum()));
+    ui->currentLayer->setText(QString::number(ui->layerScrollBar->maximum()-layers)+"/"+QString::number(ui->layerScrollBar->maximum()-1));
 }
 
 //slot to connect diffrent signals
@@ -303,20 +310,22 @@ void MainWindow::moveHead(QPoint point){
 void MainWindow::pausePrint(bool pause){
     if(pause){
         ui->pauseBtn->setText(tr("Resume"));
-        QMetaObject::invokeMethod(printerObj,"stopPrint",Qt::QueuedConnection);
+        QMetaObject::invokeMethod(printerObj,"stopPrint",Qt::DirectConnection);
         ui->axisControlGroup->setDisabled(false);
+        controlWidget->hidePoints(false);
     }
     else{
         ui->pauseBtn->setText(tr("Pause"));
-        QMetaObject::invokeMethod(printerObj,"startPrint",Qt::QueuedConnection);
+        QMetaObject::invokeMethod(printerObj,"startPrint",Qt::DirectConnection);
         ui->axisControlGroup->setDisabled(true);
+        controlWidget->hidePoints(true);
     }
 }
 
 //draw temp on graph
 
 void MainWindow::drawTemp(double t1, double t2, double hb){
-    this->graphWidget->addMeasurment(t1,t2,hb);
+    this->graphWidget->addMeasurment(t1,t2,hb,QDateTime::currentMSecsSinceEpoch()/1000);
     ui->t1Label->setText(QString::number(t1)+" Â°C");
     ui->t3Label->setText(QString::number(hb)+" Â°C");
 }
@@ -326,7 +335,9 @@ void MainWindow::updateProgress(int progress){
     ui->progressBar->setValue(ui->progressBar->maximum()-progress);
     //calculating ETA
     this->durationTime=QTime(0,0,0);
+
     this->durationTime=this->durationTime.addSecs(startTime.secsTo(QTime::currentTime()));
+
     float linesPerSec=(float)ui->progressBar->value()/(float)startTime.secsTo(QTime::currentTime());
     this->eta=QTime(0,0,0).addSecs((int)((float)progress/linesPerSec));
     ui->progressBar->setFormat(this->durationTime.toString("hh:mm:ss")+"/"+this->eta.toString("hh:mm:ss")+" %p%");
@@ -386,10 +397,20 @@ void MainWindow::on_actionO_Programie_triggered()
     this->aboutWindow->showOnXY(QPoint(this->geometry().center().x()-this->aboutWindow->width()/2,this->geometry().center().y()-this->aboutWindow->height()/2));
 }
 
+//updates head position and current layer num
 void MainWindow::updateHeadPosition(QVector3D point){
     ui->xAt->setText("X: "+QString::number(point.x()));
     ui->yAt->setText("Y: "+QString::number(point.y()));
     ui->zAt->setText("Z: "+QString::number(point.z()));
+
+    if(point.z()>this->lastZ){
+        this->lastZ=point.z();
+        this->currentLayer++;
+        this->glWidget->setCurrentLayer(this->currentLayer);
+        this->controlWidget->resetLayer();
+        qDebug() << currentLayer;
+    }
+    this->controlWidget->addPrintedPoint(point.toPointF());
 }
 
 void MainWindow::updateHeadGoToXY(QPoint point){
@@ -401,7 +422,23 @@ void MainWindow::updateHeadGoToXY(QPoint point){
 //main windows close event
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    qDebug() << "closing";
+    if(printerObj->getIsPrinting()){
+        event->ignore();
+        //Setting parent will keep messagebox in the center of QMainWindow
+        msgBox = new QMessageBox(this);
+        msgBox->setWindowTitle(tr("Printing in progress"));
+        msgBox->setText(tr("Are you sure you want to exit?"));
+
+        QPushButton *yesButton = msgBox->addButton(tr("Yes"), QMessageBox::ActionRole);
+        msgBox->addButton(tr("No"), QMessageBox::ActionRole);
+        msgBox->exec();
+
+        //If user clicks 'Yes'  button , accept QCloseEvent (Close Window)
+        if ((QPushButton*)msgBox->clickedButton() == yesButton)
+        {
+            event->accept();
+        }
+    }
     saveSettings();
 }
 
@@ -421,6 +458,7 @@ void MainWindow::saveSettings(){
     settings.setValue("extrudeLenght", ui->extrudeLenghtSpinBox->value());
     settings.setValue("extrudeSpeed", ui->extrudeSpeedSpinBox->value());
     settings.setValue("monitorTemp", ui->graphGroupBox->isChecked());
+    settings.setValue("showTravel", ui->showTravelChkBox->isChecked());
     //write temperature setting
     settings.beginWriteArray("temp1Values");
     for(int i=0; i<ui->t1Combo->count(); i++){
@@ -453,6 +491,7 @@ void MainWindow::restoreSettings(){
     ui->extrudeLenghtSpinBox->setValue(settings.value("extrudeLenght").toInt());
     ui->extrudeSpeedSpinBox->setValue(settings.value("extrudeSpeed").toInt());
     ui->graphGroupBox->setChecked(settings.value("monitorTemp").toBool());
+    ui->showTravelChkBox->setChecked(settings.value("showTravel").toBool());
     //restore temp1 combo
     int size = settings.beginReadArray("temp1Values");
     int currentIndex=0;

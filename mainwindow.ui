@@ -902,6 +902,12 @@
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
                </property>
+               <property name="tickPosition">
+                <enum>QSlider::TicksBelow</enum>
+               </property>
+               <property name="tickInterval">
+                <number>10</number>
+               </property>
               </widget>
              </item>
             </layout>

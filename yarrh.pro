@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     headcontrol.cpp \
     headcontrolline.cpp \
     printer.cpp \
-    aboutwindow.cpp
+    aboutwindow.cpp \
+    layer2d.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -29,7 +30,8 @@ HEADERS  += mainwindow.h \
     headcontrol.h \
     headcontrolline.h \
     printer.h \
-    aboutwindow.h
+    aboutwindow.h \
+    layer2d.h
 
 FORMS    += mainwindow.ui \
     aboutwindow.ui
@@ -44,6 +46,8 @@ TRANSLATIONS = yarrh_pl.ts \
                yarrh_de.ts \
                yarrh_bg.ts \
                yarrh_fi.ts
+
+
 
 
 
