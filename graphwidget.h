@@ -40,6 +40,7 @@ private:
         Path *t1;
         Path *t2;
         Path *t3;
+        qint64 createTime;
 protected:
         virtual void paintEvent(QPaintEvent*);
         virtual void mouseMoveEvent ( QMouseEvent *);
@@ -60,7 +61,7 @@ public:
         GraphWidget(QWidget *parent=NULL);
         QSize minimumSizeHint() const;
         QSize sizeHint() const;
-        void addMeasurment(double, double, double);
+        void addMeasurment(double, double, double, qint64);
         void setTargets(double, double, double);
 };
 

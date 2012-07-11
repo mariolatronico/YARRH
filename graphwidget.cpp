@@ -16,6 +16,7 @@ Path::Path() : s_color(Qt::red), s_target(0)
 
 GraphWidget::GraphWidget(QWidget *parent/*=NULL*/) : QWidget(parent), trans(0, 0), s_scale(defaultScale)
 {
+        this->createTime= QDateTime::currentMSecsSinceEpoch()/1000;
         setFocusPolicy(Qt::StrongFocus);
         t1 = new Path();
         t1->addPoint(QPointF(0,0));
@@ -128,10 +129,10 @@ void GraphWidget::mouseMoveEvent(QMouseEvent *event)
 }
 
 
-void GraphWidget::addMeasurment(double temp1, double temp2, double temphb){
-    t1->addPoint(QPointF(t1->size(),temp1));
-    t2->addPoint(QPointF(t2->size(),temp2));
-    t3->addPoint(QPointF(t3->size(),temphb));
+void GraphWidget::addMeasurment(double temp1, double temp2, double temphb, qint64 time){
+    t1->addPoint(QPointF(time-this->createTime,temp1));
+    t2->addPoint(QPointF(time-this->createTime,temp2));
+    t3->addPoint(QPointF(time-this->createTime,temphb));
     repaint();
 }
 void GraphWidget::setTargets(double temp1, double temp2, double temp3){
