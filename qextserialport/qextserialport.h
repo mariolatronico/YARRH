@@ -101,7 +101,6 @@ enum BaudRateType
     BAUD14400 = 14400,          //WINDOWS ONLY
     BAUD56000 = 56000,          //WINDOWS ONLY
     BAUD128000 = 128000,        //WINDOWS ONLY
-    BAUD250000 = 250000,
     BAUD256000 = 256000,        //WINDOWS ONLY
 #endif  //Q_OS_WIN
     BAUD110 = 110,
@@ -114,7 +113,8 @@ enum BaudRateType
     BAUD19200 = 19200,
     BAUD38400 = 38400,
     BAUD57600 = 57600,
-    BAUD115200 = 115200
+    BAUD115200 = 115200,
+    BAUD250000 = 250000
 };
 
 enum DataBitsType

@@ -96,6 +96,7 @@ void QextSerialPortPrivate::setBaudRate(BaudRateType baudRate, bool update)
 #  endif
 #  if defined(B230400) && defined(B4000000)
     case BAUD230400:
+    case BAUD250000:
     case BAUD460800:
     case BAUD500000:
     case BAUD576000:

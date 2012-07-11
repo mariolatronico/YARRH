@@ -306,6 +306,9 @@ void QextSerialPortPrivate::updatePortSettings()
         case BAUD115200:
             setBaudRate2Termios(&Posix_CommConfig, B115200);
             break;
+        case BAUD250000:
+            setBaudRate2Termios(&Posix_CommConfig, 0x0018);
+            break;
 #if defined(B230400) && defined(B4000000)
         case BAUD230400:
             setBaudRate2Termios(&Posix_CommConfig, B230400);
