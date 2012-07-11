@@ -18,7 +18,7 @@ public:
     GCodeObject(QObject *parent);
     ~GCodeObject();
     void addVertex(qreal xpos, qreal ypos, qreal zpos, qreal travel, int layer);
-    void draw(float scale, int layers, bool show_travel);
+    void draw(float scale, int layers, bool show_travel, int current_layer);
     void setLayerHeight(float layerHeight);
     float getLayerHeight();
     void render(float scale);

@@ -59,23 +59,33 @@ void Layer::renderLine(QVector3D v1, QVector3D v2, qreal radius, qreal travel, b
 
 }
 
-void Layer::display(float scale, bool last, bool show_travel){
+void Layer::display(float scale, bool last, bool show_travel, int current_layer){
     GLfloat   gray[4]={0.9,0.9,0.9,1.0};
     GLfloat   red[4]={1.0,0.0,0.0,1.0};
     GLfloat   green[4]={0.0,1.0,0.0,1.0};
+    GLfloat   blue[4]={0.0,0.0,1.0,1.0};
+    GLfloat   orange[4]={1.0,0.5,0.0,1.0};
     GLfloat fCurrentColor[4];
 
     glGetFloatv(GL_CURRENT_COLOR, fCurrentColor);
     if(last)
        glColor4fv(red);
-    else
-        glColor4fv(gray);
+    else{
+       glColor4fv(gray);
+       //current and printer layer coloring for travel moves
+       if(current_layer>this->layer_num)
+           glColor4fv(blue);
+       else{
+           if(current_layer==this->layer_num)
+               glColor4fv(orange);
+       }
+    }
 
-        glCallList(this->layer_num);
-        if(show_travel){
-           glColor4fv(green);
-           glCallList(this->layer_num+1);
-        }
+        glCallList(this->list_index);
+    if(show_travel){
+        glColor4fv(green);
+        glCallList(this->list_index+1);
+    }
     glColor4fv(fCurrentColor);
 }
 
@@ -83,7 +93,7 @@ void Layer::display(float scale, bool last, bool show_travel){
 void Layer::render(float scale){
     //generate model list
     GLuint index = glGenLists(2);
-    this->layer_num=index;
+    this->list_index=index;
     // compile the display list, store a triangle in it
     glNewList(index, GL_COMPILE);
 
@@ -106,5 +116,5 @@ void Layer::render(float scale){
 }
 
 void Layer::freeLists(){
-    glDeleteLists(this->layer_num, 2);
+    glDeleteLists(this->list_index, 2);
 }

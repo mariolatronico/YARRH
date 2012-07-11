@@ -20,6 +20,7 @@ GlWidget::GlWidget(QWidget *parent)
     zoom = -0.625;
     xMove = 0;
     yMove = 0;
+    currentLayer=0;
     layers = 5000;
     show_travel=false;
     qtGreen = QColor::fromCmykF(0.40, 0.0, 1.0, 0.0);
@@ -31,6 +32,11 @@ GlWidget::GlWidget(QWidget *parent)
 GlWidget::~GlWidget()
  {
  }
+
+void GlWidget::setCurrentLayer(int layer){
+    this->currentLayer=layer;
+    this->repaint();
+}
 
 void GlWidget::qNormalizeAngle(int &angle)
 {
@@ -124,7 +130,7 @@ void GlWidget::setXRotation(int angle)
        glRotatef(zRot / 16.0, 0.0, 0.0, 1.0);
        glTranslatef(-1.0+xMove, -1.0+yMove, 0.0);
        for(int i=0; i<this->objects.size(); i++){
-           this->objects.at(i)->draw(0.01,this->layers, show_travel);
+           this->objects.at(i)->draw(0.01,this->layers, show_travel, this->currentLayer);
        }
        drawAxis();
        drawGrid();
@@ -157,7 +163,7 @@ void GlWidget::setXRotation(int angle)
    }
 //wheel event
   void GlWidget::wheelEvent(QWheelEvent * event){
-      zoom += (float)event->delta()/960;
+      zoom += (float)event->delta()/1920;
       qDebug() << zoom;
 
       glMatrixMode(GL_PROJECTION);
