@@ -16,6 +16,7 @@ public:
 private:
     QPoint p1;
     bool hovered;
+    bool showPoint;
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
@@ -24,7 +25,7 @@ signals:
     void clicked(QPoint);
     void isHovered(QPoint);
 public slots:
-    
+    void setShow(bool);
 };
 
 #endif // HEADCONTROLLINE_H

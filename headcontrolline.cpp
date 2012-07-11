@@ -4,6 +4,7 @@ HeadControlLine::HeadControlLine(QPoint p1)
 {
     this->p1=p1;
     this->hovered=false;
+    this->showPoint = true;
     this->setAcceptHoverEvents(true);
 }
 
@@ -12,15 +13,17 @@ QRectF HeadControlLine::boundingRect() const{
 }
 
 void HeadControlLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
-    if(this->hovered){
-       painter->setPen(QColor(200,100,100));
-       painter->setBrush(QColor(200,100,100));
+    if(this->showPoint){
+        if(this->hovered){
+           painter->setPen(QColor(200,100,100));
+           painter->setBrush(QColor(200,100,100));
+        }
+        else{
+            painter->setPen(QColor(179,179,179));
+           painter->setBrush(QColor(179,179,179));
+        }
+        painter->drawRoundedRect(QRectF(p1,QSize(4,4)),2,2);
     }
-    else{
-         painter->setPen(QColor(179,179,179));
-       painter->setBrush(QColor(179,179,179));
-    }
-    painter->drawRoundedRect(QRectF(p1,QSize(4,4)),2,2);
 }
 
 void HeadControlLine::mousePressEvent(QGraphicsSceneMouseEvent *event){
@@ -35,5 +38,10 @@ void HeadControlLine::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
 
 void HeadControlLine::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
     hovered=false;
+    this->update(this->boundingRect());
+}
+
+void HeadControlLine::setShow(bool show){
+    this->showPoint=show;
     this->update(this->boundingRect());
 }
