@@ -45,6 +45,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(printerObj, SIGNAL(currentTemp(double,double,double)), this, SLOT(drawTemp(double,double,double)));
     connect(printerObj, SIGNAL(progress(int)), this, SLOT(updateProgress(int)));
     connect(printerObj, SIGNAL(connected(bool)), this, SLOT(printerConnected(bool)));
+    //setting ui temp from gcode
+    connect(printerObj, SIGNAL(settingTemp1(double)), this, SLOT(setTemp1FromGcode(double)));
+    connect(printerObj, SIGNAL(settingTemp3(double)), this, SLOT(setTemp3FromGcode(double)));
     //updating head position in ui
     connect(printerObj, SIGNAL(currentPosition(QVector3D)), this, SLOT(updateHeadPosition(QVector3D)));
     //connect z slider
@@ -289,6 +292,7 @@ void MainWindow::startPrint(){
         controlWidget->hidePoints(true);
         this->lastZ=0;
         this->currentLayer=0;
+        glWidget->setCurrentLayer(this->currentLayer);
     }
 }
 
@@ -382,7 +386,38 @@ void MainWindow::setTemp3(bool on){
     }
 }
 
+void MainWindow::setTemp1FromGcode(double value){
+    this->graphWidget->setTargets(value,-1,-1);
+    if(value>0){
+        ui->t1Btn->blockSignals(true);
+        ui->t1Btn->setText("Off");
+        ui->t1Btn->setChecked(true);
+        ui->t1Btn->blockSignals(false);
+    }
+    else{
+        ui->t1Btn->blockSignals(true);
+        ui->t1Btn->setText("On");
+        ui->t1Btn->setChecked(false);
+        ui->t1Btn->blockSignals(false);
+    }
+}
 
+void MainWindow::setTemp3FromGcode(double value){
+    qDebug() << value;
+    this->graphWidget->setTargets(-1,-1,value);
+    if(value>0){
+        ui->hbBtn->blockSignals(true);
+        ui->hbBtn->setText("Off");
+        ui->hbBtn->setChecked(true);
+        ui->hbBtn->blockSignals(false);
+    }
+    else{
+        ui->hbBtn->blockSignals(true);
+        ui->hbBtn->setText("On");
+        ui->hbBtn->setChecked(false);
+        ui->hbBtn->blockSignals(false);
+    }
+}
 void MainWindow::moveZ(int value){
     ui->zMoveTo->setText("Z: "+QString::number(0));
     QMetaObject::invokeMethod(printerObj,"moveHeadZ",Qt::QueuedConnection,Q_ARG(double, (double)value),Q_ARG(int, ui->speedZSpinBox->value()));
@@ -522,7 +557,7 @@ void MainWindow::restoreSettings(){
 //writing command to console
 void MainWindow::on_outLine_returnPressed()
 {
-    QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, ui->outLine->text()));
+    QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, ui->outLine->text().toUpper()));
     ui->outLine->clear();
 }
 

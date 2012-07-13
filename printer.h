@@ -39,6 +39,11 @@ signals:
     void progress(int);
     void currentPosition(QVector3D);
     void connected(bool);
+    void newResponce(QString);
+    void settingTemp1(double);
+    void settingTemp3(double);
+private slots:
+    void processResponce(QString);
 public slots:
     //read
     void readFromPort();

@@ -36,7 +36,7 @@
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://github.com/wuflnor/YARRH/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/wuflnor/YARRH/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="aboutwindow.ui" line="102"/>
@@ -45,7 +45,7 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://3d-printers.pl&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://3d-printers.pl&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>http://3d-printers.pl</source>
@@ -93,14 +93,14 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="mainwindow.ui" line="253"/>
-        <location filename="mainwindow.cpp" line="133"/>
+        <location filename="mainwindow.cpp" line="160"/>
         <source>Connect</source>
         <translation>Connect</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="266"/>
-        <location filename="mainwindow.ui" line="929"/>
-        <location filename="mainwindow.cpp" line="141"/>
+        <location filename="mainwindow.ui" line="935"/>
+        <location filename="mainwindow.cpp" line="179"/>
         <source>File</source>
         <translation>File</translation>
     </message>
@@ -116,8 +116,9 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="mainwindow.ui" line="341"/>
-        <location filename="mainwindow.cpp" line="226"/>
-        <location filename="mainwindow.cpp" line="262"/>
+        <location filename="mainwindow.cpp" line="268"/>
+        <location filename="mainwindow.cpp" line="287"/>
+        <location filename="mainwindow.cpp" line="321"/>
         <source>Pause</source>
         <oldsource>Pauza</oldsource>
         <translation>Pause</translation>
@@ -240,17 +241,17 @@ p, li { white-space: pre-wrap; }
         <translation> mm/s</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="935"/>
+        <location filename="mainwindow.ui" line="941"/>
         <source>Help</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="944"/>
+        <location filename="mainwindow.ui" line="950"/>
         <source>Load</source>
         <translation>Load</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="949"/>
+        <location filename="mainwindow.ui" line="955"/>
         <source>About YARRH</source>
         <translation>About YARRH</translation>
     </message>
@@ -325,31 +326,52 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">File</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="129"/>
+        <location filename="mainwindow.cpp" line="146"/>
         <source>Disconnect</source>
         <translation>Disconnect</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="139"/>
+        <location filename="mainwindow.cpp" line="177"/>
         <source>Open file</source>
         <translation>Open file</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="139"/>
+        <location filename="mainwindow.cpp" line="177"/>
         <source>Print files (*.g *.gcode)</source>
         <translation>Print files (*.g *.gcode)</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="154"/>
+        <location filename="mainwindow.cpp" line="192"/>
         <source>Parsing file</source>
         <translation>Parsing file</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="463"/>
+        <source>Printing in progress</source>
+        <translation>Printing in progress</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="464"/>
+        <source>Are you sure you want to exit?</source>
+        <translation>Are you sure you want to exit?</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="466"/>
+        <source>Yes</source>
+        <translation>Yes</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="467"/>
+        <source>No</source>
+        <translation>No</translation>
     </message>
     <message>
         <source>File loaded</source>
         <translation type="obsolete">File loaded</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="258"/>
+        <location filename="mainwindow.cpp" line="154"/>
+        <location filename="mainwindow.cpp" line="315"/>
         <source>Resume</source>
         <translation>Resume</translation>
     </message>
@@ -357,33 +379,33 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Printer</name>
     <message>
-        <location filename="printer.cpp" line="24"/>
+        <location filename="printer.cpp" line="31"/>
         <source>Connecting...</source>
         <translation>Connecting...</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="31"/>
+        <location filename="printer.cpp" line="36"/>
         <source>Printer connected</source>
         <translation>Printer connected</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="36"/>
+        <location filename="printer.cpp" line="43"/>
         <source>Unable to connect</source>
         <translation>Unable to connect</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="41"/>
+        <location filename="printer.cpp" line="49"/>
         <source>Unknown port name</source>
         <oldsource>Niepoprawny port</oldsource>
         <translation>Unknown port name</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="48"/>
+        <location filename="printer.cpp" line="57"/>
         <source>Printer disconnected</source>
         <translation>Printer disconnected</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="70"/>
+        <location filename="printer.cpp" line="86"/>
         <source>Printer offline</source>
         <translation>Printer offline</translation>
     </message>
@@ -391,99 +413,99 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QextSerialPort</name>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="723"/>
+        <location filename="qextserialport/qextserialport.cpp" line="724"/>
         <source>No Error has occurred</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="725"/>
+        <location filename="qextserialport/qextserialport.cpp" line="726"/>
         <source>Invalid file descriptor (port was not opened correctly)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="727"/>
+        <location filename="qextserialport/qextserialport.cpp" line="728"/>
         <source>Unable to allocate memory tables (POSIX)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="729"/>
+        <location filename="qextserialport/qextserialport.cpp" line="730"/>
         <source>Caught a non-blocked signal (POSIX)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="731"/>
+        <location filename="qextserialport/qextserialport.cpp" line="732"/>
         <source>Operation timed out (POSIX)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="733"/>
+        <location filename="qextserialport/qextserialport.cpp" line="734"/>
         <source>The file opened by the port is not a valid device</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="735"/>
+        <location filename="qextserialport/qextserialport.cpp" line="736"/>
         <source>The port detected a break condition</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="737"/>
+        <location filename="qextserialport/qextserialport.cpp" line="738"/>
         <source>The port detected a framing error (usually caused by incorrect baud rate settings)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="739"/>
+        <location filename="qextserialport/qextserialport.cpp" line="740"/>
         <source>There was an I/O error while communicating with the port</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="741"/>
+        <location filename="qextserialport/qextserialport.cpp" line="742"/>
         <source>Character buffer overrun</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="743"/>
+        <location filename="qextserialport/qextserialport.cpp" line="744"/>
         <source>Receive buffer overflow</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="745"/>
+        <location filename="qextserialport/qextserialport.cpp" line="746"/>
         <source>The port detected a parity error in the received data</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="747"/>
+        <location filename="qextserialport/qextserialport.cpp" line="748"/>
         <source>Transmit buffer overflow</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="749"/>
+        <location filename="qextserialport/qextserialport.cpp" line="750"/>
         <source>General read operation failure</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="751"/>
+        <location filename="qextserialport/qextserialport.cpp" line="752"/>
         <source>General write operation failure</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="753"/>
+        <location filename="qextserialport/qextserialport.cpp" line="754"/>
         <source>The %1 file doesn&apos;t exists</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="755"/>
+        <location filename="qextserialport/qextserialport.cpp" line="756"/>
         <source>Permission denied</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="757"/>
+        <location filename="qextserialport/qextserialport.cpp" line="758"/>
         <source>Device is already locked</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qextserialport/qextserialport.cpp" line="759"/>
+        <location filename="qextserialport/qextserialport.cpp" line="760"/>
         <source>Unknown error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 </TS>

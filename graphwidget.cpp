@@ -71,8 +71,18 @@ void GraphWidget::paintEvent(QPaintEvent *event)
 
         p.fillRect(this->rect(), QColor(78,78,127));
 
-        p.setRenderHint(QPainter::Antialiasing, true);
+        p.setRenderHint(QPainter::Antialiasing, false);
         //draw t1 //could make some loop but mehh...
+
+        //draw horizontal scale
+        p.setPen(QColor(179,179,179));
+        for(int i=0; i<=300; i+=50){
+            p.drawLine( 1, yToCanvY(i), this->width(), yToCanvY(i) );
+        }
+        for(int i=0; i<=120; i+=10){
+            p.drawLine( qRound(xToCanvX(i)-trans.x()), 1, qRound(xToCanvX(i)-trans.x()), this->height() );
+        }
+
         p.setPen(QColor(166,4,0));
         p.drawLine( 1, yToCanvY(t1->target()), this->width(), yToCanvY(t1->target()) );
 
@@ -81,7 +91,7 @@ void GraphWidget::paintEvent(QPaintEvent *event)
 
         p.setPen(QColor(0,130,9));
         p.drawLine( 1, yToCanvY(t3->target()), this->width(), yToCanvY(t3->target()) );
-
+        p.setRenderHint(QPainter::Antialiasing, true);
         if (t1->size()>0){
             p.setPen(t1->color());
             for (i=1; i<t1->size(); i++)
@@ -110,7 +120,7 @@ void GraphWidget::paintEvent(QPaintEvent *event)
         }
 
         if(xToCanvX((*t2)[i-1].x())>this->width()){
-            trans.setX(trans.x()-((double)width()/(double)120));
+            trans.setX( (((*t2)[i-1].x()*((double)width()/(double)120))-(width()))*-1 );
         }
 
         p.end();

@@ -85,6 +85,9 @@ private slots:
     void on_extrudeBtn_clicked();
     void on_retracktBtn_clicked();
     void printerConnected(bool);
+    //setting temp in ui from gcode
+    void setTemp1FromGcode(double value);
+    void setTemp3FromGcode(double value);
 };
 
 #endif // MAINWINDOW_H

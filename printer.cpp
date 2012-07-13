@@ -30,13 +30,12 @@ bool Printer::getIsPrinting(){
 bool Printer::connectPort(QString port, int baud){
     emit write_to_console(tr("Connecting..."));
     if(port!=""){
-        PortSettings settings = {BAUD9600, DATA_8, PAR_NONE, STOP_1, FLOW_OFF, 10};
+        PortSettings settings = {(BaudRateType)baud, DATA_8, PAR_NONE, STOP_1, FLOW_OFF, 10};
         this->portObj = new QextSerialPort(port,settings,QextSerialPort::EventDriven);
-
-        this->portObj->setBaudRate((BaudRateType)baud);
-        if(this->portObj->open(QIODevice::ReadWrite)){
+        if(this->portObj->open(QIODevice::ReadWrite | QIODevice::Unbuffered)){
             emit write_to_console(tr("Printer connected"));
             connect(this->portObj, SIGNAL(readyRead()), this, SLOT(readFromPort()));
+            connect(this, SIGNAL(newResponce(QString)), this, SLOT(processResponce(QString)));
             emit connected(true);
             return true;
         }
@@ -72,11 +71,16 @@ int Printer::writeToPort(QString command){
         if(args.at(i).contains("Z"))
             curr_pos.setZ(args.at(i).mid(1).toDouble());
     }
-
+    if(command.contains("M104") || command.contains("M109")){
+        emit settingTemp1(command.mid(command.lastIndexOf("S")+1,command.length()-command.lastIndexOf("S")+1).toDouble());
+    }
+    if(command.contains("M140") || command.contains("M190")){
+        emit settingTemp3(command.mid(command.lastIndexOf("S")+1,command.length()-command.lastIndexOf("S")+1).toDouble());
+    }
     emit currentPosition(curr_pos);
 
     if(this->isConnected()){
-        return portObj->write(command.toUpper().toLatin1()+"\n");
+        portObj->write(command.toLatin1()+"\n");
     }
     else{
         write_to_console(tr("Printer offline"));
@@ -84,48 +88,51 @@ int Printer::writeToPort(QString command){
     }
 }
 
-//reading from port
+//reading from port, we want to be here as short as posible
 void Printer::readFromPort(){
-    while(portObj->bytesAvailable()>0){
-        //add data to buffer
-        inBuffer.append(portObj->readAll());
+    emit newResponce(portObj->readAll());
+}
 
-        //send full responces to fifo
-        responseBuffer.append(inBuffer.left(inBuffer.lastIndexOf("\n")+1).split("\n",QString::SkipEmptyParts));
-        qDebug() << inBuffer;
-        //clear buffer
-        inBuffer.remove(0,inBuffer.lastIndexOf("\n")+1);
+//proper parsing of responce
+void Printer::processResponce(QString responce){
+    //add data to buffer
+    inBuffer.append(responce);
 
-        //proccess all responces from fifo
-        while(responseBuffer.size()>0){
-            QString lastResponse=responseBuffer.takeFirst();
-            //if its temp status
-            if(lastResponse.contains("T:") || lastResponse.contains("B:")){
-                bool ok;
+    //send full responces to fifo
+    responseBuffer.append(inBuffer.left(inBuffer.lastIndexOf("\n")+1).split("\n",QString::SkipEmptyParts));
+    qDebug() << inBuffer;
+    //clear buffer
+    inBuffer.remove(0,inBuffer.lastIndexOf("\n")+1);
 
-                double bed_temp = lastResponse.mid(lastResponse.indexOf("B:")+2,lastResponse.indexOf(".",lastResponse.indexOf("B:"))-lastResponse.indexOf("B:")+2).toDouble(&ok);
-                if(ok){
-                    last_bed_temp=bed_temp;
-                }
-                double head_temp = lastResponse.mid(lastResponse.indexOf("T:")+2,lastResponse.indexOf(".",lastResponse.indexOf("T:"))-lastResponse.indexOf("T:")+2).toDouble(&ok);
-                if(ok){
-                    last_head_temp=head_temp;
-                }
+    //proccess all responces from fifo
+    while(responseBuffer.size()>0){
+        QString lastResponse=responseBuffer.takeFirst();
+        //if its temp status
+        if(lastResponse.contains("T:") || lastResponse.contains("B:")){
+            bool ok;
 
-                emit currentTemp(last_head_temp,0.0,last_bed_temp);
+            double bed_temp = lastResponse.mid(lastResponse.indexOf("B:")+2,lastResponse.indexOf(".",lastResponse.indexOf("B:"))-lastResponse.indexOf("B:")+2).toDouble(&ok);
+            if(ok){
+                last_bed_temp=bed_temp;
             }
-            //if its response for position command
+            double head_temp = lastResponse.mid(lastResponse.indexOf("T:")+2,lastResponse.indexOf(".",lastResponse.indexOf("T:"))-lastResponse.indexOf("T:")+2).toDouble(&ok);
+            if(ok){
+                last_head_temp=head_temp;
+            }
+
+            emit currentTemp(last_head_temp,0.0,last_bed_temp);
+        }
+        //if its response for position command
+        else{
+            //if we are printing then continue
+            if(lastResponse.contains("ok")){
+                    if(this->gCodeBuffer.size()>0 && this->isPrinting){
+                        writeToPort(this->gCodeBuffer.takeFirst());
+                        emit progress(this->gCodeBuffer.size());
+                    }
+            }
             else{
-                //if we are printing then continue
-                if(lastResponse.contains("ok")){
-                        if(this->gCodeBuffer.size()>0 && this->isPrinting){
-                            writeToPort(this->gCodeBuffer.takeFirst());
-                            emit progress(this->gCodeBuffer.size());
-                        }
-                }
-                else{
-                    write_to_console(lastResponse);
-                }
+                write_to_console(lastResponse);
             }
         }
     }
