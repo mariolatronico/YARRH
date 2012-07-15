@@ -34,6 +34,6 @@ void Layer2D::resetLayer(){
 
 
 void Layer2D::setShow(bool show){
-     this->showLayer=show;
+    this->showLayer=show;
     this->update(boundingRect());
 }
