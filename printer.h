@@ -24,11 +24,14 @@ private:
      bool isPrinting;
      bool monitorTemperature;
      QTimer *temperatureTimer;
+     QTimer *readTimer;
      QVector3D curr_pos;
      QString inBuffer;
      QStringList responseBuffer;
+     bool writeNext;
      double last_bed_temp;
      double last_head_temp;
+     bool connectionActive;
 public:
     explicit Printer(QObject *parent = 0);
     bool isConnected();

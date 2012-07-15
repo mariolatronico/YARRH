@@ -7,7 +7,10 @@ Printer::Printer(QObject *parent)
     PortSettings settings = {BAUD9600, DATA_8, PAR_NONE, STOP_1, FLOW_OFF, 10};
     this->portObj = new QextSerialPort("",settings);
     this->isPrinting=false;
+    this->connectionActive=false;
     this->temperatureTimer = new QTimer(this);
+
+    this->readTimer = new QTimer(this);
     connect(temperatureTimer, SIGNAL(timeout()), this, SLOT(getTemperature()));
     curr_pos.setX(0);
     curr_pos.setY(0);
@@ -16,6 +19,7 @@ Printer::Printer(QObject *parent)
     last_head_temp = 0;
     inBuffer.clear();
     responseBuffer.clear();
+    writeNext=true;
 }
 
 bool Printer::isConnected(){
@@ -31,12 +35,14 @@ bool Printer::connectPort(QString port, int baud){
     emit write_to_console(tr("Connecting..."));
     if(port!=""){
         PortSettings settings = {(BaudRateType)baud, DATA_8, PAR_NONE, STOP_1, FLOW_OFF, 10};
-        this->portObj = new QextSerialPort(port,settings,QextSerialPort::EventDriven);
+        this->portObj = new QextSerialPort(port,settings,QextSerialPort::Polling);
         if(this->portObj->open(QIODevice::ReadWrite | QIODevice::Unbuffered)){
             emit write_to_console(tr("Printer connected"));
-            connect(this->portObj, SIGNAL(readyRead()), this, SLOT(readFromPort()));
+            //connect(this->portObj, SIGNAL(readyRead()), this, SLOT(readFromPort()));
+            connect(this->readTimer, SIGNAL(timeout()), this, SLOT(readFromPort()));
             connect(this, SIGNAL(newResponce(QString)), this, SLOT(processResponce(QString)));
-            emit connected(true);
+            writeToPort("M115");
+            this->readTimer->start(5);
             return true;
         }
         else{
@@ -56,6 +62,9 @@ bool Printer::disconnectPort(){
     this->portObj->close();
     emit write_to_console(tr("Printer disconnected"));
     emit connected(false);
+    this->connectionActive=false;
+    this->temperatureTimer->stop();
+    this->readTimer->stop();
     return true;
 }
 
@@ -80,7 +89,10 @@ int Printer::writeToPort(QString command){
     emit currentPosition(curr_pos);
 
     if(this->isConnected()){
-        portObj->write(command.toLatin1()+"\n");
+
+        emit write_to_console(QString("Sending: "+command.toAscii()+"\n").replace("\n","\\n").replace("\r","\\r"));
+        emit write_to_console("Written: "+QString::number(portObj->write(command.toAscii()+"\n",command.toAscii().length()+1))+" bytes");
+        writeNext=false;
     }
     else{
         write_to_console(tr("Printer offline"));
@@ -90,17 +102,26 @@ int Printer::writeToPort(QString command){
 
 //reading from port, we want to be here as short as posible
 void Printer::readFromPort(){
-    emit newResponce(portObj->readAll());
+    if(portObj->bytesAvailable()>0){
+        emit newResponce(portObj->readAll());
+    }
 }
 
 //proper parsing of responce
 void Printer::processResponce(QString responce){
+
+    emit write_to_console(QString("Got responce: "+ responce).replace("\n","\\n").replace("\r","\\r"));
+    if(!this->connectionActive){
+        this->connectionActive=true;
+        emit connected(true);
+    }
     //add data to buffer
     inBuffer.append(responce);
 
     //send full responces to fifo
-    responseBuffer.append(inBuffer.left(inBuffer.lastIndexOf("\n")+1).split("\n",QString::SkipEmptyParts));
-    qDebug() << inBuffer;
+    if(inBuffer.contains("\n")){
+        responseBuffer.append(inBuffer.left(inBuffer.lastIndexOf("\n")+1).split("\n",QString::SkipEmptyParts));
+    }
     //clear buffer
     inBuffer.remove(0,inBuffer.lastIndexOf("\n")+1);
 
@@ -123,16 +144,11 @@ void Printer::processResponce(QString responce){
             emit currentTemp(last_head_temp,0.0,last_bed_temp);
         }
         //if its response for position command
-        else{
-            //if we are printing then continue
-            if(lastResponse.contains("ok")){
-                    if(this->gCodeBuffer.size()>0 && this->isPrinting){
-                        writeToPort(this->gCodeBuffer.takeFirst());
-                        emit progress(this->gCodeBuffer.size());
-                    }
-            }
-            else{
-                write_to_console(lastResponse);
+        //if we are printing then continue
+        if(lastResponse.contains("ok")){
+            if(this->gCodeBuffer.size()>0 && this->isPrinting){
+                writeToPort(this->gCodeBuffer.takeFirst());
+                emit progress(this->gCodeBuffer.size());
             }
         }
     }
@@ -183,7 +199,14 @@ void Printer::moveHeadZ(double z, int speed){
 //setting fan speed
 void Printer::setFan(int percent){
     float value=255*((float)percent/(float)100);
-    writeToPort("M106 S"+QString::number((int)value));
+    if(this->isConnected()){
+        if(this->isPrinting){
+            this->gCodeBuffer.prepend("M106 S"+QString::number((int)value));
+        }
+        else{
+            writeToPort("M106 S"+QString::number((int)value));
+        }
+    }
 }
 //disable stepper
 void Printer::disableSteppers(){
@@ -210,14 +233,33 @@ void Printer::setMonitorTemperature(bool monitor){
 
 void Printer::getTemperature(){
     if(this->isConnected()){
-        writeToPort("M105");
+        if(this->isPrinting){
+            this->gCodeBuffer.prepend("M105");
+        }
+        else{
+            writeToPort("M105");
+        }
     }
 }
 
 void Printer::setTemp1(int temp){
-    writeToPort("M104 S"+QString::number(temp));
+    if(this->isConnected()){
+        if(this->isPrinting){
+            this->gCodeBuffer.prepend("M104 S"+QString::number(temp));
+        }
+        else{
+            writeToPort("M104 S"+QString::number(temp));
+        }
+    }
 }
 
 void Printer::setTemp3(int temp){
-    writeToPort("M140 S"+QString::number(temp));
+    if(this->isConnected()){
+        if(this->isPrinting){
+            this->gCodeBuffer.prepend("M140 S"+QString::number(temp));
+        }
+        else{
+            writeToPort("M140 S"+QString::number(temp));
+        }
+    }
 }
