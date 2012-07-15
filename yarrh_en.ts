@@ -58,6 +58,154 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>CalibrateDialog</name>
+    <message>
+        <location filename="calibratedialog.ui" line="14"/>
+        <source>Calibrate printer</source>
+        <translation>Calibrate printer</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.ui" line="26"/>
+        <source>What is this?</source>
+        <translation>What is this?</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.ui" line="44"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Here you can callibrate your printer axis.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;If check box is checked then choosen axis steps per mm will be set on every connection with printer.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Here you can callibrate your printer axis.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;If check box is checked then choosen axis steps per mm will be set on every connection with printer.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.ui" line="62"/>
+        <source>Callibrates x axis</source>
+        <translation>Callibrates x axis</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.ui" line="65"/>
+        <source>X axis</source>
+        <translation>X axis</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.ui" line="77"/>
+        <location filename="calibratedialog.ui" line="119"/>
+        <location filename="calibratedialog.ui" line="161"/>
+        <location filename="calibratedialog.ui" line="203"/>
+        <source>Current steps per mm:</source>
+        <translation>Current steps per mm:</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.ui" line="87"/>
+        <location filename="calibratedialog.ui" line="129"/>
+        <location filename="calibratedialog.ui" line="213"/>
+        <source>40</source>
+        <translation>40</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.ui" line="94"/>
+        <location filename="calibratedialog.ui" line="136"/>
+        <location filename="calibratedialog.ui" line="178"/>
+        <location filename="calibratedialog.ui" line="220"/>
+        <source>Calibrate</source>
+        <translation>Calibrate</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.ui" line="104"/>
+        <source>Callibrates y axis</source>
+        <translation>Callibrates y axis</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.ui" line="107"/>
+        <source>Y Axis</source>
+        <translation>Y Axis</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.ui" line="146"/>
+        <source>Callibrates z axis</source>
+        <translation>Callibrates z axis</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.ui" line="149"/>
+        <source>Z Axis</source>
+        <translation>Z Axis</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.ui" line="171"/>
+        <source>2560</source>
+        <translation>2560</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.ui" line="188"/>
+        <source>Callibrates extruder</source>
+        <translation>Callibrates extruder</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.ui" line="191"/>
+        <source>Extruder</source>
+        <translation>Extruder</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.cpp" line="72"/>
+        <location filename="calibratedialog.cpp" line="112"/>
+        <location filename="calibratedialog.cpp" line="152"/>
+        <source>Input first measurment</source>
+        <translation>Input first measurment</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.cpp" line="73"/>
+        <location filename="calibratedialog.cpp" line="77"/>
+        <location filename="calibratedialog.cpp" line="113"/>
+        <location filename="calibratedialog.cpp" line="117"/>
+        <location filename="calibratedialog.cpp" line="153"/>
+        <location filename="calibratedialog.cpp" line="157"/>
+        <source>Measurment</source>
+        <translation>Measurment</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.cpp" line="76"/>
+        <location filename="calibratedialog.cpp" line="116"/>
+        <location filename="calibratedialog.cpp" line="156"/>
+        <source>Input second measurment</source>
+        <translation>Input second measurment</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.cpp" line="86"/>
+        <location filename="calibratedialog.cpp" line="126"/>
+        <location filename="calibratedialog.cpp" line="166"/>
+        <source>Error</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.cpp" line="87"/>
+        <location filename="calibratedialog.cpp" line="127"/>
+        <location filename="calibratedialog.cpp" line="167"/>
+        <source>Error is %1 %, continue callibrating?</source>
+        <translation>Error is %1 %, continue callibrating?</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.cpp" line="89"/>
+        <location filename="calibratedialog.cpp" line="129"/>
+        <location filename="calibratedialog.cpp" line="169"/>
+        <source>Yes</source>
+        <translation>Yes</translation>
+    </message>
+    <message>
+        <location filename="calibratedialog.cpp" line="90"/>
+        <location filename="calibratedialog.cpp" line="130"/>
+        <location filename="calibratedialog.cpp" line="170"/>
+        <source>No</source>
+        <translation>No</translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
         <location filename="mainwindow.ui" line="14"/>
@@ -93,14 +241,14 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="mainwindow.ui" line="253"/>
-        <location filename="mainwindow.cpp" line="160"/>
+        <location filename="mainwindow.cpp" line="177"/>
         <source>Connect</source>
         <translation>Connect</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="266"/>
         <location filename="mainwindow.ui" line="935"/>
-        <location filename="mainwindow.cpp" line="179"/>
+        <location filename="mainwindow.cpp" line="197"/>
         <source>File</source>
         <translation>File</translation>
     </message>
@@ -116,9 +264,9 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="mainwindow.ui" line="341"/>
-        <location filename="mainwindow.cpp" line="268"/>
-        <location filename="mainwindow.cpp" line="287"/>
-        <location filename="mainwindow.cpp" line="321"/>
+        <location filename="mainwindow.cpp" line="286"/>
+        <location filename="mainwindow.cpp" line="307"/>
+        <location filename="mainwindow.cpp" line="345"/>
         <source>Pause</source>
         <oldsource>Pauza</oldsource>
         <translation>Pause</translation>
@@ -130,9 +278,8 @@ p, li { white-space: pre-wrap; }
         <translation>Temperature</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="437"/>
         <source>T1</source>
-        <translation>T1</translation>
+        <translation type="obsolete">T1</translation>
     </message>
     <message>
         <source>230</source>
@@ -156,9 +303,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">T2</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="444"/>
         <source>HB</source>
-        <translation>HB</translation>
+        <translation type="obsolete">HB</translation>
     </message>
     <message>
         <source>110</source>
@@ -221,6 +367,16 @@ p, li { white-space: pre-wrap; }
         <translation>0</translation>
     </message>
     <message>
+        <location filename="mainwindow.ui" line="437"/>
+        <source>Extruder</source>
+        <translation>Extruder</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="444"/>
+        <source>HotBed</source>
+        <translation>Hotbed</translation>
+    </message>
+    <message>
         <location filename="mainwindow.ui" line="764"/>
         <source>Extrude</source>
         <translation>Extrude</translation>
@@ -246,14 +402,24 @@ p, li { white-space: pre-wrap; }
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="950"/>
+        <location filename="mainwindow.ui" line="947"/>
+        <source>Settings</source>
+        <translation>Settings</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="957"/>
         <source>Load</source>
         <translation>Load</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="955"/>
+        <location filename="mainwindow.ui" line="962"/>
         <source>About YARRH</source>
         <translation>About YARRH</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="967"/>
+        <source>Calibrate printer</source>
+        <translation>Calibrate printer</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="805"/>
@@ -326,42 +492,42 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">File</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="146"/>
+        <location filename="mainwindow.cpp" line="153"/>
         <source>Disconnect</source>
         <translation>Disconnect</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="177"/>
+        <location filename="mainwindow.cpp" line="195"/>
         <source>Open file</source>
         <translation>Open file</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="177"/>
+        <location filename="mainwindow.cpp" line="195"/>
         <source>Print files (*.g *.gcode)</source>
         <translation>Print files (*.g *.gcode)</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="192"/>
+        <location filename="mainwindow.cpp" line="210"/>
         <source>Parsing file</source>
         <translation>Parsing file</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="463"/>
+        <location filename="mainwindow.cpp" line="483"/>
         <source>Printing in progress</source>
         <translation>Printing in progress</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="464"/>
+        <location filename="mainwindow.cpp" line="484"/>
         <source>Are you sure you want to exit?</source>
         <translation>Are you sure you want to exit?</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="466"/>
+        <location filename="mainwindow.cpp" line="486"/>
         <source>Yes</source>
         <translation>Yes</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="467"/>
+        <location filename="mainwindow.cpp" line="487"/>
         <source>No</source>
         <translation>No</translation>
     </message>
@@ -370,8 +536,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">File loaded</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="154"/>
-        <location filename="mainwindow.cpp" line="315"/>
+        <location filename="mainwindow.cpp" line="162"/>
+        <location filename="mainwindow.cpp" line="338"/>
         <source>Resume</source>
         <translation>Resume</translation>
     </message>
@@ -379,33 +545,33 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Printer</name>
     <message>
-        <location filename="printer.cpp" line="31"/>
+        <location filename="printer.cpp" line="35"/>
         <source>Connecting...</source>
         <translation>Connecting...</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="36"/>
+        <location filename="printer.cpp" line="40"/>
         <source>Printer connected</source>
         <translation>Printer connected</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="43"/>
+        <location filename="printer.cpp" line="49"/>
         <source>Unable to connect</source>
         <translation>Unable to connect</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="49"/>
+        <location filename="printer.cpp" line="55"/>
         <source>Unknown port name</source>
         <oldsource>Niepoprawny port</oldsource>
         <translation>Unknown port name</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="57"/>
+        <location filename="printer.cpp" line="63"/>
         <source>Printer disconnected</source>
         <translation>Printer disconnected</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="86"/>
+        <location filename="printer.cpp" line="98"/>
         <source>Printer offline</source>
         <translation>Printer offline</translation>
     </message>
