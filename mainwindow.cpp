@@ -13,6 +13,10 @@ MainWindow::MainWindow(QWidget *parent) :
     this->aboutWindow = new AboutWindow();
     this->aboutWindow->hide();
     this->aboutWindow->move(this->geometry().center()-this->aboutWindow->geometry().center());
+    //calibrate Dialog
+    this->calibrateDialog = new CalibrateDialog();
+    this->calibrateDialog->hide();
+    this->calibrateDialog->move(this->geometry().center()-this->calibrateDialog->geometry().center());
     //set version number
     this->setWindowTitle("YARRH v"+QString::number(VERSION_MAJOR)+"."+QString::number(VERSION_MINOR)+"."+QString::number(VERSION_REVISION));
     this->aboutWindow->setVersion(VERSION_MAJOR,VERSION_MINOR,VERSION_REVISION);
@@ -50,6 +54,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(printerObj, SIGNAL(settingTemp3(double)), this, SLOT(setTemp3FromGcode(double)));
     //updating head position in ui
     connect(printerObj, SIGNAL(currentPosition(QVector3D)), this, SLOT(updateHeadPosition(QVector3D)));
+    //connect calibration dialog to printer
+    connect(calibrateDialog, SIGNAL(writeToPrinter(QString)), printerObj, SLOT(writeToPort(QString)),Qt::QueuedConnection);
     //connect z slider
     connect(ui->zSlider, SIGNAL(valueChanged(int)), this, SLOT(moveZ(int)));
     connect(ui->zSlider, SIGNAL(sliderMoved(int)), this, SLOT(updateZ(int)));
@@ -96,6 +102,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->axisControlGroup->setDisabled(true);
     controlWidget->hidePoints(true);
     ui->temperatureGroupBox->setDisabled(true);
+    this->calibrateDialog->setDisabled(true);
+    ui->progressBar->hide();
     ui->baudCombo->addItem("1200", BAUD1200);
     ui->baudCombo->addItem("2400", BAUD2400);
     ui->baudCombo->addItem("4800", BAUD4800);
@@ -132,6 +140,7 @@ void MainWindow::deviceDisconnected(const QextPortInfo & info){
 void MainWindow::connectClicked(bool connect){
     //connecting to printer port
     if(connect){
+        ui->connectBtn->setText("Connecting");
         QMetaObject::invokeMethod(printerObj,"connectPort",Qt::QueuedConnection,Q_ARG(QString, ui->portCombo->currentText()),Q_ARG(int,ui->baudCombo->itemData(ui->baudCombo->currentIndex()).toInt()));
     }
     else{
@@ -147,6 +156,7 @@ void MainWindow::printerConnected(bool connected){
             ui->axisControlGroup->setDisabled(false);
             controlWidget->hidePoints(false);
             ui->temperatureGroupBox->setDisabled(false);
+            this->calibrateDialog->setDisabled(false);
             if(this->gcodeLines.size()>0){
                 if(ui->progressBar->value()>0){
                     ui->pauseBtn->setEnabled(true);
@@ -154,6 +164,15 @@ void MainWindow::printerConnected(bool connected){
                 if(ui->pauseBtn->text()!=tr("Resume")){
                     ui->printBtn->setEnabled(true);
                 }
+            }
+            if(this->calibrateDialog->autoCalibrateX()){
+                this->printerObj->writeToPort("M92 X"+QString::number(this->calibrateDialog->getCallibrationsSetting().x()));
+            }
+            if(this->calibrateDialog->autoCalibrateY()){
+                this->printerObj->writeToPort("M92 Y"+QString::number(this->calibrateDialog->getCallibrationsSetting().y()));
+            }
+            if(this->calibrateDialog->autoCalibrateZ()){
+                this->printerObj->writeToPort("M92 Z"+QString::number(this->calibrateDialog->getCallibrationsSetting().z()));
             }
     }
     else{
@@ -166,6 +185,7 @@ void MainWindow::printerConnected(bool connected){
         ui->axisControlGroup->setDisabled(true);
         controlWidget->hidePoints(true);
         ui->temperatureGroupBox->setDisabled(true);
+        this->calibrateDialog->setDisabled(true);
 
         ui->printBtn->setEnabled(false);
         ui->pauseBtn->setEnabled(false);
@@ -237,7 +257,7 @@ void MainWindow::loadFile(){
             prevZ=z;
         }
         if(temp.contains("X") || temp.contains("Y") || temp.contains("Z")){
-            if(temp.contains("E")){
+            if(temp.contains("E") || temp.contains("A")){
                 travel=0;
             }
             else{
@@ -265,9 +285,12 @@ void MainWindow::loadFile(){
     ui->pauseBtn->blockSignals(true);
     ui->pauseBtn->setChecked(false);
     ui->pauseBtn->blockSignals(false);
+    ui->progressBar->hide();
     ui->pauseBtn->setText(tr("Pause"));
-    qDebug() << ui->progressBar->maximum();
     this->currentLayer=0;
+    this->lastZ=0;
+    this->glWidget->setCurrentLayer(0);
+    this->controlWidget->resetLayer();
 }
 
 //printing object
@@ -286,6 +309,8 @@ void MainWindow::startPrint(){
         ui->pauseBtn->blockSignals(false);
         ui->pauseBtn->setText(tr("Pause"));
         ui->printBtn->setEnabled(false);
+        ui->progressBar->show();
+        this->calibrateDialog->setDisabled(true);
 
         //disable axis control while printing
         ui->axisControlGroup->setDisabled(true);
@@ -293,6 +318,7 @@ void MainWindow::startPrint(){
         this->lastZ=0;
         this->currentLayer=0;
         glWidget->setCurrentLayer(this->currentLayer);
+        this->controlWidget->resetLayer();
     }
 }
 
@@ -317,12 +343,14 @@ void MainWindow::pausePrint(bool pause){
         QMetaObject::invokeMethod(printerObj,"stopPrint",Qt::DirectConnection);
         ui->axisControlGroup->setDisabled(false);
         controlWidget->hidePoints(false);
+        this->calibrateDialog->setDisabled(false);
     }
     else{
         ui->pauseBtn->setText(tr("Pause"));
         QMetaObject::invokeMethod(printerObj,"startPrint",Qt::DirectConnection);
         ui->axisControlGroup->setDisabled(true);
         controlWidget->hidePoints(true);
+        this->calibrateDialog->setDisabled(true);
     }
 }
 
@@ -427,11 +455,6 @@ void MainWindow::updateZ(int value){
     ui->zMoveTo->setText("Z: "+QString::number(value));
 }
 
-void MainWindow::on_actionO_Programie_triggered()
-{
-    this->aboutWindow->showOnXY(QPoint(this->geometry().center().x()-this->aboutWindow->width()/2,this->geometry().center().y()-this->aboutWindow->height()/2));
-}
-
 //updates head position and current layer num
 void MainWindow::updateHeadPosition(QVector3D point){
     ui->xAt->setText("X: "+QString::number(point.x()));
@@ -494,6 +517,13 @@ void MainWindow::saveSettings(){
     settings.setValue("extrudeSpeed", ui->extrudeSpeedSpinBox->value());
     settings.setValue("monitorTemp", ui->graphGroupBox->isChecked());
     settings.setValue("showTravel", ui->showTravelChkBox->isChecked());
+    //auto callibration
+    settings.setValue("xStepsPerMm", this->calibrateDialog->getCallibrationsSetting().x());
+    settings.setValue("autoCallibrateX", this->calibrateDialog->autoCalibrateX());
+    settings.setValue("yStepsPerMm", this->calibrateDialog->getCallibrationsSetting().y());
+    settings.setValue("autoCallibrateY", this->calibrateDialog->autoCalibrateY());
+    settings.setValue("zStepsPerMm", this->calibrateDialog->getCallibrationsSetting().z());
+    settings.setValue("autoCallibrateZ", this->calibrateDialog->autoCalibrateZ());
     //write temperature setting
     settings.beginWriteArray("temp1Values");
     for(int i=0; i<ui->t1Combo->count(); i++){
@@ -527,6 +557,15 @@ void MainWindow::restoreSettings(){
     ui->extrudeSpeedSpinBox->setValue(settings.value("extrudeSpeed").toInt());
     ui->graphGroupBox->setChecked(settings.value("monitorTemp").toBool());
     ui->showTravelChkBox->setChecked(settings.value("showTravel").toBool());
+    //auto callibration
+    this->calibrateDialog->setAutoCalibrateX(settings.value("autoCallibrateX",false).toBool());
+    this->calibrateDialog->setXStepsPerMm(settings.value("xStepsPerMm",40).toDouble());
+    this->calibrateDialog->setAutoCalibrateY(settings.value("autoCallibrateY",false).toBool());
+    this->calibrateDialog->setYStepsPerMm(settings.value("yStepsPerMm",40).toDouble());
+    this->calibrateDialog->setAutoCalibrateZ(settings.value("autoCallibrateZ",false).toBool());
+    this->calibrateDialog->setZStepsPerMm(settings.value("zStepsPerMm",2560).toDouble());
+    this->calibrateDialog->setAutoCalibrateE(settings.value("autoCallibrateE",false).toBool());
+    this->calibrateDialog->setEStepsPerMm(settings.value("eStepsPerMm",40).toDouble());
     //restore temp1 combo
     int size = settings.beginReadArray("temp1Values");
     int currentIndex=0;
@@ -599,4 +638,15 @@ void MainWindow::on_retracktBtn_clicked()
     QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, "G91"));
     QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, "G1 E"+QString::number(ui->extrudeLenghtSpinBox->value()*-1)+" F"+QString::number(ui->extrudeSpeedSpinBox->value()*60)));
     QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, "G90"));
+}
+
+void MainWindow::on_actionO_Programie_triggered()
+{
+    this->aboutWindow->showOnXY(QPoint(this->geometry().center().x()-this->aboutWindow->width()/2,this->geometry().center().y()-this->aboutWindow->height()/2));
+}
+
+void MainWindow::on_actionCalibrate_printer_triggered()
+{
+    this->calibrateDialog->move(QPoint(this->geometry().center().x()-this->calibrateDialog->width()/2,this->geometry().center().y()-this->calibrateDialog->height()/2));
+    this->calibrateDialog->show();
 }

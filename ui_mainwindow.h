@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Wed 11. Jul 08:38:35 2012
+** Created: Sun 15. Jul 06:23:33 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -43,6 +43,7 @@ class Ui_MainWindow
 public:
     QAction *actionWczytaj;
     QAction *actionO_Programie;
+    QAction *actionCalibrate_printer;
     QWidget *centralWidget;
     QGridLayout *gridLayout_4;
     QProgressBar *progressBar;
@@ -136,6 +137,7 @@ public:
     QMenuBar *menuBar;
     QMenu *menuPlik;
     QMenu *menuO_Programie;
+    QMenu *menuSettings;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -148,6 +150,8 @@ public:
         actionWczytaj->setObjectName(QString::fromUtf8("actionWczytaj"));
         actionO_Programie = new QAction(MainWindow);
         actionO_Programie->setObjectName(QString::fromUtf8("actionO_Programie"));
+        actionCalibrate_printer = new QAction(MainWindow);
+        actionCalibrate_printer->setObjectName(QString::fromUtf8("actionCalibrate_printer"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gridLayout_4 = new QGridLayout(centralWidget);
@@ -158,8 +162,25 @@ public:
         progressBar->setObjectName(QString::fromUtf8("progressBar"));
         progressBar->setMinimumSize(QSize(0, 20));
         progressBar->setMaximumSize(QSize(16777215, 20));
+        progressBar->setStyleSheet(QString::fromUtf8("QProgressBar {\n"
+"color: #ffffff;\n"
+"text-align: center;\n"
+" }\n"
+"\n"
+"QProgressBar:horizontal {\n"
+"border-radius: 10px;\n"
+"background-color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(67, 67, 67, 255), stop:0.5 rgba(82, 82, 82, 255), stop:0.903955 rgba(74, 74, 74, 255), stop:1 rgba(140,140,140, 255));\n"
+"padding: 3px;\n"
+"}\n"
+"QProgressBar::chunk:horizontal {\n"
+"border: 1px solid #44445F;\n"
+"border-radius: 7px;\n"
+"background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #8888BF, stop:0.559322 #4E4E7F, stop:1 #9696BF);\n"
+"}\n"
+""));
         progressBar->setMaximum(200);
         progressBar->setValue(0);
+        progressBar->setAlignment(Qt::AlignCenter);
 
         gridLayout_4->addWidget(progressBar, 5, 0, 1, 4);
 
@@ -696,12 +717,16 @@ public:
         menuPlik->setObjectName(QString::fromUtf8("menuPlik"));
         menuO_Programie = new QMenu(menuBar);
         menuO_Programie->setObjectName(QString::fromUtf8("menuO_Programie"));
+        menuSettings = new QMenu(menuBar);
+        menuSettings->setObjectName(QString::fromUtf8("menuSettings"));
         MainWindow->setMenuBar(menuBar);
 
         menuBar->addAction(menuPlik->menuAction());
+        menuBar->addAction(menuSettings->menuAction());
         menuBar->addAction(menuO_Programie->menuAction());
         menuPlik->addAction(actionWczytaj);
         menuO_Programie->addAction(actionO_Programie);
+        menuSettings->addAction(actionCalibrate_printer);
 
         retranslateUi(MainWindow);
 
@@ -716,6 +741,7 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "YARRH", 0, QApplication::UnicodeUTF8));
         actionWczytaj->setText(QApplication::translate("MainWindow", "Load", 0, QApplication::UnicodeUTF8));
         actionO_Programie->setText(QApplication::translate("MainWindow", "About YARRH", 0, QApplication::UnicodeUTF8));
+        actionCalibrate_printer->setText(QApplication::translate("MainWindow", "Calibrate printer", 0, QApplication::UnicodeUTF8));
         groupBox_6->setTitle(QApplication::translate("MainWindow", "Object view", 0, QApplication::UnicodeUTF8));
         showTravelChkBox->setText(QApplication::translate("MainWindow", "Show travel moves", 0, QApplication::UnicodeUTF8));
         label_7->setText(QApplication::translate("MainWindow", "Current layer:", 0, QApplication::UnicodeUTF8));
@@ -733,8 +759,8 @@ public:
         temperatureGroupBox->setTitle(QApplication::translate("MainWindow", "Temperature", 0, QApplication::UnicodeUTF8));
         t1Btn->setText(QApplication::translate("MainWindow", "On", 0, QApplication::UnicodeUTF8));
         t1Label->setText(QApplication::translate("MainWindow", " 0 \302\260C", 0, QApplication::UnicodeUTF8));
-        label_14->setText(QApplication::translate("MainWindow", "T1", 0, QApplication::UnicodeUTF8));
-        label_17->setText(QApplication::translate("MainWindow", "HB", 0, QApplication::UnicodeUTF8));
+        label_14->setText(QApplication::translate("MainWindow", "Extruder", 0, QApplication::UnicodeUTF8));
+        label_17->setText(QApplication::translate("MainWindow", "HotBed", 0, QApplication::UnicodeUTF8));
         label_13->setText(QApplication::translate("MainWindow", "Fan", 0, QApplication::UnicodeUTF8));
         hbBtn->setText(QApplication::translate("MainWindow", "On", 0, QApplication::UnicodeUTF8));
         fanSpinBox->setSuffix(QApplication::translate("MainWindow", " %", 0, QApplication::UnicodeUTF8));
@@ -766,6 +792,7 @@ public:
         homeAll->setText(QApplication::translate("MainWindow", "All", 0, QApplication::UnicodeUTF8));
         menuPlik->setTitle(QApplication::translate("MainWindow", "File", 0, QApplication::UnicodeUTF8));
         menuO_Programie->setTitle(QApplication::translate("MainWindow", "Help", 0, QApplication::UnicodeUTF8));
+        menuSettings->setTitle(QApplication::translate("MainWindow", "Settings", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

@@ -14,11 +14,12 @@
 #include "headcontrol.h"
 #include "printer.h"
 #include "aboutwindow.h"
+#include "calibratedialog.h"
 
 //version number
 #define VERSION_MAJOR       0
 #define VERSION_MINOR       1
-#define VERSION_REVISION    3
+#define VERSION_REVISION    4
 
 namespace Ui {
     class MainWindow;
@@ -50,6 +51,8 @@ private:
     Printer *printerObj;
     //about window
     AboutWindow *aboutWindow;
+    //calibrate dialog
+    CalibrateDialog *calibrateDialog;
     //confirmation dialog
     QMessageBox* msgBox;
     qreal lastZ;
@@ -88,6 +91,7 @@ private slots:
     //setting temp in ui from gcode
     void setTemp1FromGcode(double value);
     void setTemp3FromGcode(double value);
+    void on_actionCalibrate_printer_triggered();
 };
 
 #endif // MAINWINDOW_H
