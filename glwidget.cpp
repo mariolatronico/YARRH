@@ -17,7 +17,7 @@ GlWidget::GlWidget(QWidget *parent)
     xRot = 0;
     yRot = 0;
     zRot = 0;
-    zoom = -0.625;
+    zoom = 2.5;
     xMove = 0;
     yMove = 0;
     currentLayer=0;
@@ -108,15 +108,16 @@ void GlWidget::setXRotation(int angle)
   void GlWidget::resizeGL(int width, int height)
    {
        int side = qMin(width, height);
-       glViewport((width - side) / 2, (height - side) / 2, side, side);
-
+       glViewport(0, 0, (GLint)width, (GLint)height);
+       float aspect = (float)this->width()/(float)this->height();
+       qDebug() << aspect;
        glMatrixMode(GL_PROJECTION);
        glLoadIdentity();
-   #ifdef QT_OPENGL_ES_1
-       glOrthof(-0.5 + zoom , +0.5 - zoom, -0.5 + zoom, +0.5 - zoom, 4.0, 100.0);
-   #else
-       glOrtho(-0.5 + zoom , +0.5 - zoom, -0.5 + zoom, +0.5 - zoom, 4.0, 100.0);
-   #endif
+#ifdef QT_OPENGL_ES_1
+          glOrthof(-0.5 + zoom , +0.5 - zoom, -0.5 + zoom, +0.5 - zoom, 4.0, 100.0);
+#else
+          glOrtho(-((float)this->width()/1000*zoom)*aspect,+((float)this->width()/1000*zoom)*aspect, -((float)this->height()/1000*zoom)*aspect, +((float)this->height()/1000*zoom)*aspect, 4.0, 100.0);
+#endif
        glMatrixMode(GL_MODELVIEW);
    }
 
@@ -163,19 +164,21 @@ void GlWidget::setXRotation(int angle)
    }
 //wheel event
   void GlWidget::wheelEvent(QWheelEvent * event){
-      zoom += (float)event->delta()/1920;
-      qDebug() << zoom;
 
-      glMatrixMode(GL_PROJECTION);
-      glLoadIdentity();
-  #ifdef QT_OPENGL_ES_1
-      glOrthof(-0.5 + zoom , +0.5 - zoom, -0.5 + zoom, +0.5 - zoom, 4.0, 100.0);
-  #else
-      glOrtho(-0.5 + zoom , +0.5 - zoom, -0.5 + zoom, +0.5 - zoom, 4.0, 100.0);
-  #endif
-      glMatrixMode(GL_MODELVIEW);
+      if((zoom-(float)event->delta()/1920)>0){
+          zoom -= (float)event->delta()/1920;
+          float aspect = (float)this->width()/(float)this->height();
+          glMatrixMode(GL_PROJECTION);
+          glLoadIdentity();
+#ifdef QT_OPENGL_ES_1
+          glOrthof(-0.5 + zoom , +0.5 - zoom, -0.5 + zoom, +0.5 - zoom, 4.0, 100.0);
+#else
+          glOrtho(-((float)this->width()/1000*zoom)*aspect,+((float)this->width()/1000*zoom)*aspect, -((float)this->height()/1000*zoom)*aspect, +((float)this->height()/1000*zoom)*aspect, 4.0, 100.0);
+#endif
+          glMatrixMode(GL_MODELVIEW);
 
-      updateGL();
+          updateGL();
+      }
   }
 
 
