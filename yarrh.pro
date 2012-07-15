@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     headcontrolline.cpp \
     printer.cpp \
     aboutwindow.cpp \
-    layer2d.cpp
+    layer2d.cpp \
+    calibratedialog.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -31,10 +32,12 @@ HEADERS  += mainwindow.h \
     headcontrolline.h \
     printer.h \
     aboutwindow.h \
-    layer2d.h
+    layer2d.h \
+    calibratedialog.h
 
 FORMS    += mainwindow.ui \
-    aboutwindow.ui
+    aboutwindow.ui \
+    calibratedialog.ui
 
 include(qextserialport/qextserialport.pri)
 
@@ -46,6 +49,9 @@ TRANSLATIONS = yarrh_pl.ts \
                yarrh_de.ts \
                yarrh_bg.ts \
                yarrh_fi.ts
+RC_FILE = icon.rc
+
+
 
 
 
