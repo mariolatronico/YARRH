@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>imgs/donate.gif</file>
+        <file>imgs/loader.gif</file>
         <file>yarrh_en.qm</file>
         <file>yarrh_pl.qm</file>
     </qresource>

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'calibratedialog.ui'
 **
-** Created: Sat 14. Jul 12:59:34 2012
+** Created: Mon 23. Jul 18:00:42 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!

@@ -14,9 +14,18 @@
 GlWidget::GlWidget(QWidget *parent)
     : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
-    xRot = 0;
-    yRot = 0;
-    zRot = 0;
+    theta=90;
+    phi=90;
+    r=20;
+    eyeX=0;
+    eyeY=0;
+    eyeZ=r;
+
+    upX=0;
+    upY=1;
+    upZ=0;
+    sizeX=20;
+    sizeY=20;
     zoom = 2.5;
     xMove = 0;
     yMove = 0;
@@ -37,46 +46,6 @@ void GlWidget::setCurrentLayer(int layer){
     this->currentLayer=layer;
     this->repaint();
 }
-
-void GlWidget::qNormalizeAngle(int &angle)
-{
-    while (angle < 0)
-        angle += 360 * 16;
-    while (angle > 360 * 16)
-        angle -= 360 * 16;
-}
-
-
-//setting rotations of scene
-void GlWidget::setXRotation(int angle)
- {
-     qNormalizeAngle(angle);
-     if (angle != xRot) {
-         xRot = angle;
-         emit xRotationChanged(angle);
-         updateGL();
-     }
- }
-
- void GlWidget::setYRotation(int angle)
- {
-     qNormalizeAngle(angle);
-     if (angle != yRot) {
-         yRot = angle;
-         emit yRotationChanged(angle);
-         updateGL();
-     }
- }
-
- void GlWidget::setZRotation(int angle)
- {
-     qNormalizeAngle(angle);
-     if (angle != zRot) {
-         zRot = angle;
-         emit zRotationChanged(angle);
-         updateGL();
-     }
- }
 
 //size hints
  QSize GlWidget::minimumSizeHint() const
@@ -107,16 +76,13 @@ void GlWidget::setXRotation(int angle)
   //resize event
   void GlWidget::resizeGL(int width, int height)
    {
-       int side = qMin(width, height);
        glViewport(0, 0, (GLint)width, (GLint)height);
-       float aspect = (float)this->width()/(float)this->height();
-       qDebug() << aspect;
        glMatrixMode(GL_PROJECTION);
        glLoadIdentity();
 #ifdef QT_OPENGL_ES_1
           glOrthof(-0.5 + zoom , +0.5 - zoom, -0.5 + zoom, +0.5 - zoom, 4.0, 100.0);
 #else
-          glOrtho(-((float)this->width()/1000*zoom)*aspect,+((float)this->width()/1000*zoom)*aspect, -((float)this->height()/1000*zoom)*aspect, +((float)this->height()/1000*zoom)*aspect, 4.0, 100.0);
+          glOrtho(-((float)this->width()/1000*zoom),+((float)this->width()/1000*zoom), -((float)this->height()/1000*zoom), +((float)this->height()/1000*zoom), 4.0, 100.0);
 #endif
        glMatrixMode(GL_MODELVIEW);
    }
@@ -125,11 +91,7 @@ void GlWidget::setXRotation(int angle)
    {
        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
        glLoadIdentity();
-       glTranslatef(0.0+xMove, 0.0+yMove, -20.0);
-       glRotatef(xRot / 16.0, 1.0, 0.0, 0.0);
-       glRotatef(yRot / 16.0, 0.0, 1.0, 0.0);
-       glRotatef(zRot / 16.0, 0.0, 0.0, 1.0);
-       glTranslatef(-1.0+xMove, -1.0+yMove, 0.0);
+       gluLookAt(eyeX, eyeY, eyeZ, -xMove, -yMove, 0.0, upX, upY, upZ);
        for(int i=0; i<this->objects.size(); i++){
            this->objects.at(i)->draw(0.01,this->layers, show_travel, this->currentLayer);
        }
@@ -147,16 +109,37 @@ void GlWidget::setXRotation(int angle)
    {
        int dx = event->x() - lastPos.x();
        int dy = event->y() - lastPos.y();
+       QPointF clicked=screenToWorld(lastPos.x(),lastPos.y());
+       QPointF currentClicked=screenToWorld(event->x(),event->y());
 
-       if (event->buttons() & Qt::RightButton) {
-           setXRotation(xRot + 8 * dy);
-           setYRotation(yRot + 8 * dx);
-       } else if (event->buttons() & Qt::LeftButton) {
-           setXRotation(xRot + 8 * dy);
-           setZRotation(zRot + 8 * dx);
-       } else if (event->buttons() & Qt::MiddleButton){
-           xMove += (float)dx/1000;
-           yMove -= (float)dy/1000;
+       if (event->buttons() & Qt::MiddleButton) {
+
+       } else if (event->buttons() & Qt::LeftButton) {          
+           // Mouse point to angle conversion
+              theta -= dy*1.0;    //3.0 rotations possible
+              phi -= dx*1.0;
+
+           // Spherical to Cartesian conversion.
+           // Degrees to radians conversion factor 0.0174532
+              eyeX = r * cos(theta*0.0174532) * cos(phi*0.0174532);
+              eyeY = r * cos(theta*0.0174532) * sin(phi*0.0174532);
+              eyeZ = r * sin(theta*0.0174532);
+
+           // Reduce theta slightly to obtain another point on the same longitude line on the sphere.
+              GLfloat dt=1.0;
+              GLfloat eyeXtemp = r * cos(theta*0.0174532-dt) * cos(phi*0.0174532);
+              GLfloat eyeYtemp = r * cos(theta*0.0174532-dt) * sin(phi*0.0174532);
+              GLfloat eyeZtemp = r * sin(theta*0.0174532-dt);
+
+           // Connect these two points to obtain the camera's up vector.
+              upX=eyeXtemp-eyeX;
+              upY=eyeYtemp-eyeY;
+              upZ=eyeZtemp-eyeZ;
+              qDebug() << upX << upY << upZ << eyeX << eyeY << eyeZ;
+              updateGL();
+       } else if (event->buttons() & Qt::RightButton){
+           xMove -= clicked.x()-currentClicked.x();
+           yMove -= clicked.y()-currentClicked.y();
            updateGL();
        }
 
@@ -167,13 +150,12 @@ void GlWidget::setXRotation(int angle)
 
       if((zoom-(float)event->delta()/1920)>0){
           zoom -= (float)event->delta()/1920;
-          float aspect = (float)this->width()/(float)this->height();
           glMatrixMode(GL_PROJECTION);
           glLoadIdentity();
 #ifdef QT_OPENGL_ES_1
           glOrthof(-0.5 + zoom , +0.5 - zoom, -0.5 + zoom, +0.5 - zoom, 4.0, 100.0);
 #else
-          glOrtho(-((float)this->width()/1000*zoom)*aspect,+((float)this->width()/1000*zoom)*aspect, -((float)this->height()/1000*zoom)*aspect, +((float)this->height()/1000*zoom)*aspect, 4.0, 100.0);
+          glOrtho(-((float)this->width()/1000*zoom),+((float)this->width()/1000*zoom), -((float)this->height()/1000*zoom), +((float)this->height()/1000*zoom), 4.0, 100.0);
 #endif
           glMatrixMode(GL_MODELVIEW);
 
@@ -228,14 +210,14 @@ void GlWidget::setXRotation(int angle)
       //draw grid
       //rotate for x
       glRotated(90, 0.0, 1.0, 0.0);
-      for(int i=0; i<20; i++){
-                gluCylinder(pQuadric, lineRadius, lineRadius, gridWidth, iSlices, iStacks);
+      for(int i=0; i<sizeY; i++){
+          gluCylinder(pQuadric, lineRadius, lineRadius, (double)sizeX/10, iSlices, iStacks);
                 glTranslated(0.0f, 0.1f, 0.0f);
       }
-                gluCylinder(pQuadric, lineRadius, lineRadius, gridWidth, iSlices, iStacks);
+                gluCylinder(pQuadric, lineRadius, lineRadius, (double)sizeX/10, iSlices, iStacks);
       glRotated(90, 1.0, 0.0, 0.0);
-      for(int i=0; i<21; i++){
-                gluCylinder(pQuadric, lineRadius, lineRadius, gridWidth, iSlices, iStacks);
+      for(int i=0; i<sizeX+1; i++){
+                gluCylinder(pQuadric, lineRadius, lineRadius, (double)sizeY/10, iSlices, iStacks);
                 glTranslated(0.0f, 0.1f, 0.0f);
       }
 
@@ -371,6 +353,7 @@ void GlWidget::setXRotation(int angle)
   void GlWidget::clearObjects(){
       for(int i=0; i<this->objects.size(); i++){
           this->objects.at(i)->freeLists();
+          delete this->objects.at(i);
       }
       this->objects.clear();
   }
@@ -382,5 +365,47 @@ void GlWidget::setXRotation(int angle)
 
   void GlWidget::showTravel(bool show){
       this->show_travel=show;
+      updateGL();
+  }
+
+  QPointF GlWidget::screenToWorld(int x, int y){
+     // get line of sight through mouse cursor
+      GLint viewport[4];
+       GLdouble modelview[16];
+       GLdouble projection[16];
+       GLfloat winX, winY, winZ;
+       GLdouble posX, posY, posZ;
+
+       glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
+       glGetDoublev( GL_PROJECTION_MATRIX, projection );
+       glGetIntegerv( GL_VIEWPORT, viewport );
+       glClear(GL_DEPTH_BUFFER_BIT);
+
+       GLfloat fCurrentColor[4];
+       glGetFloatv(GL_CURRENT_COLOR, fCurrentColor);
+           glBegin(GL_QUADS);
+           glVertex3f(-20.0f,-20.0f, 0.00f);
+           glVertex3f( 20.0f,-20.0f, 0.00f);
+           glVertex3f( 20.0f, 20.0f, 0.00f);
+           glVertex3f(-20.0f, 20.0f, 0.00f);
+           glEnd();
+       glColor4fv(fCurrentColor);
+
+
+       winX = (float)x;
+       winY = (float)viewport[3] - (float)y;
+       glReadPixels( x, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ );
+       qDebug() << winX << winY << winZ;
+       gluUnProject( winX, winY,  winZ, modelview, projection, viewport, &posX, &posY, &posZ);
+
+     return QPointF(posX,posY);
+  }
+
+
+  void GlWidget::setTableSize(int x, int y){
+      this->sizeX=x;
+      this->sizeY=y;
+      this->xMove=(double)-x/(double)20;
+      this->yMove=(double)-y/(double)20;
       updateGL();
   }

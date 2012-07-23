@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sun 15. Jul 06:23:33 2012
+** Created: Mon 23. Jul 18:00:42 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -32,6 +32,7 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QScrollBar>
 #include <QtGui/QSlider>
+#include <QtGui/QSpacerItem>
 #include <QtGui/QSpinBox>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
@@ -44,6 +45,7 @@ public:
     QAction *actionWczytaj;
     QAction *actionO_Programie;
     QAction *actionCalibrate_printer;
+    QAction *actionOptions;
     QWidget *centralWidget;
     QGridLayout *gridLayout_4;
     QProgressBar *progressBar;
@@ -95,6 +97,7 @@ public:
     QSpinBox *fanSpinBox;
     QLabel *t3Label;
     QPushButton *fanBtn;
+    QSpacerItem *verticalSpacer;
     QGroupBox *graphGroupBox;
     QVBoxLayout *verticalLayout_4;
     QWidget *tempGraphWidget;
@@ -131,8 +134,11 @@ public:
     QPushButton *homeY;
     QPushButton *homeZ;
     QPushButton *homeAll;
+    QWidget *widget_9;
+    QVBoxLayout *verticalLayout_5;
     QWidget *headControlWidget;
     QGridLayout *gridLayout_8;
+    QSpacerItem *verticalSpacer_2;
     QSlider *zSlider;
     QMenuBar *menuBar;
     QMenu *menuPlik;
@@ -143,7 +149,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(883, 514);
+        MainWindow->resize(733, 524);
         MainWindow->setLayoutDirection(Qt::LeftToRight);
         MainWindow->setUnifiedTitleAndToolBarOnMac(false);
         actionWczytaj = new QAction(MainWindow);
@@ -152,6 +158,8 @@ public:
         actionO_Programie->setObjectName(QString::fromUtf8("actionO_Programie"));
         actionCalibrate_printer = new QAction(MainWindow);
         actionCalibrate_printer->setObjectName(QString::fromUtf8("actionCalibrate_printer"));
+        actionOptions = new QAction(MainWindow);
+        actionOptions->setObjectName(QString::fromUtf8("actionOptions"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gridLayout_4 = new QGridLayout(centralWidget);
@@ -261,6 +269,7 @@ public:
         gridLayout->setContentsMargins(-1, 2, -1, 2);
         inConsole = new QPlainTextEdit(groupBox_2);
         inConsole->setObjectName(QString::fromUtf8("inConsole"));
+        inConsole->setMaximumBlockCount(50);
 
         gridLayout->addWidget(inConsole, 0, 0, 1, 1);
 
@@ -278,7 +287,7 @@ public:
         widget_2->setObjectName(QString::fromUtf8("widget_2"));
         sizePolicy.setHeightForWidth(widget_2->sizePolicy().hasHeightForWidth());
         widget_2->setSizePolicy(sizePolicy);
-        widget_2->setMaximumSize(QSize(500, 16777215));
+        widget_2->setMaximumSize(QSize(5000, 16777215));
         verticalLayout = new QVBoxLayout(widget_2);
         verticalLayout->setSpacing(2);
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -482,6 +491,10 @@ public:
 
         gridLayout_2->addWidget(fanBtn, 3, 5, 1, 1);
 
+        verticalSpacer = new QSpacerItem(5, 2, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_2->addItem(verticalSpacer, 4, 0, 1, 7);
+
 
         horizontalLayout_5->addWidget(widget_8);
 
@@ -535,6 +548,7 @@ public:
 
         widget_12 = new QWidget(axisControlGroup);
         widget_12->setObjectName(QString::fromUtf8("widget_12"));
+        widget_12->setAutoFillBackground(false);
         horizontalLayout_9 = new QHBoxLayout(widget_12);
         horizontalLayout_9->setSpacing(6);
         horizontalLayout_9->setContentsMargins(0, 0, 0, 0);
@@ -679,16 +693,29 @@ public:
 
         horizontalLayout_9->addWidget(widget_3);
 
-        headControlWidget = new QWidget(widget_12);
+        widget_9 = new QWidget(widget_12);
+        widget_9->setObjectName(QString::fromUtf8("widget_9"));
+        verticalLayout_5 = new QVBoxLayout(widget_9);
+        verticalLayout_5->setSpacing(6);
+        verticalLayout_5->setContentsMargins(0, 0, 0, 0);
+        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
+        headControlWidget = new QWidget(widget_9);
         headControlWidget->setObjectName(QString::fromUtf8("headControlWidget"));
         headControlWidget->setMinimumSize(QSize(220, 220));
-        headControlWidget->setMaximumSize(QSize(220, 220));
+        headControlWidget->setMaximumSize(QSize(5000, 5000));
         gridLayout_8 = new QGridLayout(headControlWidget);
         gridLayout_8->setSpacing(0);
         gridLayout_8->setContentsMargins(0, 0, 0, 0);
         gridLayout_8->setObjectName(QString::fromUtf8("gridLayout_8"));
 
-        horizontalLayout_9->addWidget(headControlWidget);
+        verticalLayout_5->addWidget(headControlWidget);
+
+        verticalSpacer_2 = new QSpacerItem(2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_2);
+
+
+        horizontalLayout_9->addWidget(widget_9);
 
         zSlider = new QSlider(widget_12);
         zSlider->setObjectName(QString::fromUtf8("zSlider"));
@@ -712,7 +739,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 883, 20));
+        menuBar->setGeometry(QRect(0, 0, 733, 20));
         menuPlik = new QMenu(menuBar);
         menuPlik->setObjectName(QString::fromUtf8("menuPlik"));
         menuO_Programie = new QMenu(menuBar);
@@ -726,6 +753,7 @@ public:
         menuBar->addAction(menuO_Programie->menuAction());
         menuPlik->addAction(actionWczytaj);
         menuO_Programie->addAction(actionO_Programie);
+        menuSettings->addAction(actionOptions);
         menuSettings->addAction(actionCalibrate_printer);
 
         retranslateUi(MainWindow);
@@ -742,6 +770,7 @@ public:
         actionWczytaj->setText(QApplication::translate("MainWindow", "Load", 0, QApplication::UnicodeUTF8));
         actionO_Programie->setText(QApplication::translate("MainWindow", "About YARRH", 0, QApplication::UnicodeUTF8));
         actionCalibrate_printer->setText(QApplication::translate("MainWindow", "Calibrate printer", 0, QApplication::UnicodeUTF8));
+        actionOptions->setText(QApplication::translate("MainWindow", "Options", 0, QApplication::UnicodeUTF8));
         groupBox_6->setTitle(QApplication::translate("MainWindow", "Object view", 0, QApplication::UnicodeUTF8));
         showTravelChkBox->setText(QApplication::translate("MainWindow", "Show travel moves", 0, QApplication::UnicodeUTF8));
         label_7->setText(QApplication::translate("MainWindow", "Current layer:", 0, QApplication::UnicodeUTF8));

@@ -214,12 +214,12 @@ p, li { white-space: pre-wrap; }
         <translation>YARRH</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="219"/>
+        <location filename="mainwindow.ui" line="244"/>
         <source>Port:</source>
         <translation>Port:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="236"/>
+        <location filename="mainwindow.ui" line="261"/>
         <source>Baud:</source>
         <translation>Baud:</translation>
     </message>
@@ -229,26 +229,26 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Name:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="293"/>
+        <location filename="mainwindow.ui" line="318"/>
         <source>Needed filament:</source>
         <oldsource>Potrzebny filament:</oldsource>
         <translation>Needed filament:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="210"/>
+        <location filename="mainwindow.ui" line="235"/>
         <source>Port settings</source>
         <translation>Port settings</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="253"/>
+        <location filename="mainwindow.ui" line="278"/>
         <location filename="mainwindow.cpp" line="177"/>
         <source>Connect</source>
         <translation>Connect</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="266"/>
-        <location filename="mainwindow.ui" line="935"/>
-        <location filename="mainwindow.cpp" line="197"/>
+        <location filename="mainwindow.ui" line="291"/>
+        <location filename="mainwindow.ui" line="998"/>
+        <location filename="mainwindow.cpp" line="214"/>
         <source>File</source>
         <translation>File</translation>
     </message>
@@ -258,21 +258,21 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Number of layers:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="328"/>
+        <location filename="mainwindow.ui" line="353"/>
         <source>Print</source>
         <translation>Print</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="341"/>
-        <location filename="mainwindow.cpp" line="286"/>
-        <location filename="mainwindow.cpp" line="307"/>
-        <location filename="mainwindow.cpp" line="345"/>
+        <location filename="mainwindow.ui" line="366"/>
+        <location filename="mainwindow.cpp" line="303"/>
+        <location filename="mainwindow.cpp" line="325"/>
+        <location filename="mainwindow.cpp" line="364"/>
         <source>Pause</source>
         <oldsource>Pauza</oldsource>
         <translation>Pause</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="363"/>
+        <location filename="mainwindow.ui" line="388"/>
         <source>Temperature</source>
         <oldsource>Temperatura</oldsource>
         <translation>Temperature</translation>
@@ -286,15 +286,15 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">230</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="408"/>
-        <location filename="mainwindow.ui" line="508"/>
-        <location filename="mainwindow.ui" line="556"/>
+        <location filename="mainwindow.ui" line="433"/>
+        <location filename="mainwindow.ui" line="533"/>
+        <location filename="mainwindow.ui" line="581"/>
         <source>On</source>
         <translation>On</translation>
     </message>
     <message utf8="true">
-        <location filename="mainwindow.ui" line="430"/>
-        <location filename="mainwindow.ui" line="543"/>
+        <location filename="mainwindow.ui" line="455"/>
+        <location filename="mainwindow.ui" line="568"/>
         <source> 0 °C</source>
         <translation> 0 °C</translation>
     </message>
@@ -311,178 +311,183 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">110</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="569"/>
+        <location filename="mainwindow.ui" line="607"/>
         <source>Monitor</source>
         <oldsource>Monitoruj</oldsource>
         <translation>Monitor</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="623"/>
+        <location filename="mainwindow.ui" line="661"/>
         <source>Axis control</source>
         <translation>Axis control</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="675"/>
+        <location filename="mainwindow.ui" line="716"/>
         <source>Go to:</source>
         <translation>Go to:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="724"/>
+        <location filename="mainwindow.ui" line="765"/>
         <source>XY speed</source>
         <translation>XY speed</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="744"/>
+        <location filename="mainwindow.ui" line="785"/>
         <source>Z Speed</source>
         <translation>Z Speed</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="457"/>
+        <location filename="mainwindow.ui" line="482"/>
         <source>Fan</source>
         <translation>Fan</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="792"/>
+        <location filename="mainwindow.ui" line="833"/>
         <source>Disable motors</source>
         <translation>Disable motors</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="55"/>
+        <location filename="mainwindow.ui" line="76"/>
         <source>Object view</source>
         <translation>Object view</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="113"/>
+        <location filename="mainwindow.ui" line="134"/>
         <source>Show travel moves</source>
         <translation>Show travel moves</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="120"/>
+        <location filename="mainwindow.ui" line="141"/>
         <source>Current layer:</source>
         <translation>Current layer:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="130"/>
+        <location filename="mainwindow.ui" line="151"/>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="437"/>
+        <location filename="mainwindow.ui" line="462"/>
         <source>Extruder</source>
         <translation>Extruder</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="444"/>
+        <location filename="mainwindow.ui" line="469"/>
         <source>HotBed</source>
         <translation>Hotbed</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="764"/>
+        <location filename="mainwindow.ui" line="805"/>
         <source>Extrude</source>
         <translation>Extrude</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="771"/>
+        <location filename="mainwindow.ui" line="812"/>
         <source> mm</source>
         <translation>mm</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="778"/>
+        <location filename="mainwindow.ui" line="819"/>
         <source>Retract</source>
         <translation>Retract</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="785"/>
+        <location filename="mainwindow.ui" line="826"/>
         <source> mm/s</source>
         <translation> mm/s</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="941"/>
+        <location filename="mainwindow.ui" line="1004"/>
         <source>Help</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="947"/>
+        <location filename="mainwindow.ui" line="1010"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="957"/>
+        <location filename="mainwindow.ui" line="1021"/>
         <source>Load</source>
         <translation>Load</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="962"/>
+        <location filename="mainwindow.ui" line="1026"/>
         <source>About YARRH</source>
         <translation>About YARRH</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="967"/>
+        <location filename="mainwindow.ui" line="1031"/>
         <source>Calibrate printer</source>
         <translation>Calibrate printer</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="805"/>
+        <location filename="mainwindow.ui" line="1036"/>
+        <source>Options</source>
+        <translation>Options</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="846"/>
         <source>Home</source>
         <translation>Home</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="818"/>
+        <location filename="mainwindow.ui" line="859"/>
         <source>X</source>
         <translation>X</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="831"/>
+        <location filename="mainwindow.ui" line="872"/>
         <source>Y</source>
         <translation>Y</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="844"/>
+        <location filename="mainwindow.ui" line="885"/>
         <source>Z</source>
         <translation>Z</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="860"/>
+        <location filename="mainwindow.ui" line="901"/>
         <source>All</source>
         <translation>All</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="668"/>
+        <location filename="mainwindow.ui" line="709"/>
         <source>Position</source>
         <oldsource>Pozycja</oldsource>
         <translation>Position</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="682"/>
-        <location filename="mainwindow.ui" line="689"/>
+        <location filename="mainwindow.ui" line="723"/>
+        <location filename="mainwindow.ui" line="730"/>
         <source>X: 0</source>
         <translation>X: 0</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="696"/>
-        <location filename="mainwindow.ui" line="703"/>
+        <location filename="mainwindow.ui" line="737"/>
+        <location filename="mainwindow.ui" line="744"/>
         <source>Y: 0</source>
         <translation>Y: 0</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="710"/>
-        <location filename="mainwindow.ui" line="717"/>
+        <location filename="mainwindow.ui" line="751"/>
+        <location filename="mainwindow.ui" line="758"/>
         <source>Z: 0</source>
         <translation>Z: 0</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="731"/>
-        <location filename="mainwindow.ui" line="751"/>
+        <location filename="mainwindow.ui" line="772"/>
+        <location filename="mainwindow.ui" line="792"/>
         <source> mm/min</source>
         <translation> mm/min</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="518"/>
+        <location filename="mainwindow.ui" line="543"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="155"/>
+        <location filename="mainwindow.ui" line="176"/>
         <source>Console</source>
         <oldsource>Konsola</oldsource>
         <translation>Console</translation>
@@ -497,37 +502,46 @@ p, li { white-space: pre-wrap; }
         <translation>Disconnect</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="195"/>
+        <location filename="mainwindow.cpp" line="197"/>
         <source>Open file</source>
         <translation>Open file</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="195"/>
         <source>Print files (*.g *.gcode)</source>
-        <translation>Print files (*.g *.gcode)</translation>
+        <translation type="obsolete">Print files (*.g *.gcode)</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="210"/>
+        <location filename="mainwindow.cpp" line="197"/>
+        <source>Print files (*.g *.gcode *.stl)</source>
+        <translation>Print files (*.g *.gcode *.stl)</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="226"/>
         <source>Parsing file</source>
         <translation>Parsing file</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="483"/>
+        <location filename="mainwindow.cpp" line="392"/>
+        <source>Layer %1/%2 </source>
+        <translation>Layer %1/%2 </translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="502"/>
         <source>Printing in progress</source>
         <translation>Printing in progress</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="484"/>
+        <location filename="mainwindow.cpp" line="503"/>
         <source>Are you sure you want to exit?</source>
         <translation>Are you sure you want to exit?</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="486"/>
+        <location filename="mainwindow.cpp" line="505"/>
         <source>Yes</source>
         <translation>Yes</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="487"/>
+        <location filename="mainwindow.cpp" line="506"/>
         <source>No</source>
         <translation>No</translation>
     </message>
@@ -537,41 +551,118 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="mainwindow.cpp" line="162"/>
-        <location filename="mainwindow.cpp" line="338"/>
+        <location filename="mainwindow.cpp" line="357"/>
         <source>Resume</source>
         <translation>Resume</translation>
     </message>
 </context>
 <context>
+    <name>OptionDialog</name>
+    <message>
+        <location filename="optiondialog.ui" line="14"/>
+        <source>Dialog</source>
+        <translation>Option dialog</translation>
+    </message>
+    <message>
+        <location filename="optiondialog.ui" line="20"/>
+        <source>Printer</source>
+        <translation>Printer</translation>
+    </message>
+    <message>
+        <location filename="optiondialog.ui" line="29"/>
+        <source>X size</source>
+        <translation>X size</translation>
+    </message>
+    <message>
+        <location filename="optiondialog.ui" line="36"/>
+        <location filename="optiondialog.ui" line="53"/>
+        <location filename="optiondialog.ui" line="70"/>
+        <source> cm</source>
+        <translation> cm</translation>
+    </message>
+    <message>
+        <location filename="optiondialog.ui" line="46"/>
+        <source>Y size</source>
+        <translation>Y size</translation>
+    </message>
+    <message>
+        <location filename="optiondialog.ui" line="63"/>
+        <source>Z size</source>
+        <translation>Z size</translation>
+    </message>
+    <message>
+        <location filename="optiondialog.ui" line="83"/>
+        <source>Slic3r</source>
+        <translation>Slic3r</translation>
+    </message>
+    <message>
+        <location filename="optiondialog.ui" line="89"/>
+        <source>Path to slic3r</source>
+        <translation>Path to slic3r</translation>
+    </message>
+    <message>
+        <location filename="optiondialog.ui" line="99"/>
+        <source>Configs dir</source>
+        <translation>Configs dir</translation>
+    </message>
+    <message>
+        <location filename="optiondialog.ui" line="109"/>
+        <source>Output</source>
+        <translation>Output</translation>
+    </message>
+    <message>
+        <location filename="optiondialog.ui" line="119"/>
+        <location filename="optiondialog.ui" line="126"/>
+        <location filename="optiondialog.ui" line="133"/>
+        <source>Dir</source>
+        <translation>Dir</translation>
+    </message>
+    <message>
+        <location filename="optiondialog.ui" line="168"/>
+        <source>Close</source>
+        <translation>Close</translation>
+    </message>
+    <message>
+        <location filename="optiondialog.cpp" line="58"/>
+        <source>Find slicer exe</source>
+        <translation>Find slicer exe</translation>
+    </message>
+    <message>
+        <location filename="optiondialog.cpp" line="58"/>
+        <source>Slic3r-console (slic3r-console.exe)</source>
+        <translation>Slic3r-console (slic3r-console.exe)</translation>
+    </message>
+</context>
+<context>
     <name>Printer</name>
     <message>
-        <location filename="printer.cpp" line="35"/>
+        <location filename="printer.cpp" line="44"/>
         <source>Connecting...</source>
         <translation>Connecting...</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="40"/>
+        <location filename="printer.cpp" line="50"/>
         <source>Printer connected</source>
         <translation>Printer connected</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="49"/>
+        <location filename="printer.cpp" line="56"/>
         <source>Unable to connect</source>
         <translation>Unable to connect</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="55"/>
+        <location filename="printer.cpp" line="62"/>
         <source>Unknown port name</source>
         <oldsource>Niepoprawny port</oldsource>
         <translation>Unknown port name</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="63"/>
+        <location filename="printer.cpp" line="71"/>
         <source>Printer disconnected</source>
         <translation>Printer disconnected</translation>
     </message>
     <message>
-        <location filename="printer.cpp" line="98"/>
+        <location filename="printer.cpp" line="106"/>
         <source>Printer offline</source>
         <translation>Printer offline</translation>
     </message>
@@ -672,6 +763,143 @@ p, li { white-space: pre-wrap; }
         <location filename="qextserialport/qextserialport.cpp" line="760"/>
         <source>Unknown error: %1</source>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>SliceDialog</name>
+    <message>
+        <location filename="slicedialog.ui" line="14"/>
+        <source>Slice</source>
+        <translation>Slice</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="47"/>
+        <source>Slicer options</source>
+        <translation>Slicer options</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="56"/>
+        <source>Config:</source>
+        <translation>Config:</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="66"/>
+        <source>Infill:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="73"/>
+        <location filename="slicedialog.ui" line="210"/>
+        <source>%</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="80"/>
+        <source>Layer height:</source>
+        <translation>Layer height:</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="103"/>
+        <source>Object list</source>
+        <translation>Object list</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="121"/>
+        <source>Add</source>
+        <translation>Add</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="128"/>
+        <source>Remove</source>
+        <translation>Remove</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="148"/>
+        <source>Object options</source>
+        <translation>Object options</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="160"/>
+        <source>X:</source>
+        <translation>X:</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="167"/>
+        <location filename="slicedialog.ui" line="190"/>
+        <source> cm</source>
+        <translation> cm</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="180"/>
+        <source>Y:</source>
+        <translation>Y:</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="203"/>
+        <source>Scale:</source>
+        <translation>Scale:</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="220"/>
+        <source>Rotation:</source>
+        <translation>Rotation:</translation>
+    </message>
+    <message utf8="true">
+        <location filename="slicedialog.ui" line="227"/>
+        <source>°</source>
+        <translation>°</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="243"/>
+        <source>Export</source>
+        <translation>Export</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="252"/>
+        <source>GCode</source>
+        <translation>GCode</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="259"/>
+        <source>STL</source>
+        <translation>STL</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="290"/>
+        <source>Table preview</source>
+        <translation>Table preview</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.ui" line="335"/>
+        <source>Console</source>
+        <translation>Console</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.cpp" line="125"/>
+        <source>Find slicer exe</source>
+        <translation>Find slicer exe</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.cpp" line="125"/>
+        <location filename="slicedialog.cpp" line="201"/>
+        <source>STL files (*.stl)</source>
+        <translation>STL files (*.stl)</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.cpp" line="143"/>
+        <location filename="slicedialog.cpp" line="201"/>
+        <source>Save stl</source>
+        <translation>Save stl</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.cpp" line="143"/>
+        <source>Gcode files (*.gcode)</source>
+        <translation>Gcode files (*.gcode)</translation>
+    </message>
+    <message>
+        <location filename="slicedialog.cpp" line="209"/>
+        <source>Saving stl</source>
+        <translation>Saving stl</translation>
     </message>
 </context>
 </TS>

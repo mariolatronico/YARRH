@@ -74,16 +74,15 @@ void Layer::display(float scale, bool last, bool show_travel, int current_layer)
        glColor4fv(gray);
        //current and printer layer coloring for travel moves
        if(current_layer>this->layer_num)
-           glColor4fv(blue);
+           glColor4fv(green);
        else{
            if(current_layer==this->layer_num)
                glColor4fv(orange);
        }
     }
-
-        glCallList(this->list_index);
+    glCallList(this->list_index);
     if(show_travel){
-        glColor4fv(green);
+        glColor4fv(blue);
         glCallList(this->list_index+1);
     }
     glColor4fv(fCurrentColor);
@@ -113,6 +112,7 @@ void Layer::render(float scale){
         renderLine(vertexes.at(j).toVector3D()*scale,vertexes.at(j+1).toVector3D()*scale,0.3*scale,vertexes.at(j+1).w(),false);
     }
     glEndList();
+    this->vertexes.clear();
 }
 
 void Layer::freeLists(){

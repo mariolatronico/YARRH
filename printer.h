@@ -76,6 +76,8 @@ public slots:
     void getTemperature();
     void setTemp1(int);
     void setTemp3(int);
+    void extrude(int lenght, int speed);
+    void retrackt(int lenght, int speed);
 };
 
 #endif // PRINTER_H

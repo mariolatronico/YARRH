@@ -22,7 +22,7 @@ class Path {
                 inline void setTarget(double trg) { s_target = trg; }
                 inline QVector < QPointF > data() { return v_data; }
                 inline QPointF& operator[] (int i) { return v_data[i]; }
-                inline void addPoint(const QPointF& pnt) { v_data.append(pnt); }
+                inline void addPoint(const QPointF& pnt) { v_data.append(pnt); if(v_data.size()>1000){ v_data.remove(0);} }
                 inline int size() { return v_data.size(); }
                 void resize(int size) { v_data.resize(size); }
                 Path(const QVector<double> &x, const QVector<double> &y);

@@ -67,7 +67,7 @@ QSize GraphWidget::minimumSizeHint() const
 void GraphWidget::paintEvent(QPaintEvent *event)
 {
         int i=0;
-        QPainter p(this);
+        QPainter p(this);       
 
         p.fillRect(this->rect(), QColor(78,78,127));
 
@@ -92,17 +92,17 @@ void GraphWidget::paintEvent(QPaintEvent *event)
         p.setPen(QColor(0,130,9));
         p.drawLine( 1, yToCanvY(t3->target()), this->width(), yToCanvY(t3->target()) );
         p.setRenderHint(QPainter::Antialiasing, true);
+
         if (t1->size()>0){
-            p.setPen(t1->color());
             for (i=1; i<t1->size(); i++)
             {
-                    p.drawLine( xToCanvX((*t1)[i-1].x()), yToCanvY((*t1)[i-1].y()),
-                                            xToCanvX((*t1)[i].x()), yToCanvY((*t1)[i].y()) );
+                p.setPen(QColor(qMin(255,(int)((double)255*((*t1)[i-1].y()/(t1->target()+1)))),0,255-qMin(255,(int)((double)255*((*t1)[i-1].y()/(t1->target()+1))))));
+                p.drawLine( xToCanvX((*t1)[i-1].x()), yToCanvY((*t1)[i-1].y()),
+                            xToCanvX((*t1)[i].x()), yToCanvY((*t1)[i].y()) );
             }
         }
 
         if (t2->size()>0){
-            p.setPen(t2->color());
             for (i=1; i<t2->size(); i++)
             {
                     p.drawLine( xToCanvX((*t2)[i-1].x()), yToCanvY((*t2)[i-1].y()),
@@ -111,9 +111,9 @@ void GraphWidget::paintEvent(QPaintEvent *event)
         }
 
         if (t3->size()>0){
-            p.setPen(t3->color());
             for (i=1; i<t3->size(); i++)
             {
+                p.setPen(QColor(0,qMin(255,(int)((double)255*((*t3)[i].y()/(t3->target()+1)))),255-qMin(255,(int)((double)255*((*t3)[i].y()/(t3->target()+1))))));
                     p.drawLine( xToCanvX((*t3)[i-1].x()), yToCanvY((*t3)[i-1].y()),
                                             xToCanvX((*t3)[i].x()), yToCanvY((*t3)[i].y()) );
             }

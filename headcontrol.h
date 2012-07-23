@@ -14,10 +14,16 @@ class headControl : public QGraphicsView
 public:
     headControl(QWidget* parent = NULL);
     ~headControl();
+    QSize sizeHint() const;
+    void setSize(int x_size, int y_size);
+    bool getPointsHidden();
 private:
+    bool pointsHidden;
+    int sizeX, sizeY;
     QGraphicsScene* scene;
     QList<HeadControlLine*> controlPoints;
     Layer2D* layer;
+    void populateScene(int x, int y);
 signals:
     void clicked(QPoint);
     void hovered(QPoint);

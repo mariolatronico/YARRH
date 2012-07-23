@@ -17,6 +17,18 @@ MainWindow::MainWindow(QWidget *parent) :
     this->calibrateDialog = new CalibrateDialog();
     this->calibrateDialog->hide();
     this->calibrateDialog->move(this->geometry().center()-this->calibrateDialog->geometry().center());
+    //option Dialog
+    this->optionDialog = new OptionDialog();
+    this->optionDialog->hide();
+    this->optionDialog->move(this->geometry().center()-this->optionDialog->geometry().center());
+    //slice dialog
+    this->sliceDialog = new SliceDialog();
+    this->sliceDialog->hide();
+    this->sliceDialog->move(this->geometry().center()-this->sliceDialog->geometry().center());
+    connect(this->optionDialog, SIGNAL(slicerPathChanged(QString)), this->sliceDialog, SLOT(updateSlicerPath(QString)));
+    connect(this->optionDialog, SIGNAL(outputPathChanged(QString)), this->sliceDialog, SLOT(updateOutputPath(QString)));
+    connect(this->optionDialog, SIGNAL(newSize(QVector3D)), this, SLOT(updatadeSize(QVector3D)));
+    connect(this->sliceDialog, SIGNAL(fileSliced(QString)), this, SLOT(loadFile(QString)));
     //set version number
     this->setWindowTitle("YARRH v"+QString::number(VERSION_MAJOR)+"."+QString::number(VERSION_MINOR)+"."+QString::number(VERSION_REVISION));
     this->aboutWindow->setVersion(VERSION_MAJOR,VERSION_MINOR,VERSION_REVISION);
@@ -72,10 +84,6 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->portCombo->addItem(info.portName);
     }
 
-    //connectiong signals
-    connect(this->portEnum, SIGNAL(deviceDiscovered(const QextPortInfo &)), this, SLOT(deviceConnected(const QextPortInfo &)));
-    connect(this->portEnum, SIGNAL(deviceDiscovered(const QextPortInfo &)), this, SLOT(deviceConnected(const QextPortInfo &)));
-
     //connect btn
     connect(ui->connectBtn, SIGNAL(toggled(bool)), this, SLOT(connectClicked(bool)));
     //print btn
@@ -123,16 +131,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-
-//not working on windows... dunno why :(
-void MainWindow::deviceConnected(const QextPortInfo & info){
-    qDebug() << info.portName;
-}
-
-void MainWindow::deviceDisconnected(const QextPortInfo & info){
-    qDebug() << info.portName;
 }
 
 
@@ -193,104 +191,121 @@ void MainWindow::printerConnected(bool connected){
 }
 
 //loading file
-void MainWindow::loadFile(){
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open file"), this->lastOpendDir, tr("Print files (*.g *.gcode)"));
-    //show filename in ui
-    ui->groupBox_4->setTitle(tr("File")+" :"+fileName.right(fileName.length()-fileName.lastIndexOf("/")-1));
-    //open file
-    QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        return;
-    //set last opend dir
-    this->lastOpendDir=fileName.left(fileName.lastIndexOf("/"));
-
-    //clear last object gcode
-    this->gcodeLines.clear();
-    //clear gl widget
-    this->glWidget->clearObjects();
-    //show progress dialog
-    QProgressDialog progress(tr("Parsing file"), 0, 0, 0, this);
-    progress.setWindowModality(Qt::WindowModal);
-    progress.show();
-
-    //buffer filecontent
-    this->fileContent.clear();
-    this->fileContent=file.readAll();
-    file.close();
-
-    //split buffer to lines
-    QStringList gcodesTemp=this->fileContent.split("\n");
-    QString temp;
-    //set max value of progress dialog
-    progress.setMaximum(gcodesTemp.size());
-
-    //parsing input file
-    qreal x=0,y=0,z=-1, travel=0;
-    GCodeObject* tempObject = new GCodeObject(this->glWidget);
-    int layerCount=0;
-    float prevZ=0;
-    for(int i=0; i<gcodesTemp.size(); i++){
-        progress.setValue(i);
-        temp=gcodesTemp.at(i);
-        temp.replace("/n","");
-        if(temp.contains("filament used")){
-            ui->filamentLbl->setText(temp.right(temp.length()-temp.lastIndexOf("=")-2));
-        }
-        temp=temp.left(temp.lastIndexOf(";"));
-        temp=temp.trimmed();
-        if(temp!=""){
-            this->gcodeLines.append(temp);
-        }
-
-        //parsing lines to get point coordinates
-        if(temp.contains("X")){
-            x=(qreal)temp.mid(temp.indexOf("X")+1,temp.indexOf(" ",temp.indexOf("X"))-temp.indexOf("X")).toFloat();
-        }
-        if(temp.contains("Y")){
-            y=(qreal)temp.mid(temp.indexOf("Y")+1,temp.indexOf(" ",temp.indexOf("Y"))-temp.indexOf("Y")).toFloat();
-        }
-        if(temp.contains("Z")){
-            z=(qreal)temp.mid(temp.indexOf("Z")+1,temp.indexOf(" ",temp.indexOf("Z"))-temp.indexOf("Z")).toFloat();
-            if(z>prevZ){
-                layerCount++;
-            }
-            prevZ=z;
-        }
-        if(temp.contains("X") || temp.contains("Y") || temp.contains("Z")){
-            if(temp.contains("E") || temp.contains("A")){
-                travel=0;
-            }
-            else{
-                travel=1;
-            }
-            tempObject->addVertex(x,y,z,travel,layerCount);
-        }
+void MainWindow::loadFile(QString file){
+    QString fileName;
+    if(file==""){
+        fileName = QFileDialog::getOpenFileName(this, tr("Open file"), this->lastOpendDir, tr("Print files (*.g *.gcode *.stl)"));
+        this->lastOpendDir=fileName.left(fileName.lastIndexOf("/"));
     }
-    ui->layerScrollBar->setMaximum(layerCount+1);
-    ui->layerScrollBar->setValue(1);
-    ui->currentLayer->setText(QString::number(layerCount)+"/"+QString::number(layerCount));
-
-    ui->progressBar->setMaximum(this->gcodeLines.size());
-    ui->progressBar->setValue(0);
-    this->glWidget->setLayers(ui->layerScrollBar->maximum());
-    tempObject->render(0.01);
-    this->glWidget->addObject(tempObject);
-
-    //enable print button
-    if(printerObj->isConnected()){
-        ui->printBtn->setEnabled(true);
+    else{
+        fileName=file;
     }
-    //disable pause btn
-    ui->pauseBtn->setEnabled(false);
-    ui->pauseBtn->blockSignals(true);
-    ui->pauseBtn->setChecked(false);
-    ui->pauseBtn->blockSignals(false);
-    ui->progressBar->hide();
-    ui->pauseBtn->setText(tr("Pause"));
-    this->currentLayer=0;
-    this->lastZ=0;
-    this->glWidget->setCurrentLayer(0);
-    this->controlWidget->resetLayer();
+    // if its stl then open slice window
+    if(fileName.endsWith(".stl")){
+        this->sliceDialog->clearObjects();
+        this->sliceDialog->addObject(fileName);
+        this->sliceDialog->updateConfigs(this->optionDialog->getConfigDir());
+        this->sliceDialog->move(QPoint(this->geometry().center().x()-this->sliceDialog->width()/2,this->geometry().center().y()-this->sliceDialog->height()/2));
+        this->sliceDialog->show();
+    }
+    //else just load gcode
+    else{
+        //show filename in ui
+        ui->groupBox_4->setTitle(tr("File")+" :"+fileName.right(fileName.length()-fileName.lastIndexOf("/")-1));
+        //open file
+        QFile fileObj(fileName);
+        if (!fileObj.open(QIODevice::ReadOnly | QIODevice::Text))
+            return;
+        //set last opend dir
+
+        //clear last object gcode
+        this->gcodeLines.clear();
+        //clear gl widget
+        this->glWidget->clearObjects();
+        //show progress dialog
+        QProgressDialog progress(tr("Parsing file"), 0, 0, 0, this);
+        progress.setWindowModality(Qt::WindowModal);
+        progress.show();
+
+        //buffer filecontent
+        this->fileContent.clear();
+        this->fileContent=fileObj.readAll();
+        fileObj.close();
+
+        //split buffer to lines
+        QStringList gcodesTemp=this->fileContent.split("\n");
+        QString temp;
+        //set max value of progress dialog
+        progress.setMaximum(gcodesTemp.size());
+
+        //parsing input file
+        qreal x=0,y=0,z=-1, travel=0;
+        GCodeObject* tempObject = new GCodeObject(this->glWidget);
+        int layerCount=0;
+        float prevZ=0;
+        for(int i=0; i<gcodesTemp.size(); i++){
+            progress.setValue(i);
+            temp=gcodesTemp.at(i);
+            temp.replace("/n","");
+            if(temp.contains("filament used")){
+                ui->filamentLbl->setText(temp.right(temp.length()-temp.lastIndexOf("=")-2));
+            }
+            temp=temp.left(temp.lastIndexOf(";"));
+            temp=temp.trimmed();
+            if(temp!=""){
+                this->gcodeLines.append(temp);
+            }
+
+            //parsing lines to get point coordinates
+            if(temp.contains("X")){
+                x=(qreal)temp.mid(temp.indexOf("X")+1,temp.indexOf(" ",temp.indexOf("X"))-temp.indexOf("X")).toFloat();
+            }
+            if(temp.contains("Y")){
+                y=(qreal)temp.mid(temp.indexOf("Y")+1,temp.indexOf(" ",temp.indexOf("Y"))-temp.indexOf("Y")).toFloat();
+            }
+            if(temp.contains("Z")){
+                z=(qreal)temp.mid(temp.indexOf("Z")+1,temp.indexOf(" ",temp.indexOf("Z"))-temp.indexOf("Z")).toFloat();
+                if(z>prevZ){
+                    layerCount++;
+                }
+                prevZ=z;
+            }
+            if(temp.contains("X") || temp.contains("Y") || temp.contains("Z")){
+                if(temp.contains("E") || temp.contains("A")){
+                    travel=0;
+                }
+                else{
+                    travel=1;
+                }
+                tempObject->addVertex(x,y,z,travel,layerCount);
+            }
+        }
+        ui->layerScrollBar->setMaximum(layerCount+1);
+        ui->layerScrollBar->setValue(1);
+        ui->currentLayer->setText(QString::number(layerCount)+"/"+QString::number(layerCount));
+
+        ui->progressBar->setMaximum(this->gcodeLines.size());
+        ui->progressBar->setValue(0);
+        this->glWidget->setLayers(ui->layerScrollBar->maximum());
+        tempObject->render(0.01);
+        this->glWidget->addObject(tempObject);
+
+        //enable print button
+        if(printerObj->isConnected()){
+            ui->printBtn->setEnabled(true);
+        }
+        //disable pause btn
+        ui->pauseBtn->setEnabled(false);
+        ui->pauseBtn->blockSignals(true);
+        ui->pauseBtn->setChecked(false);
+        ui->pauseBtn->blockSignals(false);
+        ui->progressBar->hide();
+        ui->pauseBtn->setText(tr("Pause"));
+        this->currentLayer=0;
+        this->lastZ=0;
+        this->glWidget->setCurrentLayer(0);
+        this->controlWidget->resetLayer();
+    }
 }
 
 //printing object
@@ -330,8 +345,8 @@ void MainWindow::setLayers(int layers){
 
 //slot to connect diffrent signals
 void MainWindow::moveHead(QPoint point){
-    QMetaObject::invokeMethod(printerObj,"moveHead",Qt::QueuedConnection,Q_ARG(QPoint, point),Q_ARG(int, ui->speedSpinBox->value()));
-    ui->yAt->setText("Y: "+QString::number(200-point.y()));
+    QMetaObject::invokeMethod(printerObj,"moveHead",Qt::QueuedConnection,Q_ARG(QPoint, QPoint(point.x(),this->optionDialog->getSize().y()*10-point.y())),Q_ARG(int, ui->speedSpinBox->value()));
+    ui->yAt->setText("Y: "+QString::number(this->optionDialog->getSize().y()*10-point.y()));
     ui->xAt->setText("X: "+QString::number(point.x()));
 }
 
@@ -372,7 +387,9 @@ void MainWindow::updateProgress(int progress){
 
     float linesPerSec=(float)ui->progressBar->value()/(float)startTime.secsTo(QTime::currentTime());
     this->eta=QTime(0,0,0).addSecs((int)((float)progress/linesPerSec));
-    ui->progressBar->setFormat(this->durationTime.toString("hh:mm:ss")+"/"+this->eta.toString("hh:mm:ss")+" %p%");
+    this->eta=this->eta.addSecs(startTime.secsTo(QTime::currentTime()));
+
+    ui->progressBar->setFormat(tr("Layer %1/%2 ").arg(this->currentLayer).arg(ui->layerScrollBar->maximum()-1)+this->durationTime.toString("hh:mm:ss")+"/"+this->eta.toString("hh:mm:ss")+" %p%");
 }
 
 
@@ -460,20 +477,18 @@ void MainWindow::updateHeadPosition(QVector3D point){
     ui->xAt->setText("X: "+QString::number(point.x()));
     ui->yAt->setText("Y: "+QString::number(point.y()));
     ui->zAt->setText("Z: "+QString::number(point.z()));
-
     if(point.z()>this->lastZ){
         this->lastZ=point.z();
         this->currentLayer++;
         this->glWidget->setCurrentLayer(this->currentLayer);
         this->controlWidget->resetLayer();
-        qDebug() << currentLayer;
     }
     this->controlWidget->addPrintedPoint(point.toPointF());
 }
 
 void MainWindow::updateHeadGoToXY(QPoint point){
     ui->xMoveTo->setText("X: "+QString::number(point.x()));
-    ui->yMoveTo->setText("Y: "+QString::number(200-point.y()));
+    ui->yMoveTo->setText("Y: "+QString::number(this->optionDialog->getSize().y()*10-point.y()));
 }
 
 
@@ -524,6 +539,14 @@ void MainWindow::saveSettings(){
     settings.setValue("autoCallibrateY", this->calibrateDialog->autoCalibrateY());
     settings.setValue("zStepsPerMm", this->calibrateDialog->getCallibrationsSetting().z());
     settings.setValue("autoCallibrateZ", this->calibrateDialog->autoCalibrateZ());
+    //slicer conf
+    settings.setValue("slicerDir", this->optionDialog->getSlicerDir());
+    settings.setValue("configDir", this->optionDialog->getConfigDir());
+    settings.setValue("outputDir", this->optionDialog->getOutputDir());
+    //table size
+    settings.setValue("sizeX", this->optionDialog->getSize().x());
+    settings.setValue("sizeY", this->optionDialog->getSize().y());
+    settings.setValue("sizeZ", this->optionDialog->getSize().z());
     //write temperature setting
     settings.beginWriteArray("temp1Values");
     for(int i=0; i<ui->t1Combo->count(); i++){
@@ -547,6 +570,7 @@ void MainWindow::saveSettings(){
 void MainWindow::restoreSettings(){
     QSettings settings("3d-printers", "yarrh");
     this->lastOpendDir = settings.value("lastDir","").toString();
+    this->sliceDialog->setLastDir(this->lastOpendDir);
     ui->speedSpinBox->setValue(settings.value("XYspeed").toInt());
     ui->speedZSpinBox->setValue(settings.value("Zspeed").toInt());
     this->move(settings.value("mainWindowPos").toPoint());
@@ -566,6 +590,18 @@ void MainWindow::restoreSettings(){
     this->calibrateDialog->setZStepsPerMm(settings.value("zStepsPerMm",2560).toDouble());
     this->calibrateDialog->setAutoCalibrateE(settings.value("autoCallibrateE",false).toBool());
     this->calibrateDialog->setEStepsPerMm(settings.value("eStepsPerMm",40).toDouble());
+    //slicer conf
+    this->optionDialog->setSlicerDir(settings.value("slicerDir","").toString());
+    this->sliceDialog->updateSlicerPath(settings.value("slicerDir","").toString());
+    this->optionDialog->setConfigDir(settings.value("configDir","").toString());
+    this->optionDialog->setOutputDir(settings.value("outputDir","").toString());
+    this->sliceDialog->updateOutputPath(settings.value("outputDir","").toString());
+    //table size
+    this->optionDialog->setSize(QVector3D(settings.value("sizeX",20).toInt(),settings.value("sizeY",20).toInt(),settings.value("sizeZ",20).toInt()));
+    this->glWidget->setTableSize(this->optionDialog->getSize().x(),this->optionDialog->getSize().y());
+    this->sliceDialog->setTableSize(this->optionDialog->getSize().x(),this->optionDialog->getSize().y());
+    this->controlWidget->setSize(this->optionDialog->getSize().x(),this->optionDialog->getSize().y());
+    this->controlWidget->hidePoints(true);
     //restore temp1 combo
     int size = settings.beginReadArray("temp1Values");
     int currentIndex=0;
@@ -628,16 +664,12 @@ void MainWindow::on_fanBtn_toggled(bool on)
 
 void MainWindow::on_extrudeBtn_clicked()
 {
-    QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, "G91"));
-    QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, "G1 E"+QString::number(ui->extrudeLenghtSpinBox->value())+" F"+QString::number(ui->extrudeSpeedSpinBox->value()*60)));
-    QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, "G90"));
+    QMetaObject::invokeMethod(printerObj,"extrude",Qt::QueuedConnection,Q_ARG(int, ui->extrudeLenghtSpinBox->value()),Q_ARG(int, ui->extrudeSpeedSpinBox->value()));
 }
 
 void MainWindow::on_retracktBtn_clicked()
 {
-    QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, "G91"));
-    QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, "G1 E"+QString::number(ui->extrudeLenghtSpinBox->value()*-1)+" F"+QString::number(ui->extrudeSpeedSpinBox->value()*60)));
-    QMetaObject::invokeMethod(printerObj,"writeToPort",Qt::QueuedConnection,Q_ARG(QString, "G90"));
+    QMetaObject::invokeMethod(printerObj,"retrackt",Qt::QueuedConnection,Q_ARG(int, ui->extrudeLenghtSpinBox->value()),Q_ARG(int, ui->extrudeSpeedSpinBox->value()));
 }
 
 void MainWindow::on_actionO_Programie_triggered()
@@ -649,4 +681,23 @@ void MainWindow::on_actionCalibrate_printer_triggered()
 {
     this->calibrateDialog->move(QPoint(this->geometry().center().x()-this->calibrateDialog->width()/2,this->geometry().center().y()-this->calibrateDialog->height()/2));
     this->calibrateDialog->show();
+}
+
+void MainWindow::on_graphGroupBox_toggled(bool arg1)
+{
+
+}
+
+void MainWindow::on_actionOptions_triggered()
+{
+    this->optionDialog->move(QPoint(this->geometry().center().x()-this->optionDialog->width()/2,this->geometry().center().y()-this->optionDialog->height()/2));
+    this->optionDialog->show();
+}
+
+
+void MainWindow::updatadeSize(QVector3D newSize){
+    this->sliceDialog->setTableSize(newSize.x(), newSize.y());
+    this->glWidget->setTableSize(newSize.x(), newSize.y());
+    this->controlWidget->setSize(newSize.x(), newSize.y());
+    this->controlWidget->hidePoints(this->controlWidget->getPointsHidden());
 }

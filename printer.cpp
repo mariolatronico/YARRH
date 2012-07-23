@@ -9,9 +9,14 @@ Printer::Printer(QObject *parent)
     this->isPrinting=false;
     this->connectionActive=false;
     this->temperatureTimer = new QTimer(this);
+    this->temperatureTimer->setInterval(2000);
+    connect(temperatureTimer, SIGNAL(timeout()), this, SLOT(getTemperature()));
 
     this->readTimer = new QTimer(this);
-    connect(temperatureTimer, SIGNAL(timeout()), this, SLOT(getTemperature()));
+    this->readTimer->setInterval(5);
+    connect(this->readTimer, SIGNAL(timeout()), this, SLOT(readFromPort()));
+
+    connect(this, SIGNAL(newResponce(QString)), this, SLOT(processResponce(QString)));
     curr_pos.setX(0);
     curr_pos.setY(0);
     curr_pos.setZ(0);
@@ -23,7 +28,11 @@ Printer::Printer(QObject *parent)
 }
 
 bool Printer::isConnected(){
-    return this->portObj->isReadable();
+    if(this->portObj!=NULL){
+        return this->portObj->isReadable();
+    }
+    else
+        return false;
 }
 
 bool Printer::getIsPrinting(){
@@ -35,14 +44,12 @@ bool Printer::connectPort(QString port, int baud){
     emit write_to_console(tr("Connecting..."));
     if(port!=""){
         PortSettings settings = {(BaudRateType)baud, DATA_8, PAR_NONE, STOP_1, FLOW_OFF, 10};
+        delete this->portObj;
         this->portObj = new QextSerialPort(port,settings,QextSerialPort::Polling);
         if(this->portObj->open(QIODevice::ReadWrite | QIODevice::Unbuffered)){
             emit write_to_console(tr("Printer connected"));
-            //connect(this->portObj, SIGNAL(readyRead()), this, SLOT(readFromPort()));
-            connect(this->readTimer, SIGNAL(timeout()), this, SLOT(readFromPort()));
-            connect(this, SIGNAL(newResponce(QString)), this, SLOT(processResponce(QString)));
             writeToPort("M115");
-            this->readTimer->start(5);
+            this->readTimer->start();
             return true;
         }
         else{
@@ -60,11 +67,10 @@ bool Printer::connectPort(QString port, int baud){
 
 bool Printer::disconnectPort(){
     this->portObj->close();
+    this->readTimer->stop();
     emit write_to_console(tr("Printer disconnected"));
     emit connected(false);
     this->connectionActive=false;
-    this->temperatureTimer->stop();
-    this->readTimer->stop();
     return true;
 }
 
@@ -86,7 +92,9 @@ int Printer::writeToPort(QString command){
     if(command.contains("M140") || command.contains("M190")){
         emit settingTemp3(command.mid(command.lastIndexOf("S")+1,command.length()-command.lastIndexOf("S")+1).toDouble());
     }
-    emit currentPosition(curr_pos);
+
+    if(command.contains("G1") || command.contains("G0"))
+        emit currentPosition(curr_pos);
 
     if(this->isConnected()){
 
@@ -103,14 +111,12 @@ int Printer::writeToPort(QString command){
 //reading from port, we want to be here as short as posible
 void Printer::readFromPort(){
     if(portObj->bytesAvailable()>0){
-        emit newResponce(portObj->readAll());
+        emit newResponce(portObj->readLine());
     }
 }
 
 //proper parsing of responce
 void Printer::processResponce(QString responce){
-
-    emit write_to_console(QString("Got responce: "+ responce).replace("\n","\\n").replace("\r","\\r"));
     if(!this->connectionActive){
         this->connectionActive=true;
         emit connected(true);
@@ -128,19 +134,19 @@ void Printer::processResponce(QString responce){
     //proccess all responces from fifo
     while(responseBuffer.size()>0){
         QString lastResponse=responseBuffer.takeFirst();
+        emit write_to_console("Got responce: "+ lastResponse);
         //if its temp status
         if(lastResponse.contains("T:") || lastResponse.contains("B:")){
             bool ok;
 
-            double bed_temp = lastResponse.mid(lastResponse.indexOf("B:")+2,lastResponse.indexOf(".",lastResponse.indexOf("B:"))-lastResponse.indexOf("B:")+2).toDouble(&ok);
+            double bed_temp = lastResponse.mid(lastResponse.indexOf("B:")+2,lastResponse.indexOf(" ",lastResponse.indexOf("B:"))-lastResponse.indexOf("B:")-2).toDouble(&ok);
             if(ok){
                 last_bed_temp=bed_temp;
             }
-            double head_temp = lastResponse.mid(lastResponse.indexOf("T:")+2,lastResponse.indexOf(".",lastResponse.indexOf("T:"))-lastResponse.indexOf("T:")+2).toDouble(&ok);
+            double head_temp = lastResponse.mid(lastResponse.indexOf("T:")+2,lastResponse.indexOf(" ",lastResponse.indexOf("T:"))-lastResponse.indexOf("T:")-2).toDouble(&ok);
             if(ok){
                 last_head_temp=head_temp;
             }
-
             emit currentTemp(last_head_temp,0.0,last_bed_temp);
         }
         //if its response for position command
@@ -189,7 +195,7 @@ void Printer::homeAll(){
 //moving head
 void Printer::moveHead(QPoint point, int speed){
     writeToPort("G1 F"+QString::number(speed));
-    writeToPort("G1 X"+QString::number(point.x())+" Y"+QString::number(200-point.y()));
+    writeToPort("G1 X"+QString::number(point.x())+" Y"+QString::number(point.y()));
 }
 void Printer::moveHeadZ(double z, int speed){
     writeToPort("G1 F"+QString::number(speed));
@@ -224,7 +230,7 @@ void Printer::loadToBuffer(QStringList buffer, bool clear){
 void Printer::setMonitorTemperature(bool monitor){
     this->monitorTemperature=monitor;
     if(monitor){
-        this->temperatureTimer->start(2000);
+        this->temperatureTimer->start();
     }
     else{
         this->temperatureTimer->stop();
@@ -262,4 +268,16 @@ void Printer::setTemp3(int temp){
             writeToPort("M140 S"+QString::number(temp));
         }
     }
+}
+
+void Printer::extrude(int lenght, int speed){
+    writeToPort("G91");
+    writeToPort("G1 E"+QString::number(lenght)+" F"+QString::number(speed*60));
+    writeToPort("G90");
+}
+
+void Printer::retrackt(int lenght, int speed){
+    writeToPort("G91");
+    writeToPort("G1 E"+QString::number(lenght*-1)+" F"+QString::number(speed*60));
+    writeToPort("G90");
 }

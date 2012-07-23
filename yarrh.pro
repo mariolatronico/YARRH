@@ -4,12 +4,11 @@
 #
 #-------------------------------------------------
 
-QT       += core gui opengl
+QT += core gui opengl
+CONFIG += serialport
 
 TARGET = yarrh
 TEMPLATE = app
-
-
 SOURCES += main.cpp\
         mainwindow.cpp \
     glwidget.cpp \
@@ -21,7 +20,11 @@ SOURCES += main.cpp\
     printer.cpp \
     aboutwindow.cpp \
     layer2d.cpp \
-    calibratedialog.cpp
+    calibratedialog.cpp \
+    optiondialog.cpp \
+    slicedialog.cpp \
+    stlview.cpp \
+    stlobject.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -33,13 +36,17 @@ HEADERS  += mainwindow.h \
     printer.h \
     aboutwindow.h \
     layer2d.h \
-    calibratedialog.h
+    calibratedialog.h \
+    optiondialog.h \
+    slicedialog.h \
+    stlview.h \
+    stlobject.h
 
 FORMS    += mainwindow.ui \
     aboutwindow.ui \
-    calibratedialog.ui
-
-include(qextserialport/qextserialport.pri)
+    calibratedialog.ui \
+    optiondialog.ui \
+    slicedialog.ui
 
 RESOURCES += \
     resource.qrc
@@ -50,6 +57,17 @@ TRANSLATIONS = yarrh_pl.ts \
                yarrh_bg.ts \
                yarrh_fi.ts
 RC_FILE = icon.rc
+
+include(qextserialport/qextserialport.pri)
+include(bullet/bullet.pri)
+
+LIBS+=-lglut32
+
+
+
+
+
+
 
 
 

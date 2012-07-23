@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>883</width>
-    <height>514</height>
+    <width>733</width>
+    <height>524</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -189,7 +189,11 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
         <number>2</number>
        </property>
        <item row="0" column="0">
-        <widget class="QPlainTextEdit" name="inConsole"/>
+        <widget class="QPlainTextEdit" name="inConsole">
+         <property name="maximumBlockCount">
+          <number>50</number>
+         </property>
+        </widget>
        </item>
        <item row="1" column="0">
         <widget class="QLineEdit" name="outLine">
@@ -214,7 +218,7 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
       </property>
       <property name="maximumSize">
        <size>
-        <width>500</width>
+        <width>5000</width>
         <height>16777215</height>
        </size>
       </property>
@@ -581,6 +585,19 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
                </property>
               </widget>
              </item>
+             <item row="4" column="0" colspan="7">
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>5</width>
+                 <height>2</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
             </layout>
            </widget>
           </item>
@@ -664,6 +681,9 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
           </item>
           <item>
            <widget class="QWidget" name="widget_12" native="true">
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
             <layout class="QHBoxLayout" name="horizontalLayout_9">
              <property name="margin">
               <number>0</number>
@@ -889,26 +909,48 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="headControlWidget" native="true">
-               <property name="minimumSize">
-                <size>
-                 <width>220</width>
-                 <height>220</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>220</width>
-                 <height>220</height>
-                </size>
-               </property>
-               <layout class="QGridLayout" name="gridLayout_8">
+              <widget class="QWidget" name="widget_9" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout_5">
                 <property name="margin">
                  <number>0</number>
                 </property>
-                <property name="spacing">
-                 <number>0</number>
-                </property>
+                <item>
+                 <widget class="QWidget" name="headControlWidget" native="true">
+                  <property name="minimumSize">
+                   <size>
+                    <width>220</width>
+                    <height>220</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>5000</width>
+                    <height>5000</height>
+                   </size>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_8">
+                   <property name="margin">
+                    <number>0</number>
+                   </property>
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>2</width>
+                    <height>2</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
                </layout>
               </widget>
              </item>
@@ -947,7 +989,7 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>883</width>
+     <width>733</width>
      <height>20</height>
     </rect>
    </property>
@@ -967,6 +1009,7 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
     <property name="title">
      <string>Settings</string>
     </property>
+    <addaction name="actionOptions"/>
     <addaction name="actionCalibrate_printer"/>
    </widget>
    <addaction name="menuPlik"/>
@@ -986,6 +1029,11 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
   <action name="actionCalibrate_printer">
    <property name="text">
     <string>Calibrate printer</string>
+   </property>
+  </action>
+  <action name="actionOptions">
+   <property name="text">
+    <string>Options</string>
    </property>
   </action>
  </widget>

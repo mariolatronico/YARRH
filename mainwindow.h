@@ -6,8 +6,8 @@
 #include <QTextCodec>
 #include <QFileDialog>
 #include <QTime>
-#include "qextserialport.h"
-#include "qextserialenumerator.h"
+#include <QtAddOnSerialPort/serialport.h>
+#include <QtAddOnSerialPort/serialportinfo.h>
 #include "glwidget.h"
 #include "gcodeobject.h"
 #include "graphwidget.h"
@@ -15,11 +15,15 @@
 #include "printer.h"
 #include "aboutwindow.h"
 #include "calibratedialog.h"
+#include "optiondialog.h"
+#include "slicedialog.h"
+#include "qextserialport.h"
+#include "qextserialenumerator.h"
 
 //version number
 #define VERSION_MAJOR       0
 #define VERSION_MINOR       1
-#define VERSION_REVISION    4
+#define VERSION_REVISION    6
 
 namespace Ui {
     class MainWindow;
@@ -36,8 +40,6 @@ protected:
     void closeEvent(QCloseEvent *e);
 private:
     Ui::MainWindow *ui;
-    //port enumarator
-    QextSerialEnumerator *portEnum;
     QString fileContent;
     QStringList gcodeLines;
     GlWidget *glWidget;
@@ -47,12 +49,17 @@ private:
     QTime durationTime;
     QTime eta;
     QString lastOpendDir;
+    QextSerialEnumerator *portEnum;
     //Printer obj
     Printer *printerObj;
     //about window
     AboutWindow *aboutWindow;
     //calibrate dialog
     CalibrateDialog *calibrateDialog;
+    //options dialog
+    OptionDialog *optionDialog;
+    //slice dialog
+    SliceDialog *sliceDialog;
     //confirmation dialog
     QMessageBox* msgBox;
     qreal lastZ;
@@ -60,10 +67,8 @@ private:
     void saveSettings();
     void restoreSettings();
 private slots:
-    void deviceConnected(const QextPortInfo &);
-    void deviceDisconnected(const QextPortInfo &);
     void connectClicked(bool);
-    void loadFile();
+    void loadFile(QString fileName="");
     void startPrint();
     //set layers
     void setLayers(int layers);
@@ -92,6 +97,9 @@ private slots:
     void setTemp1FromGcode(double value);
     void setTemp3FromGcode(double value);
     void on_actionCalibrate_printer_triggered();
+    void on_graphGroupBox_toggled(bool arg1);
+    void on_actionOptions_triggered();
+    void updatadeSize(QVector3D newSize);
 };
 
 #endif // MAINWINDOW_H
