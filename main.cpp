@@ -1,9 +1,15 @@
 #include <QtGui/QApplication>
 #include <QDebug>
+#include <QTextCodec>
+
 #include "mainwindow.h"
 
 int main(int argc, char *argv[])
 {
+    //setting string codecs
+    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+    QTextCodec::setCodecForTr(QTextCodec::codecForName ("UTF-8"));
+
     QApplication a(argc, argv);
     QString locale = QLocale::system().name();
 

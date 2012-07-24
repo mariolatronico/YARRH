@@ -6,9 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //setting string codecs
-    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
-    QTextCodec::setCodecForTr(QTextCodec::codecForName ("UTF-8"));
+
     //about window
     this->aboutWindow = new AboutWindow();
     this->aboutWindow->hide();
@@ -183,102 +181,104 @@ void MainWindow::printerConnected(bool connected){
 //loading file
 void MainWindow::on_actionWczytaj_triggered(){
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open file"), this->lastOpendDir, tr("Print files (*.g *.gcode)"));
-    //show filename in ui
-    ui->groupBox_4->setTitle(tr("File")+" :"+fileName.right(fileName.length()-fileName.lastIndexOf("/")-1));
-    //open file
-    QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        return;
-    //set last opend dir
-    this->lastOpendDir=fileName.left(fileName.lastIndexOf("/"));
+    if (fileName != "") {
+        //show filename in ui
+        ui->groupBox_4->setTitle(tr("File")+" :"+fileName.right(fileName.length()-fileName.lastIndexOf("/")-1));
+        //open file
+        QFile file(fileName);
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+            return;
+        //set last opend dir
+        this->lastOpendDir=fileName.left(fileName.lastIndexOf("/"));
 
-    //clear last object gcode
-    this->gcodeLines.clear();
-    //clear gl widget
-    this->glWidget->clearObjects();
-    //show progress dialog
-    QProgressDialog progress(tr("Parsing file"), 0, 0, 0, this);
-    progress.setWindowModality(Qt::WindowModal);
-    progress.show();
+        //clear last object gcode
+        this->gcodeLines.clear();
+        //clear gl widget
+        this->glWidget->clearObjects();
+        //show progress dialog
+        QProgressDialog progress(tr("Parsing file"), 0, 0, 0, this);
+        progress.setWindowModality(Qt::WindowModal);
+        progress.show();
 
-    //buffer filecontent
-    this->fileContent.clear();
-    this->fileContent=file.readAll();
-    file.close();
+        //buffer filecontent
+        this->fileContent.clear();
+        this->fileContent=file.readAll();
+        file.close();
 
-    //split buffer to lines
-    QStringList gcodesTemp=this->fileContent.split("\n");
-    QString temp;
-    //set max value of progress dialog
-    progress.setMaximum(gcodesTemp.size());
+        //split buffer to lines
+        QStringList gcodesTemp=this->fileContent.split("\n");
+        QString temp;
+        //set max value of progress dialog
+        progress.setMaximum(gcodesTemp.size());
 
-    //parsing input file
-    qreal x=0,y=0,z=-1, travel=0;
-    GCodeObject* tempObject = new GCodeObject(this->glWidget);
-    int layerCount=0;
-    float prevZ=0;
-    for(int i=0; i<gcodesTemp.size(); i++){
-        progress.setValue(i);
-        temp=gcodesTemp.at(i);
-        temp.replace("/n","");
-        if(temp.contains("filament used")){
-            ui->filamentLbl->setText(temp.right(temp.length()-temp.lastIndexOf("=")-2));
-        }
-        temp=temp.left(temp.lastIndexOf(";"));
-        temp=temp.trimmed();
-        if(temp!=""){
-            this->gcodeLines.append(temp);
-        }
-
-        //parsing lines to get point coordinates
-        if(temp.contains("X")){
-            x=(qreal)temp.mid(temp.indexOf("X")+1,temp.indexOf(" ",temp.indexOf("X"))-temp.indexOf("X")).toFloat();
-        }
-        if(temp.contains("Y")){
-            y=(qreal)temp.mid(temp.indexOf("Y")+1,temp.indexOf(" ",temp.indexOf("Y"))-temp.indexOf("Y")).toFloat();
-        }
-        if(temp.contains("Z")){
-            z=(qreal)temp.mid(temp.indexOf("Z")+1,temp.indexOf(" ",temp.indexOf("Z"))-temp.indexOf("Z")).toFloat();
-            if(z>prevZ){
-                layerCount++;
+        //parsing input file
+        qreal x=0,y=0,z=-1, travel=0;
+        GCodeObject* tempObject = new GCodeObject(this->glWidget);
+        int layerCount=0;
+        float prevZ=0;
+        for(int i=0; i<gcodesTemp.size(); i++){
+            progress.setValue(i);
+            temp=gcodesTemp.at(i);
+            temp.replace("/n","");
+            if(temp.contains("filament used")){
+                ui->filamentLbl->setText(temp.right(temp.length()-temp.lastIndexOf("=")-2));
             }
-            prevZ=z;
-        }
-        if(temp.contains("X") || temp.contains("Y") || temp.contains("Z")){
-            if(temp.contains("E") || temp.contains("A")){
-                travel=0;
+            temp=temp.left(temp.lastIndexOf(";"));
+            temp=temp.trimmed();
+            if(temp!=""){
+                this->gcodeLines.append(temp);
             }
-            else{
-                travel=1;
+
+            //parsing lines to get point coordinates
+            if(temp.contains("X")){
+                x=(qreal)temp.mid(temp.indexOf("X")+1,temp.indexOf(" ",temp.indexOf("X"))-temp.indexOf("X")).toFloat();
             }
-            tempObject->addVertex(x,y,z,travel,layerCount);
+            if(temp.contains("Y")){
+                y=(qreal)temp.mid(temp.indexOf("Y")+1,temp.indexOf(" ",temp.indexOf("Y"))-temp.indexOf("Y")).toFloat();
+            }
+            if(temp.contains("Z")){
+                z=(qreal)temp.mid(temp.indexOf("Z")+1,temp.indexOf(" ",temp.indexOf("Z"))-temp.indexOf("Z")).toFloat();
+                if(z>prevZ){
+                    layerCount++;
+                }
+                prevZ=z;
+            }
+            if(temp.contains("X") || temp.contains("Y") || temp.contains("Z")){
+                if(temp.contains("E") || temp.contains("A")){
+                    travel=0;
+                }
+                else{
+                    travel=1;
+                }
+                tempObject->addVertex(x,y,z,travel,layerCount);
+            }
         }
+        ui->layerScrollBar->setMaximum(layerCount+1);
+        ui->layerScrollBar->setValue(1);
+        ui->currentLayer->setText(QString::number(layerCount)+"/"+QString::number(layerCount));
+
+        ui->progressBar->setMaximum(this->gcodeLines.size());
+        ui->progressBar->setValue(0);
+        this->glWidget->setLayers(ui->layerScrollBar->maximum());
+        tempObject->render(0.01);
+        this->glWidget->addObject(tempObject);
+
+        //enable print button
+        if(printerObj->isConnected()){
+            ui->printBtn->setEnabled(true);
+        }
+        //disable pause btn
+        ui->pauseBtn->setEnabled(false);
+        ui->pauseBtn->blockSignals(true);
+        ui->pauseBtn->setChecked(false);
+        ui->pauseBtn->blockSignals(false);
+        ui->progressBar->hide();
+        ui->pauseBtn->setText(tr("Pause"));
+        this->currentLayer=0;
+        this->lastZ=0;
+        this->glWidget->setCurrentLayer(0);
+        this->controlWidget->resetLayer();
     }
-    ui->layerScrollBar->setMaximum(layerCount+1);
-    ui->layerScrollBar->setValue(1);
-    ui->currentLayer->setText(QString::number(layerCount)+"/"+QString::number(layerCount));
-
-    ui->progressBar->setMaximum(this->gcodeLines.size());
-    ui->progressBar->setValue(0);
-    this->glWidget->setLayers(ui->layerScrollBar->maximum());
-    tempObject->render(0.01);
-    this->glWidget->addObject(tempObject);
-
-    //enable print button
-    if(printerObj->isConnected()){
-        ui->printBtn->setEnabled(true);
-    }
-    //disable pause btn
-    ui->pauseBtn->setEnabled(false);
-    ui->pauseBtn->blockSignals(true);
-    ui->pauseBtn->setChecked(false);
-    ui->pauseBtn->blockSignals(false);
-    ui->progressBar->hide();
-    ui->pauseBtn->setText(tr("Pause"));
-    this->currentLayer=0;
-    this->lastZ=0;
-    this->glWidget->setCurrentLayer(0);
-    this->controlWidget->resetLayer();
 }
 
 //printing object

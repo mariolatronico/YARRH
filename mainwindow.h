@@ -3,9 +3,9 @@
 
 #include <QMainWindow>
 #include <QDebug>
-#include <QTextCodec>
 #include <QFileDialog>
 #include <QTime>
+
 #include "qextserialport.h"
 #include "qextserialenumerator.h"
 #include "glwidget.h"
