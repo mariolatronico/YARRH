@@ -5,8 +5,8 @@
 #include <QVector3D>
 #include <QObject>
 #include <QtOpenGL>
-#include <gl/GL.h>
-#include <gl/GLU.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 #include "layer.h"
 
 //this class is for storing 3d pbject parset from raw gcode

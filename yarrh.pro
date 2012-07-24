@@ -52,6 +52,10 @@ TRANSLATIONS = yarrh_pl.ts \
 RC_FILE = icon.rc
 
 
+unix {
+LIBS += -lGLU
+}
+
 
 
 
