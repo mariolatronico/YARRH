@@ -1,6 +1,6 @@
 #include "headcontrol.h"
 
-headControl::headControl(QWidget* parent)
+HeadControl::HeadControl(QWidget* parent)
 {
 
     this->layer= new Layer2D();
@@ -28,22 +28,22 @@ headControl::headControl(QWidget* parent)
        this->resetLayer();
 }
 //destructor
-headControl::~headControl(){
+HeadControl::~HeadControl(){
 
 }
 
 //hiding points
-void headControl::hidePoints(bool hide){
+void HeadControl::hidePoints(bool hide){
     for(int i=0; i<this->controlPoints.size(); i++){
         this->controlPoints.at(i)->setShow(!hide);
     }
     this->layer->setShow(hide);
 }
 
-void headControl::addPrintedPoint(QPointF point){
+void HeadControl::addPrintedPoint(QPointF point){
     layer->addPrintedPoint(point);
 }
 
-void headControl::resetLayer(){
+void HeadControl::resetLayer(){
     layer->resetLayer();
 }

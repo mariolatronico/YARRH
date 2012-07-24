@@ -42,7 +42,7 @@ private:
     QStringList gcodeLines;
     GlWidget *glWidget;
     GraphWidget *graphWidget;
-    headControl *controlWidget;
+    HeadControl *controlWidget;
     QTime startTime;
     QTime durationTime;
     QTime eta;

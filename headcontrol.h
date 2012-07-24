@@ -8,12 +8,12 @@
 #include "headcontrolline.h"
 #include "layer2d.h"
 
-class headControl : public QGraphicsView
+class HeadControl : public QGraphicsView
 {
     Q_OBJECT
 public:
-    headControl(QWidget* parent = NULL);
-    ~headControl();
+    HeadControl(QWidget* parent = NULL);
+    ~HeadControl();
 private:
     QGraphicsScene* scene;
     QList<HeadControlLine*> controlPoints;

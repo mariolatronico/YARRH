@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->graphWidget = new GraphWidget(ui->tempGraphWidget);
     ui->tempGraphWidget->layout()->addWidget(this->graphWidget);
     //graphics view for head movement
-    this->controlWidget = new headControl(ui->headControlWidget);
+    this->controlWidget = new HeadControl(ui->headControlWidget);
     ui->headControlWidget->layout()->addWidget(this->controlWidget);
 
     //setting up printer and its thread
