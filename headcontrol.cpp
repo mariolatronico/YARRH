@@ -1,6 +1,7 @@
 #include "headcontrol.h"
 
-HeadControl::HeadControl(QWidget* parent)
+HeadControl::HeadControl(QWidget* parent) :
+    QGraphicsView(parent)
 {
 
     this->layer= new Layer2D();
