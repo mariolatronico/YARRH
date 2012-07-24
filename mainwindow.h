@@ -62,20 +62,20 @@ private:
 private slots:
     void deviceConnected(const QextPortInfo &);
     void deviceDisconnected(const QextPortInfo &);
-    void connectClicked(bool);
-    void loadFile();
-    void startPrint();
+    void on_connectBtn_toggled(bool);
+    void on_actionWczytaj_triggered();
+    void on_printBtn_clicked();
     //set layers
-    void setLayers(int layers);
+    void on_layerScrollBar_valueChanged(int layers);
     void moveHead(QPoint point);
     //pausing print
-    void pausePrint(bool);
+    void on_pauseBtn_toggled(bool);
     void drawTemp(double, double,double);
     void updateProgress(int);
     //setting temperatures
-    void setTemp1(bool);
+    void on_t1Btn_toggled(bool);
     void setTemp2(bool);
-    void setTemp3(bool);
+    void on_hbBtn_toggled(bool);
 
     void moveZ(int);
     void updateZ(int);
