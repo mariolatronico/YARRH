@@ -7,6 +7,11 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     QString locale = QLocale::system().name();
 
+    QCoreApplication::setOrganizationName("wuflnor");
+    // XXX This domain is only for Mac settings.
+    QCoreApplication::setOrganizationDomain("wuflnor.github.org");
+    QCoreApplication::setApplicationName("YARRH");
+
     QTranslator translator;
     qDebug() << translator.load(QString(":/yarrh_")+locale);
     a.installTranslator(&translator);
