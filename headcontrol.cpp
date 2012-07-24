@@ -10,17 +10,17 @@ HeadControl::HeadControl(QWidget* parent) :
     populateScene(this->sizeX, this->sizeY);
 }
 //destructor
-headControl::~headControl(){
+HeadControl::~HeadControl(){
 
 }
 
-void headControl::setSize(int x, int y){
+void HeadControl::setSize(int x, int y){
     this->sizeX=x;
     this->sizeY=y;
     populateScene(x,y);
 }
 
-void headControl::populateScene(int x_size, int y_size){
+void HeadControl::populateScene(int x_size, int y_size){
     this->scene= new QGraphicsScene(this);
     this->setScene(this->scene);
     this->setBackgroundBrush(QBrush(QColor(78,78,127), Qt::SolidPattern));
@@ -47,23 +47,14 @@ void headControl::populateScene(int x_size, int y_size){
        this->resetLayer();
        this->setMaximumSize(sizeHint());
 }
-<<<<<<< HEAD
-=======
-//destructor
-HeadControl::~HeadControl(){
->>>>>>> 7e93cc0a9d1ab1d8ad12868a0e0a803f3420b961
 
-QSize headControl::sizeHint() const{
+QSize HeadControl::sizeHint() const{
     return QSize((this->sizeX*10)+20, (this->sizeY*10)+20);
 }
 
 //hiding points
-<<<<<<< HEAD
-void headControl::hidePoints(bool hide){
-    this->pointsHidden=hide;
-=======
 void HeadControl::hidePoints(bool hide){
->>>>>>> 7e93cc0a9d1ab1d8ad12868a0e0a803f3420b961
+    this->pointsHidden=hide;
     for(int i=0; i<this->controlPoints.size(); i++){
         this->controlPoints.at(i)->setShow(!hide);
     }
@@ -78,6 +69,6 @@ void HeadControl::resetLayer(){
     layer->resetLayer();
 }
 
-bool headControl::getPointsHidden(){
+bool HeadControl::getPointsHidden(){
     return this->pointsHidden;
 }

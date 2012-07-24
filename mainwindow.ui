@@ -997,7 +997,7 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionWczytaj"/>
+    <addaction name="actionLoad"/>
    </widget>
    <widget class="QMenu" name="menuO_Programie">
     <property name="title">
@@ -1016,7 +1016,7 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
    <addaction name="menuSettings"/>
    <addaction name="menuO_Programie"/>
   </widget>
-  <action name="actionWczytaj">
+  <action name="actionLoad">
    <property name="text">
     <string>Load</string>
    </property>

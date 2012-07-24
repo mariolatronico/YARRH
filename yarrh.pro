@@ -5,7 +5,6 @@
 #-------------------------------------------------
 
 QT += core gui opengl
-CONFIG += serialport
 
 TARGET = yarrh
 TEMPLATE = app
@@ -61,14 +60,9 @@ RC_FILE = icon.rc
 include(qextserialport/qextserialport.pri)
 include(bullet/bullet.pri)
 
+win32 {
 LIBS+=-lglut32
-
-
-
-
-
-
-
+}
 
 unix {
 LIBS += -lGLU

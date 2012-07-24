@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Mon 23. Jul 18:00:42 2012
+** Created: Tue 24. Jul 17:39:51 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -42,7 +42,7 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-    QAction *actionWczytaj;
+    QAction *actionLoad;
     QAction *actionO_Programie;
     QAction *actionCalibrate_printer;
     QAction *actionOptions;
@@ -152,8 +152,8 @@ public:
         MainWindow->resize(733, 524);
         MainWindow->setLayoutDirection(Qt::LeftToRight);
         MainWindow->setUnifiedTitleAndToolBarOnMac(false);
-        actionWczytaj = new QAction(MainWindow);
-        actionWczytaj->setObjectName(QString::fromUtf8("actionWczytaj"));
+        actionLoad = new QAction(MainWindow);
+        actionLoad->setObjectName(QString::fromUtf8("actionLoad"));
         actionO_Programie = new QAction(MainWindow);
         actionO_Programie->setObjectName(QString::fromUtf8("actionO_Programie"));
         actionCalibrate_printer = new QAction(MainWindow);
@@ -751,7 +751,7 @@ public:
         menuBar->addAction(menuPlik->menuAction());
         menuBar->addAction(menuSettings->menuAction());
         menuBar->addAction(menuO_Programie->menuAction());
-        menuPlik->addAction(actionWczytaj);
+        menuPlik->addAction(actionLoad);
         menuO_Programie->addAction(actionO_Programie);
         menuSettings->addAction(actionOptions);
         menuSettings->addAction(actionCalibrate_printer);
@@ -767,7 +767,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "YARRH", 0, QApplication::UnicodeUTF8));
-        actionWczytaj->setText(QApplication::translate("MainWindow", "Load", 0, QApplication::UnicodeUTF8));
+        actionLoad->setText(QApplication::translate("MainWindow", "Load", 0, QApplication::UnicodeUTF8));
         actionO_Programie->setText(QApplication::translate("MainWindow", "About YARRH", 0, QApplication::UnicodeUTF8));
         actionCalibrate_printer->setText(QApplication::translate("MainWindow", "Calibrate printer", 0, QApplication::UnicodeUTF8));
         actionOptions->setText(QApplication::translate("MainWindow", "Options", 0, QApplication::UnicodeUTF8));

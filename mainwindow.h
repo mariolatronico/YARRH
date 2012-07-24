@@ -5,14 +5,6 @@
 #include <QDebug>
 #include <QFileDialog>
 #include <QTime>
-<<<<<<< HEAD
-#include <QtAddOnSerialPort/serialport.h>
-#include <QtAddOnSerialPort/serialportinfo.h>
-=======
-
-#include "qextserialport.h"
-#include "qextserialenumerator.h"
->>>>>>> 7e93cc0a9d1ab1d8ad12868a0e0a803f3420b961
 #include "glwidget.h"
 #include "gcodeobject.h"
 #include "graphwidget.h"
@@ -72,17 +64,9 @@ private:
     void saveSettings();
     void restoreSettings();
 private slots:
-<<<<<<< HEAD
-    void connectClicked(bool);
-    void loadFile(QString fileName="");
-    void startPrint();
-=======
-    void deviceConnected(const QextPortInfo &);
-    void deviceDisconnected(const QextPortInfo &);
     void on_connectBtn_toggled(bool);
-    void on_actionWczytaj_triggered();
+    void loadFile(QString fileName="");
     void on_printBtn_clicked();
->>>>>>> 7e93cc0a9d1ab1d8ad12868a0e0a803f3420b961
     //set layers
     void on_layerScrollBar_valueChanged(int layers);
     void moveHead(QPoint point);

@@ -69,6 +69,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect z slider
     connect(ui->zSlider, SIGNAL(valueChanged(int)), this, SLOT(moveZ(int)));
     connect(ui->zSlider, SIGNAL(sliderMoved(int)), this, SLOT(updateZ(int)));
+    //connect action load
+    connect(ui->actionLoad, SIGNAL(triggered()), this, SLOT(loadFile()));
 
     printerObj->moveToThread(qthread);
     qthread->start(QThread::HighestPriority);
@@ -82,26 +84,6 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->portCombo->addItem(info.portName);
     }
 
-<<<<<<< HEAD
-    //connect btn
-    connect(ui->connectBtn, SIGNAL(toggled(bool)), this, SLOT(connectClicked(bool)));
-    //print btn
-    connect(ui->printBtn,SIGNAL(clicked()), this, SLOT(startPrint()));
-    //pause btn
-    connect(ui->pauseBtn, SIGNAL(toggled(bool)), this, SLOT(pausePrint(bool)));
-    //connecting menu actions
-    connect(ui->actionWczytaj, SIGNAL(triggered()), this, SLOT(loadFile()));
-    //connect temperature buttons
-    connect(ui->t1Btn, SIGNAL(toggled(bool)), this, SLOT(setTemp1(bool)));
-    connect(ui->hbBtn, SIGNAL(toggled(bool)), this, SLOT(setTemp3(bool)));
-    //connecting layer scroll bar
-    connect(ui->layerScrollBar, SIGNAL(valueChanged(int)), this, SLOT(setLayers(int)));
-=======
-    //connectiong signals
-    connect(this->portEnum, SIGNAL(deviceDiscovered(const QextPortInfo &)), this, SLOT(deviceConnected(const QextPortInfo &)));
-    connect(this->portEnum, SIGNAL(deviceDiscovered(const QextPortInfo &)), this, SLOT(deviceConnected(const QextPortInfo &)));
-
->>>>>>> 7e93cc0a9d1ab1d8ad12868a0e0a803f3420b961
     //connecting travel moves checkbox
     connect(ui->showTravelChkBox, SIGNAL(toggled(bool)),this->glWidget, SLOT(showTravel(bool)));
     //disable steppers btn
@@ -197,15 +179,10 @@ void MainWindow::printerConnected(bool connected){
 }
 
 //loading file
-<<<<<<< HEAD
-void MainWindow::loadFile(QString file){
-    QString fileName;
-    if(file==""){
+void MainWindow::loadFile(QString fileName){
+    if(fileName==""){
         fileName = QFileDialog::getOpenFileName(this, tr("Open file"), this->lastOpendDir, tr("Print files (*.g *.gcode *.stl)"));
         this->lastOpendDir=fileName.left(fileName.lastIndexOf("/"));
-    }
-    else{
-        fileName=file;
     }
     // if its stl then open slice window
     if(fileName.endsWith(".stl")){
@@ -220,23 +197,11 @@ void MainWindow::loadFile(QString file){
         //show filename in ui
         ui->groupBox_4->setTitle(tr("File")+" :"+fileName.right(fileName.length()-fileName.lastIndexOf("/")-1));
         //open file
-        QFile fileObj(fileName);
-        if (!fileObj.open(QIODevice::ReadOnly | QIODevice::Text))
-            return;
-        //set last opend dir
-=======
-void MainWindow::on_actionWczytaj_triggered(){
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open file"), this->lastOpendDir, tr("Print files (*.g *.gcode)"));
-    if (fileName != "") {
-        //show filename in ui
-        ui->groupBox_4->setTitle(tr("File")+" :"+fileName.right(fileName.length()-fileName.lastIndexOf("/")-1));
-        //open file
         QFile file(fileName);
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
             return;
         //set last opend dir
         this->lastOpendDir=fileName.left(fileName.lastIndexOf("/"));
->>>>>>> 7e93cc0a9d1ab1d8ad12868a0e0a803f3420b961
 
         //clear last object gcode
         this->gcodeLines.clear();
@@ -249,13 +214,8 @@ void MainWindow::on_actionWczytaj_triggered(){
 
         //buffer filecontent
         this->fileContent.clear();
-<<<<<<< HEAD
-        this->fileContent=fileObj.readAll();
-        fileObj.close();
-=======
         this->fileContent=file.readAll();
         file.close();
->>>>>>> 7e93cc0a9d1ab1d8ad12868a0e0a803f3420b961
 
         //split buffer to lines
         QStringList gcodesTemp=this->fileContent.split("\n");
@@ -287,7 +247,6 @@ void MainWindow::on_actionWczytaj_triggered(){
             }
             if(temp.contains("Y")){
                 y=(qreal)temp.mid(temp.indexOf("Y")+1,temp.indexOf(" ",temp.indexOf("Y"))-temp.indexOf("Y")).toFloat();
-<<<<<<< HEAD
             }
             if(temp.contains("Z")){
                 z=(qreal)temp.mid(temp.indexOf("Z")+1,temp.indexOf(" ",temp.indexOf("Z"))-temp.indexOf("Z")).toFloat();
@@ -296,16 +255,6 @@ void MainWindow::on_actionWczytaj_triggered(){
                 }
                 prevZ=z;
             }
-=======
-            }
-            if(temp.contains("Z")){
-                z=(qreal)temp.mid(temp.indexOf("Z")+1,temp.indexOf(" ",temp.indexOf("Z"))-temp.indexOf("Z")).toFloat();
-                if(z>prevZ){
-                    layerCount++;
-                }
-                prevZ=z;
-            }
->>>>>>> 7e93cc0a9d1ab1d8ad12868a0e0a803f3420b961
             if(temp.contains("X") || temp.contains("Y") || temp.contains("Z")){
                 if(temp.contains("E") || temp.contains("A")){
                     travel=0;
