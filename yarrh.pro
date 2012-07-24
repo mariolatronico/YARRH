@@ -70,6 +70,10 @@ LIBS+=-lglut32
 
 
 
+unix {
+LIBS += -lGLU
+}
+
 
 
 

@@ -1,6 +1,7 @@
 #include "headcontrol.h"
 
-headControl::headControl(QWidget* parent)
+HeadControl::HeadControl(QWidget* parent) :
+    QGraphicsView(parent)
 {
 
     this->sizeX=20;
@@ -46,25 +47,34 @@ void headControl::populateScene(int x_size, int y_size){
        this->resetLayer();
        this->setMaximumSize(sizeHint());
 }
+<<<<<<< HEAD
+=======
+//destructor
+HeadControl::~HeadControl(){
+>>>>>>> 7e93cc0a9d1ab1d8ad12868a0e0a803f3420b961
 
 QSize headControl::sizeHint() const{
     return QSize((this->sizeX*10)+20, (this->sizeY*10)+20);
 }
 
 //hiding points
+<<<<<<< HEAD
 void headControl::hidePoints(bool hide){
     this->pointsHidden=hide;
+=======
+void HeadControl::hidePoints(bool hide){
+>>>>>>> 7e93cc0a9d1ab1d8ad12868a0e0a803f3420b961
     for(int i=0; i<this->controlPoints.size(); i++){
         this->controlPoints.at(i)->setShow(!hide);
     }
     this->layer->setShow(hide);
 }
 
-void headControl::addPrintedPoint(QPointF point){
+void HeadControl::addPrintedPoint(QPointF point){
     layer->addPrintedPoint(point);
 }
 
-void headControl::resetLayer(){
+void HeadControl::resetLayer(){
     layer->resetLayer();
 }
 

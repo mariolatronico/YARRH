@@ -6,9 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //setting string codecs
-    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
-    QTextCodec::setCodecForTr(QTextCodec::codecForName ("UTF-8"));
+
     //about window
     this->aboutWindow = new AboutWindow();
     this->aboutWindow->hide();
@@ -39,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->graphWidget = new GraphWidget(ui->tempGraphWidget);
     ui->tempGraphWidget->layout()->addWidget(this->graphWidget);
     //graphics view for head movement
-    this->controlWidget = new headControl(ui->headControlWidget);
+    this->controlWidget = new HeadControl(ui->headControlWidget);
     ui->headControlWidget->layout()->addWidget(this->controlWidget);
 
     //setting up printer and its thread
@@ -84,6 +82,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->portCombo->addItem(info.portName);
     }
 
+<<<<<<< HEAD
     //connect btn
     connect(ui->connectBtn, SIGNAL(toggled(bool)), this, SLOT(connectClicked(bool)));
     //print btn
@@ -97,6 +96,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->hbBtn, SIGNAL(toggled(bool)), this, SLOT(setTemp3(bool)));
     //connecting layer scroll bar
     connect(ui->layerScrollBar, SIGNAL(valueChanged(int)), this, SLOT(setLayers(int)));
+=======
+    //connectiong signals
+    connect(this->portEnum, SIGNAL(deviceDiscovered(const QextPortInfo &)), this, SLOT(deviceConnected(const QextPortInfo &)));
+    connect(this->portEnum, SIGNAL(deviceDiscovered(const QextPortInfo &)), this, SLOT(deviceConnected(const QextPortInfo &)));
+
+>>>>>>> 7e93cc0a9d1ab1d8ad12868a0e0a803f3420b961
     //connecting travel moves checkbox
     connect(ui->showTravelChkBox, SIGNAL(toggled(bool)),this->glWidget, SLOT(showTravel(bool)));
     //disable steppers btn
@@ -135,7 +140,8 @@ MainWindow::~MainWindow()
 
 
 //connecting to port
-void MainWindow::connectClicked(bool connect){
+void MainWindow::on_connectBtn_toggled(bool connect)
+{
     //connecting to printer port
     if(connect){
         ui->connectBtn->setText("Connecting");
@@ -191,6 +197,7 @@ void MainWindow::printerConnected(bool connected){
 }
 
 //loading file
+<<<<<<< HEAD
 void MainWindow::loadFile(QString file){
     QString fileName;
     if(file==""){
@@ -217,6 +224,19 @@ void MainWindow::loadFile(QString file){
         if (!fileObj.open(QIODevice::ReadOnly | QIODevice::Text))
             return;
         //set last opend dir
+=======
+void MainWindow::on_actionWczytaj_triggered(){
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open file"), this->lastOpendDir, tr("Print files (*.g *.gcode)"));
+    if (fileName != "") {
+        //show filename in ui
+        ui->groupBox_4->setTitle(tr("File")+" :"+fileName.right(fileName.length()-fileName.lastIndexOf("/")-1));
+        //open file
+        QFile file(fileName);
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+            return;
+        //set last opend dir
+        this->lastOpendDir=fileName.left(fileName.lastIndexOf("/"));
+>>>>>>> 7e93cc0a9d1ab1d8ad12868a0e0a803f3420b961
 
         //clear last object gcode
         this->gcodeLines.clear();
@@ -229,8 +249,13 @@ void MainWindow::loadFile(QString file){
 
         //buffer filecontent
         this->fileContent.clear();
+<<<<<<< HEAD
         this->fileContent=fileObj.readAll();
         fileObj.close();
+=======
+        this->fileContent=file.readAll();
+        file.close();
+>>>>>>> 7e93cc0a9d1ab1d8ad12868a0e0a803f3420b961
 
         //split buffer to lines
         QStringList gcodesTemp=this->fileContent.split("\n");
@@ -262,6 +287,7 @@ void MainWindow::loadFile(QString file){
             }
             if(temp.contains("Y")){
                 y=(qreal)temp.mid(temp.indexOf("Y")+1,temp.indexOf(" ",temp.indexOf("Y"))-temp.indexOf("Y")).toFloat();
+<<<<<<< HEAD
             }
             if(temp.contains("Z")){
                 z=(qreal)temp.mid(temp.indexOf("Z")+1,temp.indexOf(" ",temp.indexOf("Z"))-temp.indexOf("Z")).toFloat();
@@ -270,6 +296,16 @@ void MainWindow::loadFile(QString file){
                 }
                 prevZ=z;
             }
+=======
+            }
+            if(temp.contains("Z")){
+                z=(qreal)temp.mid(temp.indexOf("Z")+1,temp.indexOf(" ",temp.indexOf("Z"))-temp.indexOf("Z")).toFloat();
+                if(z>prevZ){
+                    layerCount++;
+                }
+                prevZ=z;
+            }
+>>>>>>> 7e93cc0a9d1ab1d8ad12868a0e0a803f3420b961
             if(temp.contains("X") || temp.contains("Y") || temp.contains("Z")){
                 if(temp.contains("E") || temp.contains("A")){
                     travel=0;
@@ -309,7 +345,7 @@ void MainWindow::loadFile(QString file){
 }
 
 //printing object
-void MainWindow::startPrint(){
+void MainWindow::on_printBtn_clicked(){
     if(printerObj->isConnected()){
         this->startTime=QTime::currentTime();
         ui->inConsole->appendPlainText(tr(QString("Print started at "+ this->startTime.toString("hh:mm:ss")).toAscii()));
@@ -338,7 +374,7 @@ void MainWindow::startPrint(){
 }
 
 //setting layers displayed
-void MainWindow::setLayers(int layers){
+void MainWindow::on_layerScrollBar_valueChanged(int layers){
     this->glWidget->setLayers(ui->layerScrollBar->maximum()-layers+1);
     ui->currentLayer->setText(QString::number(ui->layerScrollBar->maximum()-layers)+"/"+QString::number(ui->layerScrollBar->maximum()-1));
 }
@@ -352,7 +388,7 @@ void MainWindow::moveHead(QPoint point){
 
 //pausing print
 
-void MainWindow::pausePrint(bool pause){
+void MainWindow::on_pauseBtn_toggled(bool pause){
     if(pause){
         ui->pauseBtn->setText(tr("Resume"));
         QMetaObject::invokeMethod(printerObj,"stopPrint",Qt::DirectConnection);
@@ -393,7 +429,7 @@ void MainWindow::updateProgress(int progress){
 }
 
 
-void MainWindow::setTemp1(bool on){
+void MainWindow::on_t1Btn_toggled(bool on){
     bool ok;
     int value = ui->t1Combo->currentText().toInt(&ok)%300;
     if(ok){
@@ -414,7 +450,7 @@ void MainWindow::setTemp2(bool on){
 
 }
 
-void MainWindow::setTemp3(bool on){
+void MainWindow::on_hbBtn_toggled(bool on){
     bool ok;
     int value = ui->hbCombo->currentText().toInt(&ok)%300;
     if(ok){

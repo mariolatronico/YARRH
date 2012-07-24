@@ -5,8 +5,8 @@
 #include <QVector4D>
 #include <QVector3D>
 #include <QtOpenGL>
-#include <gl/GL.h>
-#include <gl/GLU.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 
 //class that hold info about layer in opengl lists for faster rendering
 class Layer : public QObject

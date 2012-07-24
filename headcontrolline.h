@@ -1,12 +1,12 @@
 #ifndef HEADCONTROLLINE_H
 #define HEADCONTROLLINE_H
 
-#include <QGraphicsItem>
+#include <QGraphicsObject>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QDebug>
 
-class HeadControlLine : public QObject, public QGraphicsItem
+class HeadControlLine : public QGraphicsObject
 {
     Q_OBJECT
 public:

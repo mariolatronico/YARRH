@@ -1,11 +1,11 @@
 #ifndef LAYER2D_H
 #define LAYER2D_H
 
-#include <QGraphicsItem>
+#include <QGraphicsObject>
 #include <QPainter>
 #include <QDebug>
 
-class Layer2D : public QObject, public QGraphicsItem
+class Layer2D : public QGraphicsObject
 {
     Q_OBJECT
 private:

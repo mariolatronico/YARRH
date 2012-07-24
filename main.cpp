@@ -1,11 +1,22 @@
 #include <QtGui/QApplication>
 #include <QDebug>
+#include <QTextCodec>
+
 #include "mainwindow.h"
 
 int main(int argc, char *argv[])
 {
+    //setting string codecs
+    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+    QTextCodec::setCodecForTr(QTextCodec::codecForName ("UTF-8"));
+
     QApplication a(argc, argv);
     QString locale = QLocale::system().name();
+
+    QCoreApplication::setOrganizationName("wuflnor");
+    // XXX This domain is only for Mac settings.
+    QCoreApplication::setOrganizationDomain("wuflnor.github.org");
+    QCoreApplication::setApplicationName("YARRH");
 
     QTranslator translator;
     qDebug() << translator.load(QString(":/yarrh_")+locale);

@@ -3,11 +3,16 @@
 
 #include <QMainWindow>
 #include <QDebug>
-#include <QTextCodec>
 #include <QFileDialog>
 #include <QTime>
+<<<<<<< HEAD
 #include <QtAddOnSerialPort/serialport.h>
 #include <QtAddOnSerialPort/serialportinfo.h>
+=======
+
+#include "qextserialport.h"
+#include "qextserialenumerator.h"
+>>>>>>> 7e93cc0a9d1ab1d8ad12868a0e0a803f3420b961
 #include "glwidget.h"
 #include "gcodeobject.h"
 #include "graphwidget.h"
@@ -44,7 +49,7 @@ private:
     QStringList gcodeLines;
     GlWidget *glWidget;
     GraphWidget *graphWidget;
-    headControl *controlWidget;
+    HeadControl *controlWidget;
     QTime startTime;
     QTime durationTime;
     QTime eta;
@@ -67,20 +72,28 @@ private:
     void saveSettings();
     void restoreSettings();
 private slots:
+<<<<<<< HEAD
     void connectClicked(bool);
     void loadFile(QString fileName="");
     void startPrint();
+=======
+    void deviceConnected(const QextPortInfo &);
+    void deviceDisconnected(const QextPortInfo &);
+    void on_connectBtn_toggled(bool);
+    void on_actionWczytaj_triggered();
+    void on_printBtn_clicked();
+>>>>>>> 7e93cc0a9d1ab1d8ad12868a0e0a803f3420b961
     //set layers
-    void setLayers(int layers);
+    void on_layerScrollBar_valueChanged(int layers);
     void moveHead(QPoint point);
     //pausing print
-    void pausePrint(bool);
+    void on_pauseBtn_toggled(bool);
     void drawTemp(double, double,double);
     void updateProgress(int);
     //setting temperatures
-    void setTemp1(bool);
+    void on_t1Btn_toggled(bool);
     void setTemp2(bool);
-    void setTemp3(bool);
+    void on_hbBtn_toggled(bool);
 
     void moveZ(int);
     void updateZ(int);
