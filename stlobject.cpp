@@ -161,7 +161,9 @@ QVector3D StlObject::getOffset(){
 }
 
 void StlObject::scale(double value){
-    this->scaleValue=value;
+    if(value>0){
+        this->scaleValue=value;
+    }
 }
 
 double StlObject::getScale(){
