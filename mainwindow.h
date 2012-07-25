@@ -39,9 +39,6 @@ private:
     Ui::MainWindow *ui;
     QString fileContent;
     QStringList gcodeLines;
-    GlWidget *glWidget;
-    GraphWidget *graphWidget;
-    HeadControl *controlWidget;
     QTime startTime;
     QTime durationTime;
     QTime eta;

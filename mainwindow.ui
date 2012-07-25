@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>733</width>
-    <height>524</height>
+    <width>851</width>
+    <height>599</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -80,7 +80,7 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
         <number>2</number>
        </property>
        <item row="1" column="1">
-        <widget class="QWidget" name="widget" native="true">
+        <widget class="GlWidget" name="glWidget" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -626,7 +626,7 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
               <number>2</number>
              </property>
              <item>
-              <widget class="QWidget" name="tempGraphWidget" native="true">
+              <widget class="GraphWidget" name="tempGraphWidget" native="true">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                  <horstretch>0</horstretch>
@@ -915,7 +915,7 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QWidget" name="headControlWidget" native="true">
+                 <widget class="HeadControl" name="headControlWidget" native="true">
                   <property name="minimumSize">
                    <size>
                     <width>220</width>
@@ -989,8 +989,8 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>733</width>
-     <height>20</height>
+     <width>851</width>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuPlik">
@@ -1038,6 +1038,26 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>GlWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">glwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>GraphWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">graphwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>HeadControl</class>
+   <extends>QWidget</extends>
+   <header location="global">headcontrol.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
