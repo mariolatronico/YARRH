@@ -106,6 +106,7 @@ int Printer::writeToPort(QString command){
         write_to_console(tr("Printer offline"));
         return -1;
     }
+    return 0;
 }
 
 //reading from port, we want to be here as short as posible

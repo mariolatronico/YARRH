@@ -30,15 +30,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //set version number
     this->setWindowTitle("YARRH v"+QString::number(VERSION_MAJOR)+"."+QString::number(VERSION_MINOR)+"."+QString::number(VERSION_REVISION));
     this->aboutWindow->setVersion(VERSION_MAJOR,VERSION_MINOR,VERSION_REVISION);
-    //gl widget
-    this->glWidget = new GlWidget(ui->widget);
-    ui->widget->layout()->addWidget(this->glWidget);
-    //graph widget
-    this->graphWidget = new GraphWidget(ui->tempGraphWidget);
-    ui->tempGraphWidget->layout()->addWidget(this->graphWidget);
-    //graphics view for head movement
-    this->controlWidget = new HeadControl(ui->headControlWidget);
-    ui->headControlWidget->layout()->addWidget(this->controlWidget);
 
     //setting up printer and its thread
     this->printerObj = new Printer();
@@ -85,17 +76,17 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     //connecting travel moves checkbox
-    connect(ui->showTravelChkBox, SIGNAL(toggled(bool)),this->glWidget, SLOT(showTravel(bool)));
+    connect(ui->showTravelChkBox, SIGNAL(toggled(bool)),ui->glWidget, SLOT(showTravel(bool)));
     //disable steppers btn
     connect(ui->disableStpBtn, SIGNAL(clicked()), printerObj, SLOT(disableSteppers()), Qt::QueuedConnection);
     //connect head move widget
-    connect(this->controlWidget, SIGNAL(clicked(QPoint)), this, SLOT(moveHead(QPoint)));
-    connect(this->controlWidget, SIGNAL(hovered(QPoint)), this, SLOT(updateHeadGoToXY(QPoint)));
+    connect(ui->headControlWidget, SIGNAL(clicked(QPoint)), this, SLOT(moveHead(QPoint)));
+    connect(ui->headControlWidget, SIGNAL(hovered(QPoint)), this, SLOT(updateHeadGoToXY(QPoint)));
 
     ui->printBtn->setDisabled(true);
     ui->pauseBtn->setDisabled(true);
     ui->axisControlGroup->setDisabled(true);
-    controlWidget->hidePoints(true);
+    ui->headControlWidget->hidePoints(true);
     ui->temperatureGroupBox->setDisabled(true);
     this->calibrateDialog->setDisabled(true);
     ui->progressBar->hide();
@@ -140,7 +131,7 @@ void MainWindow::printerConnected(bool connected){
     if(connected){
             ui->connectBtn->setText(tr("Disconnect"));
             ui->axisControlGroup->setDisabled(false);
-            controlWidget->hidePoints(false);
+            ui->headControlWidget->hidePoints(false);
             ui->temperatureGroupBox->setDisabled(false);
             this->calibrateDialog->setDisabled(false);
             if(this->gcodeLines.size()>0){
@@ -169,7 +160,7 @@ void MainWindow::printerConnected(bool connected){
         ui->connectBtn->blockSignals(false);
 
         ui->axisControlGroup->setDisabled(true);
-        controlWidget->hidePoints(true);
+        ui->headControlWidget->hidePoints(true);
         ui->temperatureGroupBox->setDisabled(true);
         this->calibrateDialog->setDisabled(true);
 
@@ -206,7 +197,7 @@ void MainWindow::loadFile(QString fileName){
         //clear last object gcode
         this->gcodeLines.clear();
         //clear gl widget
-        this->glWidget->clearObjects();
+        ui->glWidget->clearObjects();
         //show progress dialog
         QProgressDialog progress(tr("Parsing file"), 0, 0, 0, this);
         progress.setWindowModality(Qt::WindowModal);
@@ -225,7 +216,7 @@ void MainWindow::loadFile(QString fileName){
 
         //parsing input file
         qreal x=0,y=0,z=-1, travel=0;
-        GCodeObject* tempObject = new GCodeObject(this->glWidget);
+        GCodeObject* tempObject = new GCodeObject(ui->glWidget);
         int layerCount=0;
         float prevZ=0;
         for(int i=0; i<gcodesTemp.size(); i++){
@@ -271,9 +262,9 @@ void MainWindow::loadFile(QString fileName){
 
         ui->progressBar->setMaximum(this->gcodeLines.size());
         ui->progressBar->setValue(0);
-        this->glWidget->setLayers(ui->layerScrollBar->maximum());
+        ui->glWidget->setLayers(ui->layerScrollBar->maximum());
         tempObject->render(0.01);
-        this->glWidget->addObject(tempObject);
+        ui->glWidget->addObject(tempObject);
 
         //enable print button
         if(printerObj->isConnected()){
@@ -288,8 +279,8 @@ void MainWindow::loadFile(QString fileName){
         ui->pauseBtn->setText(tr("Pause"));
         this->currentLayer=0;
         this->lastZ=0;
-        this->glWidget->setCurrentLayer(0);
-        this->controlWidget->resetLayer();
+        ui->glWidget->setCurrentLayer(0);
+        ui->headControlWidget->resetLayer();
     }
 }
 
@@ -314,17 +305,17 @@ void MainWindow::on_printBtn_clicked(){
 
         //disable axis control while printing
         ui->axisControlGroup->setDisabled(true);
-        controlWidget->hidePoints(true);
+        ui->headControlWidget->hidePoints(true);
         this->lastZ=0;
         this->currentLayer=0;
-        glWidget->setCurrentLayer(this->currentLayer);
-        this->controlWidget->resetLayer();
+        ui->glWidget->setCurrentLayer(this->currentLayer);
+        ui->headControlWidget->resetLayer();
     }
 }
 
 //setting layers displayed
 void MainWindow::on_layerScrollBar_valueChanged(int layers){
-    this->glWidget->setLayers(ui->layerScrollBar->maximum()-layers+1);
+    ui->glWidget->setLayers(ui->layerScrollBar->maximum()-layers+1);
     ui->currentLayer->setText(QString::number(ui->layerScrollBar->maximum()-layers)+"/"+QString::number(ui->layerScrollBar->maximum()-1));
 }
 
@@ -341,23 +332,20 @@ void MainWindow::on_pauseBtn_toggled(bool pause){
     if(pause){
         ui->pauseBtn->setText(tr("Resume"));
         QMetaObject::invokeMethod(printerObj,"stopPrint",Qt::DirectConnection);
-        ui->axisControlGroup->setDisabled(false);
-        controlWidget->hidePoints(false);
-        this->calibrateDialog->setDisabled(false);
     }
     else{
         ui->pauseBtn->setText(tr("Pause"));
         QMetaObject::invokeMethod(printerObj,"startPrint",Qt::DirectConnection);
-        ui->axisControlGroup->setDisabled(true);
-        controlWidget->hidePoints(true);
-        this->calibrateDialog->setDisabled(true);
     }
+    ui->axisControlGroup->setDisabled(!pause);
+    ui->headControlWidget->hidePoints(!pause);
+    this->calibrateDialog->setDisabled(!pause);
 }
 
 //draw temp on graph
 
 void MainWindow::drawTemp(double t1, double t2, double hb){
-    this->graphWidget->addMeasurment(t1,t2,hb,QDateTime::currentMSecsSinceEpoch()/1000);
+    ui->tempGraphWidget->addMeasurment(t1,t2,hb,QDateTime::currentMSecsSinceEpoch()/1000);
     ui->t1Label->setText(QString::number(t1)+" Â°C");
     ui->t3Label->setText(QString::number(hb)+" Â°C");
 }
@@ -384,12 +372,12 @@ void MainWindow::on_t1Btn_toggled(bool on){
     if(ok){
         if(on){
             ui->t1Btn->setText("Off");
-            this->graphWidget->setTargets(value,-1,-1);
+            ui->tempGraphWidget->setTargets(value,-1,-1);
             QMetaObject::invokeMethod(printerObj,"setTemp1",Qt::QueuedConnection,Q_ARG(int, value));
         }
         else{
             ui->t1Btn->setText("On");
-            this->graphWidget->setTargets(0,-1,-1);
+            ui->tempGraphWidget->setTargets(0,-1,-1);
             QMetaObject::invokeMethod(printerObj,"setTemp1",Qt::QueuedConnection,Q_ARG(int, 0));
         }
     }
@@ -405,19 +393,19 @@ void MainWindow::on_hbBtn_toggled(bool on){
     if(ok){
         if(on){
             ui->hbBtn->setText("Off");
-            this->graphWidget->setTargets(-1,-1,value);
+            ui->tempGraphWidget->setTargets(-1,-1,value);
             QMetaObject::invokeMethod(printerObj,"setTemp3",Qt::QueuedConnection,Q_ARG(int, value));
         }
         else{
             ui->hbBtn->setText("On");
-            this->graphWidget->setTargets(-1,-1,0);
+            ui->tempGraphWidget->setTargets(-1,-1,0);
             QMetaObject::invokeMethod(printerObj,"setTemp3",Qt::QueuedConnection,Q_ARG(int, 0));
         }
     }
 }
 
 void MainWindow::setTemp1FromGcode(double value){
-    this->graphWidget->setTargets(value,-1,-1);
+    ui->tempGraphWidget->setTargets(value,-1,-1);
     if(value>0){
         ui->t1Btn->blockSignals(true);
         ui->t1Btn->setText("Off");
@@ -434,7 +422,7 @@ void MainWindow::setTemp1FromGcode(double value){
 
 void MainWindow::setTemp3FromGcode(double value){
     qDebug() << value;
-    this->graphWidget->setTargets(-1,-1,value);
+    ui->tempGraphWidget->setTargets(-1,-1,value);
     if(value>0){
         ui->hbBtn->blockSignals(true);
         ui->hbBtn->setText("Off");
@@ -465,10 +453,10 @@ void MainWindow::updateHeadPosition(QVector3D point){
     if(point.z()>this->lastZ){
         this->lastZ=point.z();
         this->currentLayer++;
-        this->glWidget->setCurrentLayer(this->currentLayer);
-        this->controlWidget->resetLayer();
+        ui->glWidget->setCurrentLayer(this->currentLayer);
+        ui->headControlWidget->resetLayer();
     }
-    this->controlWidget->addPrintedPoint(point.toPointF());
+    ui->headControlWidget->addPrintedPoint(point.toPointF());
 }
 
 void MainWindow::updateHeadGoToXY(QPoint point){
@@ -583,10 +571,10 @@ void MainWindow::restoreSettings(){
     this->sliceDialog->updateOutputPath(settings.value("outputDir","").toString());
     //table size
     this->optionDialog->setSize(QVector3D(settings.value("sizeX",20).toInt(),settings.value("sizeY",20).toInt(),settings.value("sizeZ",20).toInt()));
-    this->glWidget->setTableSize(this->optionDialog->getSize().x(),this->optionDialog->getSize().y());
+    ui->glWidget->setTableSize(this->optionDialog->getSize().x(),this->optionDialog->getSize().y());
     this->sliceDialog->setTableSize(this->optionDialog->getSize().x(),this->optionDialog->getSize().y());
-    this->controlWidget->setSize(this->optionDialog->getSize().x(),this->optionDialog->getSize().y());
-    this->controlWidget->hidePoints(true);
+    ui->headControlWidget->setSize(this->optionDialog->getSize().x(),this->optionDialog->getSize().y());
+    ui->headControlWidget->hidePoints(true);
     //restore temp1 combo
     int size = settings.beginReadArray("temp1Values");
     int currentIndex=0;
@@ -682,7 +670,7 @@ void MainWindow::on_actionOptions_triggered()
 
 void MainWindow::updatadeSize(QVector3D newSize){
     this->sliceDialog->setTableSize(newSize.x(), newSize.y());
-    this->glWidget->setTableSize(newSize.x(), newSize.y());
-    this->controlWidget->setSize(newSize.x(), newSize.y());
-    this->controlWidget->hidePoints(this->controlWidget->getPointsHidden());
+    ui->glWidget->setTableSize(newSize.x(), newSize.y());
+    ui->headControlWidget->setSize(newSize.x(), newSize.y());
+    ui->headControlWidget->hidePoints(ui->headControlWidget->getPointsHidden());
 }
