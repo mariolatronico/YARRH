@@ -17,7 +17,6 @@ Path::Path() : s_color(Qt::red), s_target(0)
 GraphWidget::GraphWidget(QWidget *parent/*=NULL*/) : QWidget(parent), trans(0, 0), s_scale(defaultScale)
 {
         this->createTime= QDateTime::currentMSecsSinceEpoch()/1000;
-        setFocusPolicy(Qt::StrongFocus);
         t1 = new Path();
         t1->addPoint(QPointF(0,0));
         t1->setColor(QColor(255,7,00));
@@ -70,7 +69,6 @@ void GraphWidget::paintEvent(QPaintEvent *event)
         QPainter p(this);       
 
         p.fillRect(this->rect(), QColor(78,78,127));
-
         p.setRenderHint(QPainter::Antialiasing, false);
         //draw t1 //could make some loop but mehh...
 

@@ -125,6 +125,7 @@ void SliceDialog::on_addBtn_clicked()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Find slicer exe"), this->lastDir, tr("STL files (*.stl)"));
     if(fileName!=""){
         this->addObject(fileName);
+        this->lastDir = fileName.left(fileName.lastIndexOf("/"));
     }
 }
 
@@ -199,6 +200,7 @@ QString SliceDialog::saveStl(QString fileName)
 {
     if(fileName==""){
         fileName = QFileDialog::getSaveFileName(this, tr("Save stl"), this->lastDir, tr("STL files (*.stl)"));
+        this->lastDir = fileName.left(fileName.lastIndexOf("/"));
     }
 
     QList<QVector3D> data;

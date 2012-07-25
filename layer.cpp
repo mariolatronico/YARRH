@@ -38,7 +38,7 @@ void Layer::renderLine(QVector3D v1, QVector3D v2, qreal radius, qreal travel, b
     perp_y *= radius;
     QVector3D normal_left= calculateNormal(v1,v2,QVector3D(v1.x(),v1.y(),v1.z()+radius));
     // Get the current color
-        glBegin(GL_TRIANGLE_STRIP);         // Rysujemy kwadraty
+        glBegin(GL_TRIANGLE_STRIP);
                 glNormal3f( 0.0f, 0.0, -1.0f);
                 glVertex3f(v1.x(), v1.y(), v1.z());        // V0
                 glVertex3f(v2.x(), v2.y(), v1.z());  // V1

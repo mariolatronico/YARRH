@@ -8,6 +8,9 @@ QT += core gui opengl
 
 TARGET = yarrh
 TEMPLATE = app
+
+INCLUDEPATH += "./"
+
 SOURCES += main.cpp\
         mainwindow.cpp \
     glwidget.cpp \

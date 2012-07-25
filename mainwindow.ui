@@ -628,19 +628,17 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
              <item>
               <widget class="GraphWidget" name="tempGraphWidget" native="true">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <layout class="QGridLayout" name="gridLayout_6">
-                <property name="sizeConstraint">
-                 <enum>QLayout::SetMaximumSize</enum>
-                </property>
-                <property name="margin">
-                 <number>0</number>
-                </property>
-               </layout>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
               </widget>
              </item>
             </layout>
@@ -916,6 +914,12 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
                 </property>
                 <item>
                  <widget class="HeadControl" name="headControlWidget" native="true">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>220</width>
@@ -928,14 +932,6 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
                     <height>5000</height>
                    </size>
                   </property>
-                  <layout class="QGridLayout" name="gridLayout_8">
-                   <property name="margin">
-                    <number>0</number>
-                   </property>
-                   <property name="spacing">
-                    <number>0</number>
-                   </property>
-                  </layout>
                  </widget>
                 </item>
                 <item>
@@ -990,7 +986,7 @@ background:  qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 #888
      <x>0</x>
      <y>0</y>
      <width>851</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuPlik">

@@ -174,6 +174,7 @@ void MainWindow::loadFile(QString fileName){
     if(fileName==""){
         fileName = QFileDialog::getOpenFileName(this, tr("Open file"), this->lastOpendDir, tr("Print files (*.g *.gcode *.stl)"));
         this->lastOpendDir=fileName.left(fileName.lastIndexOf("/"));
+        this->sliceDialog->setLastDir(this->lastOpendDir);
     }
     // if its stl then open slice window
     if(fileName.endsWith(".stl")){
@@ -450,7 +451,7 @@ void MainWindow::updateHeadPosition(QVector3D point){
     ui->xAt->setText("X: "+QString::number(point.x()));
     ui->yAt->setText("Y: "+QString::number(point.y()));
     ui->zAt->setText("Z: "+QString::number(point.z()));
-    if(point.z()>this->lastZ){
+    if(point.z()>this->lastZ && this->printerObj->getIsPrinting()){
         this->lastZ=point.z();
         this->currentLayer++;
         ui->glWidget->setCurrentLayer(this->currentLayer);
@@ -575,6 +576,7 @@ void MainWindow::restoreSettings(){
     this->sliceDialog->setTableSize(this->optionDialog->getSize().x(),this->optionDialog->getSize().y());
     ui->headControlWidget->setSize(this->optionDialog->getSize().x(),this->optionDialog->getSize().y());
     ui->headControlWidget->hidePoints(true);
+    ui->zSlider->setMaximum(this->optionDialog->getSize().z()*10);
     //restore temp1 combo
     int size = settings.beginReadArray("temp1Values");
     int currentIndex=0;
@@ -673,4 +675,5 @@ void MainWindow::updatadeSize(QVector3D newSize){
     ui->glWidget->setTableSize(newSize.x(), newSize.y());
     ui->headControlWidget->setSize(newSize.x(), newSize.y());
     ui->headControlWidget->hidePoints(ui->headControlWidget->getPointsHidden());
+    ui->zSlider->setMaximum(newSize.z()*10);
 }
