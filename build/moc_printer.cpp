@@ -1,8 +1,8 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'printer.h'
 **
-** Created: Wed 25. Jul 13:14:14 2012
-**      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
+** Created: Wed Jul 25 21:21:46 2012
+**      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -10,8 +10,8 @@
 #include "../printer.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'printer.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 62
-#error "This file was generated using the moc from 4.7.4. It"
+#elif Q_MOC_OUTPUT_REVISION != 63
+#error "This file was generated using the moc from 4.8.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,7 +20,7 @@ QT_BEGIN_MOC_NAMESPACE
 static const uint qt_meta_data_Printer[] = {
 
  // content:
-       5,       // revision
+       6,       // revision
        0,       // classname
        0,    0, // classinfo
       30,   14, // methods
@@ -89,9 +89,57 @@ static const char qt_meta_stringdata_Printer[] = {
     "retrackt(int,int)\0"
 };
 
+void Printer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        Q_ASSERT(staticMetaObject.cast(_o));
+        Printer *_t = static_cast<Printer *>(_o);
+        switch (_id) {
+        case 0: _t->write_to_console((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 1: _t->currentTemp((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< double(*)>(_a[2])),(*reinterpret_cast< double(*)>(_a[3]))); break;
+        case 2: _t->progress((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 3: _t->currentPosition((*reinterpret_cast< QVector3D(*)>(_a[1]))); break;
+        case 4: _t->connected((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 5: _t->newResponce((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 6: _t->settingTemp1((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 7: _t->settingTemp3((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 8: _t->processResponce((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 9: _t->readFromPort(); break;
+        case 10: { int _r = _t->writeToPort((*reinterpret_cast< QString(*)>(_a[1])));
+            if (_a[0]) *reinterpret_cast< int*>(_a[0]) = _r; }  break;
+        case 11: { bool _r = _t->connectPort((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])));
+            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
+        case 12: { bool _r = _t->disconnectPort();
+            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
+        case 13: _t->homeX(); break;
+        case 14: _t->homeY(); break;
+        case 15: _t->homeZ(); break;
+        case 16: _t->homeAll(); break;
+        case 17: _t->moveHead((*reinterpret_cast< QPoint(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 18: _t->moveHeadZ((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 19: _t->setFan((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 20: _t->disableSteppers(); break;
+        case 21: _t->loadToBuffer((*reinterpret_cast< QStringList(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
+        case 22: _t->startPrint(); break;
+        case 23: _t->stopPrint(); break;
+        case 24: _t->setMonitorTemperature((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 25: _t->getTemperature(); break;
+        case 26: _t->setTemp1((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 27: _t->setTemp3((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 28: _t->extrude((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 29: _t->retrackt((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        default: ;
+        }
+    }
+}
+
+const QMetaObjectExtraData Printer::staticMetaObjectExtraData = {
+    0,  qt_static_metacall 
+};
+
 const QMetaObject Printer::staticMetaObject = {
     { &QObject::staticMetaObject, qt_meta_stringdata_Printer,
-      qt_meta_data_Printer, 0 }
+      qt_meta_data_Printer, &staticMetaObjectExtraData }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
@@ -117,42 +165,8 @@ int Printer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        switch (_id) {
-        case 0: write_to_console((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 1: currentTemp((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< double(*)>(_a[2])),(*reinterpret_cast< double(*)>(_a[3]))); break;
-        case 2: progress((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 3: currentPosition((*reinterpret_cast< QVector3D(*)>(_a[1]))); break;
-        case 4: connected((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 5: newResponce((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 6: settingTemp1((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 7: settingTemp3((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 8: processResponce((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 9: readFromPort(); break;
-        case 10: { int _r = writeToPort((*reinterpret_cast< QString(*)>(_a[1])));
-            if (_a[0]) *reinterpret_cast< int*>(_a[0]) = _r; }  break;
-        case 11: { bool _r = connectPort((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])));
-            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
-        case 12: { bool _r = disconnectPort();
-            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
-        case 13: homeX(); break;
-        case 14: homeY(); break;
-        case 15: homeZ(); break;
-        case 16: homeAll(); break;
-        case 17: moveHead((*reinterpret_cast< QPoint(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 18: moveHeadZ((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 19: setFan((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 20: disableSteppers(); break;
-        case 21: loadToBuffer((*reinterpret_cast< QStringList(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
-        case 22: startPrint(); break;
-        case 23: stopPrint(); break;
-        case 24: setMonitorTemperature((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 25: getTemperature(); break;
-        case 26: setTemp1((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 27: setTemp3((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 28: extrude((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 29: retrackt((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        default: ;
-        }
+        if (_id < 30)
+            qt_static_metacall(this, _c, _id, _a);
         _id -= 30;
     }
     return _id;

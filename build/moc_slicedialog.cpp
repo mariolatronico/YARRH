@@ -1,8 +1,8 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'slicedialog.h'
 **
-** Created: Wed 25. Jul 13:14:15 2012
-**      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
+** Created: Wed Jul 25 21:21:51 2012
+**      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -10,8 +10,8 @@
 #include "../slicedialog.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'slicedialog.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 62
-#error "This file was generated using the moc from 4.7.4. It"
+#elif Q_MOC_OUTPUT_REVISION != 63
+#error "This file was generated using the moc from 4.8.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,7 +20,7 @@ QT_BEGIN_MOC_NAMESPACE
 static const uint qt_meta_data_SliceDialog[] = {
 
  // content:
-       5,       // revision
+       6,       // revision
        0,       // classname
        0,    0, // classinfo
       22,   14, // methods
@@ -77,9 +77,46 @@ static const char qt_meta_stringdata_SliceDialog[] = {
     "on_confCombo_currentIndexChanged(QString)\0"
 };
 
+void SliceDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        Q_ASSERT(staticMetaObject.cast(_o));
+        SliceDialog *_t = static_cast<SliceDialog *>(_o);
+        switch (_id) {
+        case 0: _t->fileSliced((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 1: _t->addObject((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 2: _t->addObject(); break;
+        case 3: _t->updateConfigs((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 4: _t->updateSlicerPath((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 5: _t->updateOutputPath((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 6: _t->on_addBtn_clicked(); break;
+        case 7: _t->on_sliceBtn_clicked(); break;
+        case 8: _t->slicingFinished((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QProcess::ExitStatus(*)>(_a[2]))); break;
+        case 9: _t->updateStatus(); break;
+        case 10: _t->setOffset((*reinterpret_cast< QPointF(*)>(_a[1]))); break;
+        case 11: _t->setSelectcedObject((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 12: _t->rotateObject((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 13: _t->scaleObject((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 14: _t->objectScaled((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 15: _t->objectRotated((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 16: _t->moveObjectX((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 17: _t->moveObjectY((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 18: _t->listItemSelected((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 19: _t->on_removeBtn_clicked(); break;
+        case 20: _t->on_exportStlBtn_clicked(); break;
+        case 21: _t->on_confCombo_currentIndexChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        default: ;
+        }
+    }
+}
+
+const QMetaObjectExtraData SliceDialog::staticMetaObjectExtraData = {
+    0,  qt_static_metacall 
+};
+
 const QMetaObject SliceDialog::staticMetaObject = {
     { &QDialog::staticMetaObject, qt_meta_stringdata_SliceDialog,
-      qt_meta_data_SliceDialog, 0 }
+      qt_meta_data_SliceDialog, &staticMetaObjectExtraData }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
@@ -105,31 +142,8 @@ int SliceDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        switch (_id) {
-        case 0: fileSliced((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 1: addObject((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 2: addObject(); break;
-        case 3: updateConfigs((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 4: updateSlicerPath((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 5: updateOutputPath((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 6: on_addBtn_clicked(); break;
-        case 7: on_sliceBtn_clicked(); break;
-        case 8: slicingFinished((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QProcess::ExitStatus(*)>(_a[2]))); break;
-        case 9: updateStatus(); break;
-        case 10: setOffset((*reinterpret_cast< QPointF(*)>(_a[1]))); break;
-        case 11: setSelectcedObject((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 12: rotateObject((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 13: scaleObject((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 14: objectScaled((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 15: objectRotated((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 16: moveObjectX((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 17: moveObjectY((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 18: listItemSelected((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 19: on_removeBtn_clicked(); break;
-        case 20: on_exportStlBtn_clicked(); break;
-        case 21: on_confCombo_currentIndexChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        default: ;
-        }
+        if (_id < 22)
+            qt_static_metacall(this, _c, _id, _a);
         _id -= 22;
     }
     return _id;

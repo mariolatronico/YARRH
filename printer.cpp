@@ -1,6 +1,7 @@
 #include "printer.h"
 
-Printer::Printer(QObject *parent)
+Printer::Printer(QObject *parent) :
+    QObject(parent)
 {
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
     QTextCodec::setCodecForTr(QTextCodec::codecForName ("UTF-8"));

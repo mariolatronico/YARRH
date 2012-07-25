@@ -3,7 +3,8 @@
 #include <GL/glu.h>
 #include <GL/gl.h>
 
-GCodeObject::GCodeObject(QObject *parent)
+GCodeObject::GCodeObject(QObject *parent) :
+    QObject(parent)
 {
     currentLayer = -1;
 }

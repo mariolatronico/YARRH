@@ -1,8 +1,8 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'optiondialog.h'
 **
-** Created: Wed 25. Jul 13:14:14 2012
-**      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
+** Created: Wed Jul 25 21:21:50 2012
+**      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -10,8 +10,8 @@
 #include "../optiondialog.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'optiondialog.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 62
-#error "This file was generated using the moc from 4.7.4. It"
+#elif Q_MOC_OUTPUT_REVISION != 63
+#error "This file was generated using the moc from 4.8.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,7 +20,7 @@ QT_BEGIN_MOC_NAMESPACE
 static const uint qt_meta_data_OptionDialog[] = {
 
  // content:
-       5,       // revision
+       6,       // revision
        0,       // classname
        0,    0, // classinfo
       11,   14, // methods
@@ -59,9 +59,35 @@ static const char qt_meta_stringdata_OptionDialog[] = {
     "on_outputDirBtn_clicked()\0"
 };
 
+void OptionDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        Q_ASSERT(staticMetaObject.cast(_o));
+        OptionDialog *_t = static_cast<OptionDialog *>(_o);
+        switch (_id) {
+        case 0: _t->slicerPathChanged((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 1: _t->outputPathChanged((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 2: _t->newSize((*reinterpret_cast< QVector3D(*)>(_a[1]))); break;
+        case 3: _t->setSlicerDir((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 4: _t->setConfigDir((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 5: _t->setOutputDir((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 6: _t->setSize((*reinterpret_cast< QVector3D(*)>(_a[1]))); break;
+        case 7: _t->on_closeBtn_clicked(); break;
+        case 8: _t->on_slicerDirBtn_clicked(); break;
+        case 9: _t->on_configDirBtn_clicked(); break;
+        case 10: _t->on_outputDirBtn_clicked(); break;
+        default: ;
+        }
+    }
+}
+
+const QMetaObjectExtraData OptionDialog::staticMetaObjectExtraData = {
+    0,  qt_static_metacall 
+};
+
 const QMetaObject OptionDialog::staticMetaObject = {
     { &QDialog::staticMetaObject, qt_meta_stringdata_OptionDialog,
-      qt_meta_data_OptionDialog, 0 }
+      qt_meta_data_OptionDialog, &staticMetaObjectExtraData }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
@@ -87,20 +113,8 @@ int OptionDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        switch (_id) {
-        case 0: slicerPathChanged((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 1: outputPathChanged((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 2: newSize((*reinterpret_cast< QVector3D(*)>(_a[1]))); break;
-        case 3: setSlicerDir((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 4: setConfigDir((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 5: setOutputDir((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 6: setSize((*reinterpret_cast< QVector3D(*)>(_a[1]))); break;
-        case 7: on_closeBtn_clicked(); break;
-        case 8: on_slicerDirBtn_clicked(); break;
-        case 9: on_configDirBtn_clicked(); break;
-        case 10: on_outputDirBtn_clicked(); break;
-        default: ;
-        }
+        if (_id < 11)
+            qt_static_metacall(this, _c, _id, _a);
         _id -= 11;
     }
     return _id;

@@ -1,8 +1,8 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Wed 25. Jul 13:14:13 2012
-**      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
+** Created: Wed Jul 25 21:21:30 2012
+**      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -10,8 +10,8 @@
 #include "../mainwindow.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'mainwindow.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 62
-#error "This file was generated using the moc from 4.7.4. It"
+#elif Q_MOC_OUTPUT_REVISION != 63
+#error "This file was generated using the moc from 4.8.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,7 +20,7 @@ QT_BEGIN_MOC_NAMESPACE
 static const uint qt_meta_data_MainWindow[] = {
 
  // content:
-       5,       // revision
+       6,       // revision
        0,       // classname
        0,    0, // classinfo
       29,   14, // methods
@@ -90,9 +90,53 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "updatadeSize(QVector3D)\0"
 };
 
+void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        Q_ASSERT(staticMetaObject.cast(_o));
+        MainWindow *_t = static_cast<MainWindow *>(_o);
+        switch (_id) {
+        case 0: _t->on_connectBtn_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 1: _t->loadFile((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 2: _t->loadFile(); break;
+        case 3: _t->on_printBtn_clicked(); break;
+        case 4: _t->on_layerScrollBar_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 5: _t->moveHead((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
+        case 6: _t->on_pauseBtn_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 7: _t->drawTemp((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< double(*)>(_a[2])),(*reinterpret_cast< double(*)>(_a[3]))); break;
+        case 8: _t->updateProgress((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 9: _t->on_t1Btn_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 10: _t->setTemp2((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 11: _t->on_hbBtn_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 12: _t->moveZ((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 13: _t->updateZ((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 14: _t->on_actionO_Programie_triggered(); break;
+        case 15: _t->updateHeadGoToXY((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
+        case 16: _t->updateHeadPosition((*reinterpret_cast< QVector3D(*)>(_a[1]))); break;
+        case 17: _t->on_outLine_returnPressed(); break;
+        case 18: _t->on_groupBox_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 19: _t->on_fanBtn_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 20: _t->on_extrudeBtn_clicked(); break;
+        case 21: _t->on_retracktBtn_clicked(); break;
+        case 22: _t->printerConnected((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 23: _t->setTemp1FromGcode((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 24: _t->setTemp3FromGcode((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 25: _t->on_actionCalibrate_printer_triggered(); break;
+        case 26: _t->on_graphGroupBox_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 27: _t->on_actionOptions_triggered(); break;
+        case 28: _t->updatadeSize((*reinterpret_cast< QVector3D(*)>(_a[1]))); break;
+        default: ;
+        }
+    }
+}
+
+const QMetaObjectExtraData MainWindow::staticMetaObjectExtraData = {
+    0,  qt_static_metacall 
+};
+
 const QMetaObject MainWindow::staticMetaObject = {
     { &QMainWindow::staticMetaObject, qt_meta_stringdata_MainWindow,
-      qt_meta_data_MainWindow, 0 }
+      qt_meta_data_MainWindow, &staticMetaObjectExtraData }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
@@ -118,38 +162,8 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        switch (_id) {
-        case 0: on_connectBtn_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 1: loadFile((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 2: loadFile(); break;
-        case 3: on_printBtn_clicked(); break;
-        case 4: on_layerScrollBar_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 5: moveHead((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
-        case 6: on_pauseBtn_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 7: drawTemp((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< double(*)>(_a[2])),(*reinterpret_cast< double(*)>(_a[3]))); break;
-        case 8: updateProgress((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 9: on_t1Btn_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 10: setTemp2((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 11: on_hbBtn_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 12: moveZ((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 13: updateZ((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 14: on_actionO_Programie_triggered(); break;
-        case 15: updateHeadGoToXY((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
-        case 16: updateHeadPosition((*reinterpret_cast< QVector3D(*)>(_a[1]))); break;
-        case 17: on_outLine_returnPressed(); break;
-        case 18: on_groupBox_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 19: on_fanBtn_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 20: on_extrudeBtn_clicked(); break;
-        case 21: on_retracktBtn_clicked(); break;
-        case 22: printerConnected((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 23: setTemp1FromGcode((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 24: setTemp3FromGcode((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 25: on_actionCalibrate_printer_triggered(); break;
-        case 26: on_graphGroupBox_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 27: on_actionOptions_triggered(); break;
-        case 28: updatadeSize((*reinterpret_cast< QVector3D(*)>(_a[1]))); break;
-        default: ;
-        }
+        if (_id < 29)
+            qt_static_metacall(this, _c, _id, _a);
         _id -= 29;
     }
     return _id;
