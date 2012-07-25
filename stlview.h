@@ -2,8 +2,8 @@
 #define STLVIEW_H
 
 #include <QGLWidget>
-#include <gl/GLU.h>
-#include <gl/GL.h>
+#include <GL/glu.h>
+#include <GL/gl.h>
 #include <QtOpenGL>
 #include <btBulletDynamicsCommon.h>
 #include "stlobject.h"

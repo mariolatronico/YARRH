@@ -1,7 +1,7 @@
 #include <QtGui>
 #include <QtOpenGL>
-#include <GL/GLU.h>
-#include <GL/GL.h>
+#include <GL/glu.h>
+#include <GL/gl.h>
 #include <math.h>
 #include "stlview.h"
 
