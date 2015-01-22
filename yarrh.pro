@@ -65,15 +65,10 @@ RC_FILE = icon.rc
 include(qextserialport/qextserialport.pri)
 include(bullet/bullet.pri)
 
-win32 {
-LIBS += -Ld:/code/YARRH/freeglut-mingw/lib -lfreeglut
-}
 
 unix {
 LIBS += -lGLU
 }
-
-LIBS += -Ld:/code/YARRH/qextserialport/lib -lQt5ExtSerialPortd1
 
 #OBJECTS_DIR = build
 #MOC_DIR = build
