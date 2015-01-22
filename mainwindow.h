@@ -73,7 +73,6 @@ private slots:
     void updateProgress(int);
     //setting temperatures
     void on_t1Btn_toggled(bool);
-    void setTemp2(bool);
     void on_hbBtn_toggled(bool);
 
     void moveZ(int);

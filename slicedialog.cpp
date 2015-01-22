@@ -245,10 +245,10 @@ QString SliceDialog::saveStl(QString fileName)
                     xMin=data.at(i+1).x();
                     yMin=data.at(i+1).y();
                 }
-                xMax=qMax(qMax(xMax,data.at(i+1).x()),qMax(data.at(i+2).x(),data.at(i+3).x()));
-                yMax=qMax(qMax(yMax,data.at(i+1).y()),qMax(data.at(i+2).y(),data.at(i+3).y()));
-                xMin=qMin(qMin(xMin,data.at(i+1).x()),qMin(data.at(i+2).x(),data.at(i+3).x()));
-                yMin=qMin(qMin(yMin,data.at(i+1).y()),qMin(data.at(i+2).y(),data.at(i+3).y()));
+                xMax=qMax(qMax(xMax,(qreal)data.at(i+1).x()),(qreal)qMax(data.at(i+2).x(),data.at(i+3).x()));
+                yMax=qMax(qMax(yMax,(qreal)data.at(i+1).y()),(qreal)qMax(data.at(i+2).y(),data.at(i+3).y()));
+                xMin=qMin(qMin(xMin,(qreal)data.at(i+1).x()),(qreal)qMin(data.at(i+2).x(),data.at(i+3).x()));
+                yMin=qMin(qMin(yMin,(qreal)data.at(i+1).y()),(qreal)qMin(data.at(i+2).y(),data.at(i+3).y()));
             }
 
         }

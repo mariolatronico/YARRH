@@ -1,6 +1,16 @@
 #ifndef GRAPHWIDGET_H
 #define GRAPHWIDGET_H
-
+#include <qglobal.h>
+#if QT_VERSION >= 0x050000
+#include <QWidget>
+#include <QPainter>
+#include <QVector>
+#include <QPointF>
+#include <QSet>
+#include <QMouseEvent>
+#include <QTime>
+#include <QDebug>
+#else
 #include <QtGui/QWidget>
 #include <QtGui/QPainter>
 #include <QtCore/QVector>
@@ -9,6 +19,8 @@
 #include <QtGui/QMouseEvent>
 #include <QtCore/QTime>
 #include <QtCore/QDebug>
+#endif
+
 #include <cmath>
 
 class Path {

@@ -99,7 +99,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->baudCombo->addItem("57600", BAUD57600);
     ui->baudCombo->addItem("115200", BAUD115200);
 #if defined(Q_OS_WIN) || defined(qdoc)
-    ui->baudCombo->addItem("250000", BAUD250000);
+    ui->baudCombo->addItem("256000", BAUD256000);
 #endif  //Q_OS_WIN
     ui->baudCombo->setCurrentIndex(8);
     //restore user settings
@@ -289,7 +289,13 @@ void MainWindow::loadFile(QString fileName){
 void MainWindow::on_printBtn_clicked(){
     if(printerObj->isConnected()){
         this->startTime=QTime::currentTime();
+#if QT_VERSION >= 0x050000
+        ui->inConsole->appendPlainText(tr(QString("Print started at "+ this->startTime.toString("hh:mm:ss")).toLatin1()));
+
+#else
         ui->inConsole->appendPlainText(tr(QString("Print started at "+ this->startTime.toString("hh:mm:ss")).toAscii()));
+#endif
+
         QMetaObject::invokeMethod(printerObj,"loadToBuffer",Qt::QueuedConnection,Q_ARG(QStringList, this->gcodeLines), Q_ARG(bool, true));
         ui->progressBar->setMaximum(this->gcodeLines.size());
         QMetaObject::invokeMethod(printerObj,"startPrint",Qt::QueuedConnection);
@@ -382,10 +388,6 @@ void MainWindow::on_t1Btn_toggled(bool on){
             QMetaObject::invokeMethod(printerObj,"setTemp1",Qt::QueuedConnection,Q_ARG(int, 0));
         }
     }
-}
-
-void MainWindow::setTemp2(bool on){
-
 }
 
 void MainWindow::on_hbBtn_toggled(bool on){

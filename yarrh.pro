@@ -5,11 +5,13 @@
 #-------------------------------------------------
 
 QT += core gui opengl
-
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = yarrh
 TEMPLATE = app
 
 INCLUDEPATH += "./"
+#INCLUDEPATH += "./freeglut-mingw/include"
+#INCLUDEPATH += "./qextserialport/include"
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -64,17 +66,19 @@ include(qextserialport/qextserialport.pri)
 include(bullet/bullet.pri)
 
 win32 {
-LIBS+=-lglut32
+LIBS += -Ld:/code/YARRH/freeglut-mingw/lib -lfreeglut
 }
 
 unix {
 LIBS += -lGLU
 }
 
-OBJECTS_DIR = build
-MOC_DIR = build
-UI_DIR = build
-RCC_DIR = build
+LIBS += -Ld:/code/YARRH/qextserialport/lib -lQt5ExtSerialPortd1
+
+#OBJECTS_DIR = build
+#MOC_DIR = build
+#UI_DIR = build
+#RCC_DIR = build
 
 
 

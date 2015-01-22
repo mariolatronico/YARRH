@@ -3,8 +3,10 @@
 Printer::Printer(QObject *parent) :
     QObject(parent)
 {
+#if QT_VERSION <= 0x050000
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
     QTextCodec::setCodecForTr(QTextCodec::codecForName ("UTF-8"));
+#endif
     PortSettings settings = {BAUD9600, DATA_8, PAR_NONE, STOP_1, FLOW_OFF, 10};
     this->portObj = new QextSerialPort("",settings);
     this->isPrinting=false;
@@ -98,10 +100,16 @@ int Printer::writeToPort(QString command){
         emit currentPosition(curr_pos);
 
     if(this->isConnected()){
-
+#if QT_VERSION <= 0x050000
         emit write_to_console(QString("Sending: "+command.toAscii()+"\n").replace("\n","\\n").replace("\r","\\r"));
         emit write_to_console("Written: "+QString::number(portObj->write(command.toAscii()+"\n",command.toAscii().length()+1))+" bytes");
+#else
+        emit write_to_console(QString("Sending: "+command.toLatin1()+"\n").replace("\n","\\n").replace("\r","\\r"));
+        emit write_to_console("Written: "+QString::number(portObj->write(command.toLatin1()+"\n",command.toLatin1().length()+1))+" bytes");
+
+#endif
         writeNext=false;
+
     }
     else{
         write_to_console(tr("Printer offline"));

@@ -113,8 +113,7 @@ enum BaudRateType
     BAUD19200 = 19200,
     BAUD38400 = 38400,
     BAUD57600 = 57600,
-    BAUD115200 = 115200,
-    BAUD250000 = 250000
+    BAUD115200 = 115200
 };
 
 enum DataBitsType
@@ -179,10 +178,10 @@ public:
         EventDriven
     };
 
-    explicit QextSerialPort(QueryMode mode = EventDriven, QObject* parent = 0);
-    explicit QextSerialPort(const QString & name, QueryMode mode = EventDriven, QObject * parent = 0);
-    explicit QextSerialPort(const PortSettings & s, QueryMode mode = EventDriven, QObject * parent = 0);
-    QextSerialPort(const QString & name, const PortSettings& s, QueryMode mode = EventDriven, QObject *parent=0);
+    explicit QextSerialPort(QueryMode mode = EventDriven, QObject *parent = 0);
+    explicit QextSerialPort(const QString &name, QueryMode mode = EventDriven, QObject *parent = 0);
+    explicit QextSerialPort(const PortSettings &s, QueryMode mode = EventDriven, QObject *parent = 0);
+    QextSerialPort(const QString &name, const PortSettings &s, QueryMode mode = EventDriven, QObject *parent=0);
 
     ~QextSerialPort();
 
@@ -208,7 +207,7 @@ public:
     QString errorString();
 
 public Q_SLOTS:
-    void setPortName(const QString & name);
+    void setPortName(const QString &name);
     void setQueryMode(QueryMode mode);
     void setBaudRate(BaudRateType);
     void setDataBits(DataBitsType);
@@ -224,8 +223,8 @@ Q_SIGNALS:
     void dsrChanged(bool status);
 
 protected:
-    qint64 readData(char * data, qint64 maxSize);
-    qint64 writeData(const char * data, qint64 maxSize);
+    qint64 readData(char *data, qint64 maxSize);
+    qint64 writeData(const char *data, qint64 maxSize);
 
 private:
     Q_DISABLE_COPY(QextSerialPort)
@@ -235,7 +234,7 @@ private:
 #endif
     Q_PRIVATE_SLOT(d_func(), void _q_canRead())
 
-    QextSerialPortPrivate * const d_ptr;
+    QextSerialPortPrivate *const d_ptr;
 };
 
 #endif
