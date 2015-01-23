@@ -1,7 +1,12 @@
 ﻿#include <QtGui>
 #include <QtOpenGL>
+
+#ifdef Q_OS_MAC
+#include <OpenGL/glu.h>
+#else
 #include <GL/glu.h>
-#include <GL/gl.h>
+#endif
+//#include <GL/gl.h>
 #include <math.h>
 #include "glwidget.h"
 

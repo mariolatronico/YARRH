@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QtOpenGL>
 //#include <GL/glut.h>
-#include <GL/gl.h>
+//#include <GL/gl.h>
 #include <QVector3D>
 #include <QDebug>
 #include <cmath>

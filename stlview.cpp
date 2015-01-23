@@ -1,7 +1,11 @@
 #include <QtGui>
 #include <QtOpenGL>
+#ifdef Q_OS_MAC
+#include <OpenGL/glu.h>
+#else
 #include <GL/glu.h>
-#include <GL/gl.h>
+#endif
+
 #include <math.h>
 #include "stlview.h"
 

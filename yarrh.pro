@@ -10,8 +10,6 @@ TARGET = yarrh
 TEMPLATE = app
 
 INCLUDEPATH += "./"
-#INCLUDEPATH += "./freeglut-mingw/include"
-#INCLUDEPATH += "./qextserialport/include"
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -63,17 +61,9 @@ TRANSLATIONS = yarrh_pl.ts \
 RC_FILE = icon.rc
 
 include(qextserialport/qextserialport.pri)
-include(bullet/bullet.pri)
 
 
-unix {
-LIBS += -lGLU
-}
 
-#OBJECTS_DIR = build
-#MOC_DIR = build
-#UI_DIR = build
-#RCC_DIR = build
 
 
 

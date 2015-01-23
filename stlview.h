@@ -2,10 +2,10 @@
 #define STLVIEW_H
 
 #include <QGLWidget>
-#include <GL/glu.h>
-#include <GL/gl.h>
+//#include <GL/glu.h>
+//#include <GL/gl.h>
 #include <QtOpenGL>
-#include <btBulletDynamicsCommon.h>
+//#include <btBulletDynamicsCommon.h>
 #include "stlobject.h"
 
 class StlView : public QGLWidget
