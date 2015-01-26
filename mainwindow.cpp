@@ -98,6 +98,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->baudCombo->addItem("38400", BAUD38400);
     ui->baudCombo->addItem("57600", BAUD57600);
     ui->baudCombo->addItem("115200", BAUD115200);
+#if (defined(B230400) && defined(B4000000))
+    ui->baudCombo->addItem("230400", BAUD230400);
+#endif
 #if defined(Q_OS_WIN) || defined(qdoc)
     ui->baudCombo->addItem("256000", BAUD256000);
 #endif  //Q_OS_WIN
